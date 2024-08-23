@@ -1,4 +1,4 @@
-package com.example.themoonha
+package com.innerpeace.themoonha
 
 import org.junit.Test
 
