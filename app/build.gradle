@@ -67,6 +67,5 @@ dependencies {
     implementation 'androidx.emoji2:emoji2-views-helper:1.1.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
-
-
+    implementation 'com.google.android.exoplayer:exoplayer:2.18.0'
 }
