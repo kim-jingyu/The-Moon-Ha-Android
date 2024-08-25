@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation_graph"
+        app:startDestination="@id/fragment_lesson">
+    <fragment
+            android:id="@+id/fragment_lesson"
+            android:name="com.innerpeace.themoonha.ui.activity.lesson.view.LessonFragment"
+            android:label="LessonFragment" >
+        <action
+                android:id="@+id/action_fragment_lesson_to_craftFragment"
+                app:destination="@id/fragment_craft" />
+        <action
+                android:id="@+id/action_fragment_lesson_to_cartFragment"
+                app:destination="@id/fragment_cart" />
+        <action
+                android:id="@+id/action_fragment_lesson_to_liveFragment"
+                app:destination="@id/fragment_live" />
+    </fragment>
+    <fragment
+            android:id="@+id/fragment_schedule"
+            android:name="com.innerpeace.themoonha.ui.activity.schedule.view.ScheduleFragment"
+            android:label="ScheduleFragment" />
+    <fragment
+            android:id="@+id/fragment_lounge"
+            android:name="com.innerpeace.themoonha.ui.activity.lounge.view.LoungeFragment"
+            android:label="LoungeFragment" />
+    <fragment
+            android:id="@+id/fragment_cart"
+            android:name="com.innerpeace.themoonha.ui.activity.lesson.view.CartFragment"
+            android:label="CartFragment" />
+    <fragment
+            android:id="@+id/fragment_craft"
+            android:name="com.innerpeace.themoonha.ui.activity.craft.view.CraftFragment"
+            android:label="CraftFragment" />
+    <fragment
+            android:id="@+id/fragment_live"
+            android:name="com.innerpeace.themoonha.ui.activity.live.view.LiveFragment"
+            android:label="LiveFragment" />
+
+</navigation>
