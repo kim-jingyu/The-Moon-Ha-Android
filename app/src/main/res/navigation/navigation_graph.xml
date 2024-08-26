@@ -38,5 +38,8 @@
             android:id="@+id/fragment_live"
             android:name="com.innerpeace.themoonha.ui.activity.live.view.LiveFragment"
             android:label="LiveFragment" />
-
+    <fragment
+        android:id="@+id/fragment_bite"
+        android:name="com.innerpeace.themoonha.ui.activity.beforeafter.view.BeforeAfterListFragment"
+        android:label="BeforeAfter" />
 </navigation>
