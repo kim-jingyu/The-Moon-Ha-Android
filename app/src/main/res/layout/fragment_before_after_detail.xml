@@ -76,7 +76,7 @@
 
     <TextView
         android:id="@+id/titleDetail"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="start"
@@ -87,19 +87,45 @@
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintHorizontal_bias="0.161"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.918" />
+        app:layout_constraintVertical_bias="0.917" />
+
+    <Button
+        android:id="@+id/moreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="더보기"
+        android:textSize="13dp"
+        android:textColor="@color/white"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/titleDetail"
+        app:layout_constraintBottom_toBottomOf="@id/titleDetail"
+        app:layout_constraintStart_toEndOf="@id/titleDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/hashtagFlow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/titleDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:flow_horizontalGap="2dp"
+        android:layout_marginLeft="18dp"
+        app:flow_horizontalGap="8dp"
         app:flow_wrapMode="chain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleDetail" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerInside"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

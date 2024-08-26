@@ -1,10 +1,12 @@
 package com.innerpeace.themoonha.ui.activity.beforeafter.view
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.helper.widget.Flow
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -15,6 +17,7 @@ import com.google.android.exoplayer2.DefaultRenderersFactory
 import com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.BeforeAfterContent
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
@@ -38,6 +41,8 @@ class BeforeAfterDetailFragment : Fragment() {
     private var _binding: FragmentBeforeAfterDetailBinding? = null
     private val binding get() = _binding!!
 
+    private var isTextExpanded = false
+
     private var beforePlayer: ExoPlayer? = null
     private var afterPlayer: ExoPlayer? = null
 
@@ -51,6 +56,14 @@ class BeforeAfterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.GONE
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
+
+        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
 
         arguments?.getParcelable<BeforeAfterContent>("beforeAfterContent")?.let {
             lifecycleScope.launch {
@@ -71,7 +84,7 @@ class BeforeAfterDetailFragment : Fragment() {
                 id = View.generateViewId()
                 text = "#$hashtag"
                 setTextColor(ContextCompat.getColor(context, android.R.color.white))
-                setPadding(0, 4, 0, 4)
+                setPadding(0, 4, 8, 4)
                 textSize = 12f
                 layoutParams = ConstraintLayout.LayoutParams(
                     ConstraintLayout.LayoutParams.WRAP_CONTENT,
@@ -95,6 +108,30 @@ class BeforeAfterDetailFragment : Fragment() {
         binding.memberNameDetail.text = content.memberName
         binding.titleDetail.text = content.title
 
+        binding.titleDetail.post {
+            if (binding.titleDetail.layout.getEllipsisCount(0) > 0) {
+                binding.moreButton.visibility = View.VISIBLE
+            } else {
+                binding.moreButton.visibility = View.GONE
+            }
+        }
+
+        binding.moreButton.setOnClickListener {
+            binding.titleDetail.maxLines = Int.MAX_VALUE
+            binding.titleDetail.ellipsize = null
+            binding.moreButton.visibility = View.GONE
+            isTextExpanded = !isTextExpanded
+        }
+
+        binding.titleDetail.setOnClickListener {
+            if (isTextExpanded) {
+                binding.titleDetail.maxLines = 1
+                binding.titleDetail.ellipsize = TextUtils.TruncateAt.END
+                binding.moreButton.text = "더보기"
+                binding.moreButton.visibility = View.VISIBLE
+                isTextExpanded = false
+            }
+        }
     }
 
     private suspend fun setupAfterContent(content: BeforeAfterContent) = withContext(Dispatchers.Main) {
@@ -185,6 +222,9 @@ class BeforeAfterDetailFragment : Fragment() {
         super.onDestroyView()
         beforePlayer?.release()
         afterPlayer?.release()
+
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.VISIBLE
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.VISIBLE
         _binding = null
     }
 }
