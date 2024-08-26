@@ -1,15 +1,18 @@
 package com.innerpeace.themoonha.ui.activity.beforeafter.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
 import com.innerpeace.themoonha.data.model.BeforeAfterContent
-import com.innerpeace.themoonha.databinding.ActivityBeforeAfterListBinding
+import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 
 /**
- * Before&After 액티비티
+ * Before&After 프래그먼트
  * @author 김진규
  * @since 2024.08.25
  * @version 1.0
@@ -20,18 +23,27 @@ import com.innerpeace.themoonha.databinding.ActivityBeforeAfterListBinding
  * 2024.08.25  	김진규       최초 생성
  * </pre>
  */
-class BeforeAfterListActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityBeforeAfterListBinding
+class BeforeAfterListFragment : Fragment() {
+    private var _binding: FragmentBeforeAfterListBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var adapter: BeforeAfterAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBeforeAfterListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentBeforeAfterListBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val contents = getContents()
 
-        val gridLayoutManager = GridLayoutManager(this, 2)
+        val gridLayoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
 
         adapter = BeforeAfterAdapter(contents)
@@ -131,5 +143,10 @@ class BeforeAfterListActivity : AppCompatActivity() {
                 memberName = "User 1"
             )
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

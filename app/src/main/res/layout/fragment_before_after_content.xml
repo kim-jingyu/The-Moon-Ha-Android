@@ -78,6 +78,7 @@
         android:text="김짱구"
         android:textColor="@color/black"
         android:textSize="13dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.020"
         app:layout_constraintStart_toEndOf="@+id/profileImage"
