@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.ui.activity.beforeafter.view
+package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
 import android.text.TextUtils

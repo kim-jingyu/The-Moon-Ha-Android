@@ -1,26 +1,27 @@
-package com.innerpeace.themoonha.ui.activity.craft.view
+package com.innerpeace.themoonha.ui.fragment.lesson
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.innerpeace.themoonha.databinding.FragmentCraftBinding
+import com.innerpeace.themoonha.databinding.FragmentCartBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 
-class CraftFragment : Fragment() {
-    private var _binding: FragmentCraftBinding? = null
+
+class CartFragment : Fragment() {
+    private var _binding: FragmentCartBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCraftBinding.inflate(inflater, container, false)
+        _binding = FragmentCartBinding.inflate(inflater, container, false)
         val view = binding.root
 
         // 툴바 제목 변경
-        (activity as? MainActivity)?.setToolbarTitle("문화공방")
+        (activity as? MainActivity)?.setToolbarTitle("나의 문화센터")
 
         return view
     }
