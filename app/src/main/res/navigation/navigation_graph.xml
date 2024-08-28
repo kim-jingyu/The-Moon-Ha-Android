@@ -6,7 +6,7 @@
         app:startDestination="@id/fragment_lesson">
     <fragment
             android:id="@+id/fragment_lesson"
-            android:name="com.innerpeace.themoonha.ui.activity.lesson.view.LessonFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lesson.LessonFragment"
             android:label="LessonFragment" >
         <action
                 android:id="@+id/action_fragment_lesson_to_craftFragment"
@@ -20,26 +20,26 @@
     </fragment>
     <fragment
             android:id="@+id/fragment_schedule"
-            android:name="com.innerpeace.themoonha.ui.activity.schedule.view.ScheduleFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.schedule.ScheduleFragment"
             android:label="ScheduleFragment" />
     <fragment
             android:id="@+id/fragment_lounge"
-            android:name="com.innerpeace.themoonha.ui.activity.lounge.view.LoungeFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungeFragment"
             android:label="LoungeFragment" />
     <fragment
             android:id="@+id/fragment_cart"
-            android:name="com.innerpeace.themoonha.ui.activity.lesson.view.CartFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartFragment"
             android:label="CartFragment" />
     <fragment
             android:id="@+id/fragment_craft"
-            android:name="com.innerpeace.themoonha.ui.activity.craft.view.CraftFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
             android:label="CraftFragment" />
     <fragment
             android:id="@+id/fragment_live"
-            android:name="com.innerpeace.themoonha.ui.activity.live.view.LiveFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.live.LiveFragment"
             android:label="LiveFragment" />
     <fragment
         android:id="@+id/fragment_bite"
-        android:name="com.innerpeace.themoonha.ui.activity.beforeafter.view.BeforeAfterListFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
         android:label="BeforeAfter" />
 </navigation>
