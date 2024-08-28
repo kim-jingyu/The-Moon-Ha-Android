@@ -6,4 +6,20 @@
     <style name="BoldStyle">
         <item name="android:fontFamily">@font/happiness_sans_bold</item>
     </style>
+    <style name="TopCornersRoundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="BottomCornersRoundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>
