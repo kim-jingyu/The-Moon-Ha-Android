@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.beforeafter.BeforeAfterEnrollContentsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.field.FieldEnrollContentsFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/beforeContentImage"
+        android:id="@+id/contentImage"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="640dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_before"
+        android:src="@drawable/ic_after"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/TopCornersRoundShape" />
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/afterContentImage"
-        android:layout_width="match_parent"
-        android:layout_height="320dp"
-        android:background="@color/white"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_after"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beforeContentImage"
-        app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/BottomCornersRoundShape" />
+        app:shapeAppearanceOverlay="@style/CornersRoundShape" />
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
@@ -39,7 +26,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/cameraSwitch"
         app:layout_constraintStart_toEndOf="@+id/gallery"
-        app:layout_constraintTop_toBottomOf="@+id/afterContentImage">
+        app:layout_constraintTop_toBottomOf="@+id/contentImage">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="Before &amp; After"
-                android:textColor="@color/green"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:layout_marginEnd="20dp"
                 />
@@ -60,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="분야별 한 입"
-                android:textColor="@color/black"
+                android:textColor="@color/green"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -86,11 +73,11 @@
         android:layout_marginTop="368dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="@id/afterContentImage"
+        app:layout_constraintBottom_toBottomOf="@id/contentImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/afterContentImage"
+        app:layout_constraintTop_toTopOf="@id/contentImage"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
@@ -125,12 +112,12 @@
         android:id="@+id/button"
         android:layout_width="60dp"
         android:layout_height="38dp"
-        android:layout_marginTop="261dp"
+        android:layout_marginTop="580dp"
         android:text="다음"
         android:textSize="13dp"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
-        app:layout_constraintTop_toTopOf="@+id/afterContentImage" />
+        app:layout_constraintTop_toTopOf="@+id/contentImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
