@@ -26,7 +26,6 @@
         android:background="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_after"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beforeContentImage"
@@ -114,11 +113,24 @@
         android:layout_height="30dp"
         android:layout_margin="16dp"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_camera_switch"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.981"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.977" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button"
+        android:layout_width="60dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="261dp"
+        android:text="다음"
+        android:textSize="13dp"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/cameraButton"
+        app:layout_constraintTop_toTopOf="@+id/afterContentImage" />
 </androidx.constraintlayout.widget.ConstraintLayout>
