@@ -23,9 +23,10 @@
         android:layout_marginBottom="10dp"
         android:text="Before &amp; After"
         android:textSize="15dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toStartOf="@+id/biteForField"
-        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
@@ -41,7 +42,7 @@
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintHorizontal_bias="0.743"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />

@@ -5,18 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.innerpeace.themoonha.databinding.FragmentLiveBinding
+import com.innerpeace.themoonha.databinding.FragmentLiveOnAirBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 
-class LiveFragment : Fragment() {
-    private var _binding: FragmentLiveBinding? = null
+class LiveOnAirListFragment : Fragment() {
+    private var _binding: FragmentLiveOnAirBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLiveBinding.inflate(inflater, container, false)
+        _binding = FragmentLiveOnAirBinding.inflate(inflater, container, false)
         val view = binding.root
 
         // 툴바 제목 변경
