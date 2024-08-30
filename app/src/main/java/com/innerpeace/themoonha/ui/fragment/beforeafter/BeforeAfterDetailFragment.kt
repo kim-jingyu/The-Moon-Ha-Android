@@ -19,7 +19,7 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.data.model.BeforeAfterContent
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

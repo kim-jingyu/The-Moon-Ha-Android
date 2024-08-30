@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/live_stream_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="[LIVE] 북한 병사가 걸어서 무사히 귀순할 수 있었던 이유 | 채널A"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <TextView
+        android:id="@+id/viewer_count_and_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="2.2천명 시청 중    시작: 1시간 전"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/live_stream_title" />
+
+    <LinearLayout
+        android:id="@+id/like_share_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/viewer_count_and_time"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp">
+
+        <ImageView
+            android:id="@+id/profile_image_main"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_zzang9" />
+
+        <TextView
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="김연아 강사님"
+            android:textSize="14sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp" />
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_light_gray_2"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            >
+
+            <ImageView
+                android:id="@+id/like_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_thumb_up_resized"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_light_gray_2"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp">
+
+            <ImageView
+                android:id="@+id/share_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_share_resized"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공유"
+                android:textSize="14sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Live Chat Container -->
+    <FrameLayout
+        android:id="@+id/live_chat_container"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/rounded_background_light_gray_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/like_share_container"
+        app:layout_constraintVertical_bias="0.0" >
+
+        <TextView
+            android:id="@+id/live_chat_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="실시간 채팅" />
+
+        <ImageView
+            android:id="@+id/profile_image_chat"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            app:srcCompat="@drawable/ic_zzang9" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/live_chat_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_background_light_gray_1"
+        android:padding="12dp"
+        android:text="강동원으로 채팅하기"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="@id/live_chat_container"
+        app:layout_constraintStart_toStartOf="@id/live_chat_container"
+        app:layout_constraintEnd_toEndOf="@id/live_chat_container"
+        app:layout_constraintBottom_toBottomOf="@id/live_chat_container"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

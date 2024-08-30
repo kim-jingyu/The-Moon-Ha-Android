@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.data.model.BeforeAfterContent
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterContentBinding
 import com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterDetailFragment
 import kotlinx.coroutines.Dispatchers
