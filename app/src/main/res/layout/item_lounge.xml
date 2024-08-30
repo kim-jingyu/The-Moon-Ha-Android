@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:strokeWidth="0dp"
+        app:strokeColor="@android:color/transparent"
+        app:cardElevation="0dp">
+
+    <!-- 라운지 목록 카드 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- 라운지 이미지 -->
+        <ImageView
+                android:id="@+id/iv_loungeImage"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:1"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:background="@color/gray"/>
+
+        <!-- 라운지명 -->
+        <TextView
+                android:id="@+id/tv_loungeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:textSize="20sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/iv_loungeImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- new 아이콘 -->
+        <ImageView
+                android:id="@+id/iv_newIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:paddingTop="4dp"
+                android:paddingRight="4dp"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_new"
+                app:layout_constraintTop_toTopOf="@id/tv_latestPostTime"
+                app:layout_constraintBottom_toBottomOf="@id/tv_latestPostTime"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- 라운지 최신글 시간 -->
+        <TextView
+                android:id="@+id/tv_latestPostTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/happiness_sans_regular"
+                android:textColor="@color/dark_gray"
+                app:layout_constraintTop_toBottomOf="@id/tv_loungeTitle"
+                app:layout_constraintStart_toEndOf="@id/iv_newIcon"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
