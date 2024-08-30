@@ -6,31 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.beforeafter.BeforeAfterEnrollContentsFragment">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/beforeContentImage"
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_before"
+        android:background="@drawable/rounded_corner_content"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/TopCornersRoundShape" />
+        app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/afterContentImage"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:background="@color/white"
         android:scaleType="centerCrop"
+        android:background="@drawable/rounded_corner_content"
+        android:clipToOutline="true"
         android:src="@drawable/ic_after"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beforeContentImage"
         app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/BottomCornersRoundShape" />
+        />
 
     <HorizontalScrollView
         android:layout_width="wrap_content"

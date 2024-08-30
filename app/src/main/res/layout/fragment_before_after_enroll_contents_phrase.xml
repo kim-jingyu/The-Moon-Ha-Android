@@ -42,33 +42,36 @@
         app:layout_constraintVertical_bias="0.082"
         tools:layout_editor_absoluteX="-1dp" />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/beforeContentImage"
         android:layout_width="330dp"
         android:layout_height="250dp"
         android:layout_marginBottom="388dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_before"
+        android:background="@drawable/rounded_corner_content"
+        android:clipToOutline="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="line"
+        app:layout_constraintTop_toBottomOf="@id/line"
         app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/TopCornersRoundShape" />
+        />
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/afterContentImage"
         android:layout_width="330dp"
         android:layout_height="250dp"
-        android:background="@color/white"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_after"
+        android:background="@drawable/rounded_corner_content"
+        android:clipToOutline="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beforeContentImage"
         app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/BottomCornersRoundShape" />
+        />
 
     <TextView
         android:id="@+id/inputPhrase"
@@ -95,7 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputPhrase" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/button"
         android:layout_width="60dp"
         android:layout_height="38dp"
