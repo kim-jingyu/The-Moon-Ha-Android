@@ -7,6 +7,15 @@ android {
     compileSdk 31
 
     defaultConfig {
+        def localProperties = new Properties()
+        def localPropertiesFile = rootProject.file('local.properties')
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.withInputStream {
+                localProperties.load(it)
+            }
+        }
+
+        buildConfigField "String", "BASE_IP_ADDRESS", "\"${localProperties['base_ip_address']}\""
         applicationId "com.innerpeace.themoonha"
         minSdk 21
         targetSdk 31
