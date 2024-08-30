@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.data.model
+package com.innerpeace.themoonha.data.model.beforeafter
 
 import android.os.Parcel
 import android.os.Parcelable
