@@ -44,8 +44,8 @@
         <!-- new 아이콘 -->
         <ImageView
                 android:id="@+id/iv_newIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:paddingTop="4dp"
                 android:paddingRight="4dp"
                 android:visibility="gone"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@color/dark_gray"
                 app:layout_constraintTop_toBottomOf="@id/tv_loungeTitle"
