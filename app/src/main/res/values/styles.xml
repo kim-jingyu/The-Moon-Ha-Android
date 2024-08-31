@@ -2,10 +2,18 @@
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:fontFamily">@font/happiness_sans_regular</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
     <style name="BoldStyle">
         <item name="android:fontFamily">@font/happiness_sans_bold</item>
     </style>
+    <style name="AppBottomSheetDialogTheme"
+           parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+    <style name="AppModalStyle"
+           parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/dialog_background</item>
     <style name="TopCornersRoundShape">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">30dp</item>
