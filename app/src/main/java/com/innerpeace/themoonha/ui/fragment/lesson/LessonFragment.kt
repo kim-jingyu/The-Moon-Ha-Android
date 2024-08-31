@@ -16,8 +16,8 @@ import com.innerpeace.themoonha.adapter.ShortFormAdapter
 import com.innerpeace.themoonha.data.model.lesson.Branch
 import com.innerpeace.themoonha.data.model.lesson.LessonListRequest
 import com.innerpeace.themoonha.data.model.lesson.toQueryMap
+import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
-import com.innerpeace.themoonha.data.network.RetrofitClient
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentLessonBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
@@ -31,7 +31,7 @@ class LessonFragment : Fragment() {
     private lateinit var shortFormAdapter: ShortFormAdapter
     private var selectedBranch: Branch? = null
     private val viewModel: LessonViewModel by viewModels {
-        LessonViewModelFactory(LessonRepository(RetrofitClient.getRetrofit().create(LessonService::class.java)))
+        LessonViewModelFactory(LessonRepository(ApiClient.getClient().create(LessonService::class.java)))
     }
 
     override fun onCreateView(
