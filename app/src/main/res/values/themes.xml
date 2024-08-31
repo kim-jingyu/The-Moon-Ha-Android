@@ -31,4 +31,18 @@
         <item name="itemTextColor">@color/bottom_navigation_color</item>
         <item name="itemIconTint">@color/bottom_navigation_color</item>
     </style>
+
+    <style name="BranchItemStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
 </resources>
