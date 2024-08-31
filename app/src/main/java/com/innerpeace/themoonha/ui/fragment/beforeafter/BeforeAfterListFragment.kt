@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
-import com.innerpeace.themoonha.data.model.BeforeAfterContent
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

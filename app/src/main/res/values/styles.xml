@@ -7,14 +7,35 @@
     <style name="BoldStyle">
         <item name="android:fontFamily">@font/happiness_sans_bold</item>
     </style>
-
     <style name="AppBottomSheetDialogTheme"
            parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModalStyle</item>
     </style>
-
     <style name="AppModalStyle"
            parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/dialog_background</item>
+    <style name="TopCornersRoundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="BottomCornersRoundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="CornersRoundShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">30dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+        <item name="android:background">@color/white</item>
     </style>
 </resources>
