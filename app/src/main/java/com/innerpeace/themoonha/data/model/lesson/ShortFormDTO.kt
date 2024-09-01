@@ -1,9 +1,13 @@
 package com.innerpeace.themoonha.data.model.lesson
 
 data class ShortFormDTO(
+    val lessonId: Long,
     val shortFormId: Long,
-    val name: String,
+    val lessonTitle: String,
+    val tutorName: String,
+    val shortFormName: String,
     val thumbnailUrl: String,
+    val videoUrl: String,
     val target: Int
 
 ) {
@@ -11,5 +15,4 @@ data class ShortFormDTO(
         return TargetType.fromId(target)?.description ?: "전체"
     }
 }
-
 

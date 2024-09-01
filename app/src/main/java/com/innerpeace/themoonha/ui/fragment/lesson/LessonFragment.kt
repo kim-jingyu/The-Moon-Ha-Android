@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.LessonAdapter
@@ -30,7 +33,7 @@ class LessonFragment : Fragment() {
     private lateinit var lessonAdapter: LessonAdapter
     private lateinit var shortFormAdapter: ShortFormAdapter
     private var selectedBranch: Branch? = null
-    private val viewModel: LessonViewModel by viewModels {
+    private val viewModel: LessonViewModel by activityViewModels {
         LessonViewModelFactory(LessonRepository(ApiClient.getClient().create(LessonService::class.java)))
     }
 
@@ -53,6 +56,9 @@ class LessonFragment : Fragment() {
         _binding = FragmentLessonBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.VISIBLE
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.VISIBLE
+
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("문화센터")
 
@@ -70,8 +76,11 @@ class LessonFragment : Fragment() {
         lessonAdapter = LessonAdapter(emptyList())
         binding.recyclerViewLesson.adapter = lessonAdapter
 
+        shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm ->
+            findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment)
+        }
+
         binding.recyclerViewShortForm.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        shortFormAdapter = ShortFormAdapter(emptyList())
         binding.recyclerViewShortForm.adapter = shortFormAdapter
 
         viewModel.lessonList.observe(viewLifecycleOwner, Observer { lessons ->

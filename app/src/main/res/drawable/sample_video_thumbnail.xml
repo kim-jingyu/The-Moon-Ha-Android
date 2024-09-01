@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="108dp"
+        android:height="192dp"
+        android:viewportWidth="108"
+        android:viewportHeight="192">
+
+    <path
+            android:fillColor="#FFCCCCCC"
+            android:pathData="M0,0h108v192H0z" />
+
+    <!-- Play Button in the center -->
+    <path
+            android:fillColor="#FF000000"
+            android:pathData="M38,58l45,38l-45,38z" />
+</vector>
