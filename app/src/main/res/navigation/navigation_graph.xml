@@ -17,6 +17,9 @@
         <action
                 android:id="@+id/action_fragment_lesson_to_liveFragment"
                 app:destination="@id/fragment_live" />
+        <action
+                android:id="@+id/action_fragment_lesson_to_shortFormDetailFragment"
+                app:destination="@id/shortFormDetailFragment"/>
     </fragment>
     <fragment
             android:id="@+id/fragment_schedule"
@@ -42,4 +45,16 @@
         android:id="@+id/fragment_bite"
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
         android:label="BeforeAfter" />
+    <fragment
+            android:id="@+id/shortFormDetailFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lesson.ShortFormDetailFragment"
+            android:label="ShortFormDetailFragment">
+        <action
+                android:id="@+id/action_shortFormDetailFragment_to_lessonDetailFragment"
+                app:destination="@id/lessonDetailFragment"/>
+    </fragment>
+    <fragment
+            android:id="@+id/lessonDetailFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lesson.LessonDetailFragment"
+            android:label="LessonDetailFragment"/>
 </navigation>

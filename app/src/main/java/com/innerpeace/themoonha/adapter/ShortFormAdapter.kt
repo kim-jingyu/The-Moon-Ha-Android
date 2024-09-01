@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 
-class ShortFormAdapter(private var shortForms: List<ShortFormDTO>) : RecyclerView.Adapter<ShortFormAdapter.ShortFormViewHolder>() {
+class ShortFormAdapter( private var shortForms: List<ShortFormDTO>,
+                        private val onItemClicked: (ShortFormDTO) -> Unit
+) : RecyclerView.Adapter<ShortFormAdapter.ShortFormViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortFormViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_short_form_item, parent, false)
@@ -18,7 +20,12 @@ class ShortFormAdapter(private var shortForms: List<ShortFormDTO>) : RecyclerVie
     }
 
     override fun onBindViewHolder(holder: ShortFormViewHolder, position: Int) {
-        holder.bind(shortForms[position])
+        val shortForm = shortForms[position]
+        holder.bind(shortForm)
+
+        holder.itemView.setOnClickListener {
+            onItemClicked(shortForm)
+        }
     }
 
     override fun getItemCount(): Int = shortForms.size
@@ -34,7 +41,7 @@ class ShortFormAdapter(private var shortForms: List<ShortFormDTO>) : RecyclerVie
         private val targetDescription: TextView? = itemView.findViewById(R.id.targetDescription)
 
         fun bind(shortForm: ShortFormDTO) {
-            name.text = shortForm.name
+            name.text = shortForm.shortFormName
             targetDescription?.text = shortForm.getTargetDescription()
             Glide.with(itemView.context)
                 .load(shortForm.thumbnailUrl)
