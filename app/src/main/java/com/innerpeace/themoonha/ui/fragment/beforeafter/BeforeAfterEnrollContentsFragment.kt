@@ -49,6 +49,9 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
     private var currentRequestCode: Int = REQUEST_CAMERA_BEFORE_PHOTO
     private var photoUri: Uri? = null
 
+    private var beforeContentUri: Uri? = null
+    private var afterContentUri: Uri? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,6 +82,10 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
         binding.gallery.setOnClickListener {
             selectGalleryTarget()
+        }
+
+        binding.nextButton.setOnClickListener {
+            navigateToNextFragment()
         }
     }
 
@@ -114,32 +121,64 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
                 when {
                     mimeType?.startsWith("image") == true -> {
                         if (requestCode == REQUEST_GALLERY_BEFORE || requestCode == REQUEST_CAMERA_BEFORE_PHOTO) {
-                            binding.beforeContentImage.visibility = View.VISIBLE
-                            binding.beforeContentVideo.visibility = View.GONE
-                            binding.beforeContentImage.setImageURI(uri)
+                            setBeforeImageContent(uri)
                         } else {
-                            binding.afterContentImage.visibility = View.VISIBLE
-                            binding.afterContentVideo.visibility = View.GONE
-                            binding.afterContentImage.setImageURI(uri)
+                            setAfterImageContent(uri)
                         }
                     }
                     mimeType?.startsWith("video") == true -> {
                         if (requestCode == REQUEST_GALLERY_BEFORE || requestCode == REQUEST_CAMERA_BEFORE_VIDEO) {
-                            binding.beforeContentImage.visibility = View.GONE
-                            binding.beforeContentVideo.visibility = View.VISIBLE
-                            binding.beforeContentVideo.setVideoURI(uri)
-                            binding.beforeContentVideo.start()
+                            setBeforeVideoContent(uri)
                         } else {
-                            binding.afterContentImage.visibility = View.GONE
-                            binding.afterContentVideo.visibility = View.VISIBLE
-                            binding.afterContentVideo.setVideoURI(uri)
-                            binding.afterContentVideo.requestFocus()
-                            binding.afterContentVideo.start()
+                            setAfterVideoContent(uri)
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun setAfterVideoContent(uri: Uri) {
+        afterContentUri = uri
+        binding.afterContentImage.visibility = View.GONE
+        binding.afterContentVideo.visibility = View.VISIBLE
+        binding.afterContentVideo.setVideoURI(uri)
+        binding.afterContentVideo.start()
+    }
+
+    private fun setBeforeVideoContent(uri: Uri) {
+        beforeContentUri = uri
+        binding.beforeContentImage.visibility = View.GONE
+        binding.beforeContentVideo.visibility = View.VISIBLE
+        binding.beforeContentVideo.setVideoURI(uri)
+        binding.beforeContentVideo.start()
+    }
+
+    private fun setAfterImageContent(uri: Uri) {
+        afterContentUri = uri
+        binding.afterContentImage.visibility = View.VISIBLE
+        binding.afterContentVideo.visibility = View.GONE
+        binding.afterContentImage.setImageURI(uri)
+    }
+
+    private fun setBeforeImageContent(uri: Uri) {
+        beforeContentUri = uri
+        binding.beforeContentImage.visibility = View.VISIBLE
+        binding.beforeContentVideo.visibility = View.GONE
+        binding.beforeContentImage.setImageURI(uri)
+    }
+
+    private fun navigateToNextFragment() {
+        val nextFragment = BeforeAfterEnrollContentsPhraseFragment()
+        nextFragment.arguments = Bundle().apply {
+            putParcelable("beforeContentUri", beforeContentUri)
+            putParcelable("afterContentUri", afterContentUri)
+        }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, nextFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun selectGalleryTarget() {
