@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -73,7 +74,11 @@ class LessonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.recyclerViewLesson.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        lessonAdapter = LessonAdapter(emptyList())
+        lessonAdapter = LessonAdapter(lessons = listOf(), onLessonClick = { lessonId ->
+            findNavController().navigate(R.id.action_fragment_lesson_to_lessonDetailFragment, bundleOf("lessonId" to lessonId)  )
+        }, onAddToCartClick = {
+            findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+        })
         binding.recyclerViewLesson.adapter = lessonAdapter
 
         shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm ->
@@ -83,6 +88,7 @@ class LessonFragment : Fragment() {
         binding.recyclerViewShortForm.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewShortForm.adapter = shortFormAdapter
 
+        // ViewModel의 데이터 관찰
         viewModel.lessonList.observe(viewLifecycleOwner, Observer { lessons ->
             lessonAdapter.updateLessons(lessons)
         })
