@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.model.lesson.Branch
 import com.innerpeace.themoonha.data.model.lesson.LessonDTO
+import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
@@ -23,6 +24,9 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
     private val _branchName = MutableLiveData<String>()
     val branchName: LiveData<String> get() = _branchName
 
+    private val _lessonDetail = MutableLiveData<LessonDetailResponse>()
+    val lessonDetail: LiveData<LessonDetailResponse> get() = _lessonDetail
+
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
             val response = lessonRepository.fetchLessonList(lessonListQueryMap)
@@ -38,5 +42,14 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     fun updateBranchName(newBranchName: String) {
         _branchName.value = newBranchName
+    }
+
+    fun getLessonDetail(lessonId: Long) {
+        viewModelScope.launch {
+            val response = lessonRepository.fetchLessonDetail(lessonId)
+            response?.let {
+                _lessonDetail.value = it
+            }
+        }
     }
 }
