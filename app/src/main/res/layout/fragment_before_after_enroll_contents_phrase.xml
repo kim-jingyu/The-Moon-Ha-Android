@@ -99,7 +99,7 @@
         app:layout_constraintTop_toBottomOf="@id/inputPhrase" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nextButton"
         android:layout_width="60dp"
         android:layout_height="38dp"
         android:text="작성"
