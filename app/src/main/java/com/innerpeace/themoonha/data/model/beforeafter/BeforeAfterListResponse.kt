@@ -1,9 +1,10 @@
 package com.innerpeace.themoonha.data.model.beforeafter
 
 data class BeforeAfterListResponse(
-    private val beforeThumbnailUrl: String,
-    private val afterThumbnailUrl: String,
-    private val title: String,
-    private val profileImgUrl: String,
-    private val memberName: String
+    val beforeAfterId: Long,
+    val beforeThumbnailUrl: String,
+    val afterThumbnailUrl: String,
+    val title: String,
+    val profileImgUrl: String,
+    val memberName: String
 )

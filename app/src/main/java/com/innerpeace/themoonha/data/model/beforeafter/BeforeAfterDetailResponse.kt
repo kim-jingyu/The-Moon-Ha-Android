@@ -1,12 +1,16 @@
 package com.innerpeace.themoonha.data.model.beforeafter
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class BeforeAfterDetailResponse(
-    private val beforeUrl: String,
-    private val beforeIsImage: Int,
-    private val afterUrl: String,
-    private val afterIsImage: Int,
-    private val title: String,
-    private val profileImgUrl: String,
-    private val memberName: String,
-    private val hashtags: List<String>
-)
+    val beforeUrl: String,
+    val beforeIsImage: Int,
+    val afterUrl: String,
+    val afterIsImage: Int,
+    val title: String,
+    val profileImgUrl: String,
+    val memberName: String,
+    val hashtags: List<String>
+) : Parcelable
