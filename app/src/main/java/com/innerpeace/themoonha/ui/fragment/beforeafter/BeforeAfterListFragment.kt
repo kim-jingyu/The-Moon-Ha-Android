@@ -8,6 +8,7 @@ import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.GridLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
@@ -47,7 +48,6 @@ class BeforeAfterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
-
         setupRecyclerView()
         observeViewModel()
         viewModel.getBeforeAfterList()
@@ -89,8 +89,26 @@ class BeforeAfterListFragment : Fragment() {
         val gridLayoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.layoutManager = gridLayoutManager
 
-        adapter = BeforeAfterAdapter(emptyList(), this@BeforeAfterListFragment)
+        adapter = BeforeAfterAdapter(emptyList()) { content ->
+            navigateToBeforeAfterDetail(content)
+        }
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun navigateToBeforeAfterDetail(content: BeforeAfterListResponse) {
+        viewModel.getBeforeAfterDetail(content.beforeAfterId)
+        viewModel.beforeAfterDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
+            detailResponse?.let {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, BeforeAfterDetailFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable("beforeAfterDetailResponse", it)
+                        }
+                    })
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
     }
 
     private fun observeViewModel() {
