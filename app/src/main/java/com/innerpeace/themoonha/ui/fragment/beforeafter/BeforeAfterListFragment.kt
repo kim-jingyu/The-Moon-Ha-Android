@@ -2,13 +2,14 @@ package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
@@ -46,6 +47,43 @@ class BeforeAfterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+        setupRecyclerView()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        menu.findItem(R.id.item1).isVisible = false
+        menu.findItem(R.id.item2).isVisible = false
+
+        if (menu.findItem(Menu.FIRST) == null) {
+            menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_to_enroll_resized)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+            menu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_to_search_resized)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            Menu.FIRST -> {
+                navigateToBeforeAfterEnrollContents()
+                true
+            }
+            Menu.FIRST + 1 -> {
+                navigateToSearchFragment()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setupRecyclerView() {
         lifecycleScope.launch {
             val contents = withContext(Dispatchers.IO) {
                 getContents()
@@ -72,6 +110,20 @@ class BeforeAfterListFragment : Fragment() {
                 playVideo(true)
             }
         }
+    }
+
+    private fun navigateToSearchFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, BeforeAfterSearchFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToBeforeAfterEnrollContents() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, BeforeAfterEnrollContentsFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun playVideo(playStatus: Boolean) {
