@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <!-- 강사 정보 -->
+        <TextView
+                android:id="@+id/tv_tutor_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="강사 정보"
+                android:textSize="18dp"
+                android:layout_marginLeft="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+                android:id="@+id/iv_profile_image"
+                android:background="@drawable/circle"
+                android:layout_margin="16dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tutor_info" />
+
+        <TextView
+                android:id="@+id/tv_tutor_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toEndOf="@+id/iv_profile_image"
+                app:layout_constraintTop_toTopOf="@+id/iv_profile_image"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image" />
+
+        <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="4dp"
+                android:src="@drawable/ic_arrow_right"
+                app:layout_constraintStart_toEndOf="@+id/tv_tutor_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_tutor_name"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_tutor_name"
+                android:id="@+id/imageView4" />
+
+        <!-- 출석 -->
+        <LinearLayout
+                android:id="@+id/ll_toggle_attendance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_profile_image">
+
+            <TextView
+                    android:id="@+id/tv_attendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="출석"
+                    android:textSize="18dp"
+                    android:layout_marginRight="4dp" />
+
+            <ImageView
+                    android:id="@+id/iv_attendance_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_down" />
+        </LinearLayout>
+
+        <include
+                android:id="@+id/table_attendance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                layout="@layout/item_table"
+                app:layout_constraintTop_toBottomOf="@+id/ll_toggle_attendance"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"/>
+
+        <!-- 강좌 계획서 -->
+        <LinearLayout
+                android:id="@+id/ll_toggle_plan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/table_attendance">
+
+            <TextView
+                    android:id="@+id/tv_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="강좌 계획서"
+                    android:textSize="18dp"
+                    android:layout_marginRight="4dp" />
+
+            <ImageView
+                    android:id="@+id/iv_plan_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_down" />
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tv_plan_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                android:text=""
+                android:fontFamily="@font/happiness_sans_regular"
+                android:textSize="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_toggle_plan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"/>
+
+
+        <!-- 참여자 목록 -->
+        <LinearLayout
+                android:id="@+id/ll_toggle_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="?android:attr/selectableItemBackground"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_plan_detail">
+
+            <TextView
+                    android:id="@+id/tv_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="라운지 참여자"
+                    android:textSize="18dp"
+                    android:layout_marginRight="4dp" />
+
+            <ImageView
+                    android:id="@+id/iv_member_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_arrow_down" />
+        </LinearLayout>
+
+        <!-- 라운지 참여자 Recycler View -->
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_member_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_toggle_member"
+                android:visibility="gone" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
