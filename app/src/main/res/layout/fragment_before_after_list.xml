@@ -82,7 +82,7 @@
         app:layout_constraintVertical_bias="0.103" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/beforeAfterListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"

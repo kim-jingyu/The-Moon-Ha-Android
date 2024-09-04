@@ -50,7 +50,7 @@
         android:label="BeforeAfter">
         <action
             android:id="@+id/action_to_beforeAfterList"
-            app:destination="@+id/fragment_bite"
+            app:destination="@id/fragment_bite"
             />
         <action
             android:id="@+id/action_to_bite_for"
@@ -59,7 +59,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_bite_list"
-        android:name="com.innerpeace.themoonha.ui.fragment.bite.BiteListFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
         android:label="BiteListFragment"
         />
     <fragment

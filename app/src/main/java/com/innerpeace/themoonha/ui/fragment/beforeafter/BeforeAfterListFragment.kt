@@ -95,12 +95,12 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         val gridLayoutManager = GridLayoutManager(context, 2)
-        binding.recyclerView.layoutManager = gridLayoutManager
+        binding.beforeAfterListRecyclerView.layoutManager = gridLayoutManager
 
         adapter = BeforeAfterAdapter(emptyList()) { content ->
             navigateToBeforeAfterDetail(content)
         }
-        binding.recyclerView.adapter = adapter
+        binding.beforeAfterListRecyclerView.adapter = adapter
     }
 
     private fun navigateToBeforeAfterDetail(content: BeforeAfterListResponse) {
