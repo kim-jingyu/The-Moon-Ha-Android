@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
@@ -48,9 +49,16 @@ class BeforeAfterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
+        setupToBite()
         setupRecyclerView()
         observeViewModel()
         viewModel.getBeforeAfterList()
+    }
+
+    private fun setupToBite() {
+        binding.biteForField.setOnClickListener {
+            findNavController().navigate(R.id.action_to_bite_for)
+        }
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {

@@ -98,6 +98,16 @@
         app:layout_constraintVertical_bias="0.082"
         tools:layout_editor_absoluteX="-1dp" />
 
+    <Spinner
+        android:id="@+id/lessonSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.089"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/afterContentContainer" />
+
     <EditText
         android:id="@+id/inputPhrase"
         android:layout_width="wrap_content"
@@ -107,10 +117,10 @@
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/afterContentContainer"
-        app:layout_constraintVertical_bias="0.275" />
+        app:layout_constraintTop_toBottomOf="@+id/lessonSpinner"
+        app:layout_constraintVertical_bias="0.137" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/hashtagFlow"

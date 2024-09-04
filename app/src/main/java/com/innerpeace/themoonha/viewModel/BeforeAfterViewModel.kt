@@ -32,13 +32,13 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
     private val _beforeAfterListContents = MutableStateFlow<List<BeforeAfterListResponse>>(emptyList())
     private val _beforeAfterDetailContent = MutableStateFlow<BeforeAfterDetailResponse?>(null)
     private val _beforeAfterSearchContents = MutableStateFlow<List<BeforeAfterSearchResponse>>(emptyList())
-    private val _makeBeforeAfterResponse = MutableStateFlow<String?>(null)
+    private val _makeBeforeAfterResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<BeforeAfterException?>(null)
 
     val beforeAfterListResponse: StateFlow<List<BeforeAfterListResponse>> get() = _beforeAfterListContents.asStateFlow()
     val beforeAfterDetailResponse: StateFlow<BeforeAfterDetailResponse?> get() = _beforeAfterDetailContent.asStateFlow()
     val beforeAfterSearchResponse: StateFlow<List<BeforeAfterSearchResponse>> get() = _beforeAfterSearchContents.asStateFlow()
-    val makeBeforeAfterResponse: StateFlow<String?> get() = _makeBeforeAfterResponse.asStateFlow()
+    val makeBeforeAfterResponse: StateFlow<Result<String>> = _makeBeforeAfterResponse.asStateFlow()
     val error: StateFlow<BeforeAfterException?> get() = _error.asStateFlow()
 
     fun getBeforeAfterList() {
@@ -87,13 +87,13 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
                     beforeContent,
                     afterContent
                 )
-                if (response.isSuccess && response.message != null) {
-                    _makeBeforeAfterResponse.value = response.message
+                if (response.isSuccess) {
+                    _makeBeforeAfterResponse.value = Result.success(response.message)
                 } else {
-                    _error.value = BeforeAfterMakingException()
+                    _makeBeforeAfterResponse.value = Result.failure(BeforeAfterMakingException())
                 }
             } catch (e: Exception) {
-                _error.value = BeforeAfterMakingException()
+                _makeBeforeAfterResponse.value = Result.failure(BeforeAfterMakingException())
             }
         }
     }

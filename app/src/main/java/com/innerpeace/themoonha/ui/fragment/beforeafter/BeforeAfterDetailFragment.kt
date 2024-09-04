@@ -76,6 +76,7 @@ class BeforeAfterDetailFragment : Fragment() {
     }
 
     private fun setupHashtags(hashtags: List<String>) {
+        if (hashtags == null || hashtags.isEmpty()) return
         val flow = binding.root.findViewById<Flow>(R.id.hashtagFlow)
         val idList = mutableListOf<Int>()
 

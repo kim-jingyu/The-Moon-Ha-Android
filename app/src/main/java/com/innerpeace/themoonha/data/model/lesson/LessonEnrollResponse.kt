@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.data.model.beforeafter
+package com.innerpeace.themoonha.data.model.lesson
 
 /**
  * BeforeAfterDetailResponse 데이터 클래스
@@ -12,11 +12,7 @@ package com.innerpeace.themoonha.data.model.beforeafter
  * 2024.09.04  	김진규       최초 생성
  * </pre>
  */
-data class BeforeAfterListResponse(
-    val beforeAfterId: Long,
-    val beforeThumbnailUrl: String,
-    val afterThumbnailUrl: String,
-    val title: String,
-    val profileImgUrl: String,
-    val memberName: String
+data class LessonEnrollResponse(
+    val lessonId: Long,
+    val title: String
 )

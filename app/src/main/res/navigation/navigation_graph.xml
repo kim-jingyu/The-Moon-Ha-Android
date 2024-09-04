@@ -47,7 +47,21 @@
     <fragment
         android:id="@+id/fragment_bite"
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
-        android:label="BeforeAfter" />
+        android:label="BeforeAfter">
+        <action
+            android:id="@+id/action_to_beforeAfterList"
+            app:destination="@+id/fragment_bite"
+            />
+        <action
+            android:id="@+id/action_to_bite_for"
+            app:destination="@id/fragment_bite_list"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_bite_list"
+        android:name="com.innerpeace.themoonha.ui.fragment.bite.BiteListFragment"
+        android:label="BiteListFragment"
+        />
     <fragment
             android:id="@+id/shortFormDetailFragment"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.ShortFormDetailFragment"
