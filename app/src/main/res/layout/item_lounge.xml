@@ -7,7 +7,8 @@
         android:layout_margin="8dp"
         app:strokeWidth="0dp"
         app:strokeColor="@android:color/transparent"
-        app:cardElevation="0dp">
+        app:cardElevation="0dp"
+        app:cardCornerRadius="10dp">
 
     <!-- 라운지 목록 카드 -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,15 +26,15 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:background="@color/gray"/>
+                android:background="@drawable/rounded_corner_content"/>
 
         <!-- 라운지명 -->
         <TextView
                 android:id="@+id/tv_loungeTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:textSize="18sp"
+                android:layout_marginTop="8dp"
+                android:textSize="12sp"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textColor="@color/black"
@@ -44,10 +45,9 @@
         <!-- new 아이콘 -->
         <ImageView
                 android:id="@+id/iv_newIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:paddingTop="4dp"
-                android:paddingRight="4dp"
                 android:visibility="gone"
                 app:srcCompat="@drawable/ic_new"
                 app:layout_constraintTop_toTopOf="@id/tv_latestPostTime"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
-                android:textSize="14sp"
+                android:textSize="9sp"
                 android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@color/dark_gray"
                 app:layout_constraintTop_toBottomOf="@id/tv_loungeTitle"

@@ -1,11 +1,16 @@
-package com.innerpeace.themoonha.viewmodel
+package com.innerpeace.themoonha.viewModel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import com.innerpeace.themoonha.data.model.LoungeListResponse
-import com.innerpeace.themoonha.service.LoungeService
-import retrofit2.Retrofit
+import android.content.Context
+import android.net.Uri
+import androidx.lifecycle.*
+import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
+import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
+import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
+import com.innerpeace.themoonha.data.repository.LoungeRepository
+import kotlinx.coroutines.launch
 
 /**
  * 라운지 ViewModel
@@ -17,45 +22,90 @@ import retrofit2.Retrofit
  * 수정일        수정자        수정내용
  * ----------  --------    ---------------------------
  * 2024.08.30  	조희정       최초 생성
- * </pre>
+ * 2024.08.30   조희정       라운지 목록 불러오기 구현
+ * 2024.08.31   조희정       라운지 홈 불러오기 구현
+ * 2024.09.02   조희정       라운지 게시글 상세보기 구현
+ * 2024.09.03   조희정       라운지 게시글 저장, 댓글 저장 구현
  */
-class LoungeViewModel(application: Application): AndroidViewModel(application) {
-    private lateinit var loungeService: LoungeService
 
+class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewModel() {
 
-    // 임시 데이터
-    fun fetchLoungeList(): List<LoungeListResponse> {
-        return listOf(
-            LoungeListResponse(
-                loungeId = 1,
-                loungeImgUrl = "https://themoonha-bucket.s3.ap-northeast-2.amazonaws.com/lounge/20240828_57c041f7-d982-4b83-905c-fb4cc30292ed_image-removebg-preview.png",
-                title = "Lounge Title 1",
-                latestPostTime = "2024년 08월 27일 오전 08시 29분"
-            ),
-            LoungeListResponse(
-                loungeId = 2,
-                loungeImgUrl = "https://themoonha-bucket.s3.ap-northeast-2.amazonaws.com/lounge/20240828_57c041f7-d982-4b83-905c-fb4cc30292ed_image-removebg-preview.png",
-                title = "오오또모 후미꼬 일본어 회화(초급2,기본 문법 습득이상)",
-                latestPostTime = "2024년 08월 27일 오전 08시 29분"
-            ),
-            LoungeListResponse(
-                loungeId = 3,
-                loungeImgUrl = "https://themoonha-bucket.s3.ap-northeast-2.amazonaws.com/lounge/20240828_57c041f7-d982-4b83-905c-fb4cc30292ed_image-removebg-preview.png",
-                title = "Lounge Title 2",
-                latestPostTime = "5분 전"
-            ),
-            LoungeListResponse(
-                loungeId = 4,
-                loungeImgUrl = "https://themoonha-bucket.s3.ap-northeast-2.amazonaws.com/lounge/20240828_57c041f7-d982-4b83-905c-fb4cc30292ed_image-removebg-preview.png",
-                title = "Lounge Title 2",
-                latestPostTime = "5분 전"
-            ),
-            LoungeListResponse(
-                loungeId = 5,
-                loungeImgUrl = "https://themoonha-bucket.s3.ap-northeast-2.amazonaws.com/lounge/20240828_57c041f7-d982-4b83-905c-fb4cc30292ed_image-removebg-preview.png",
-                title = "Lounge Title 2",
-                latestPostTime = "5분 전"
-            )
-        )
+    // 라운지 목록
+    private val _loungeList = MutableLiveData<List<LoungeListResponse>?>()
+    val loungeList: LiveData<List<LoungeListResponse>?> get() = _loungeList
+
+    // 라운지 홈
+    private val _loungeHome = MutableLiveData<LoungeHomeResponse?>()
+    val loungeHome: LiveData<LoungeHomeResponse?> get() = _loungeHome
+
+    // 게시물
+    private val _postDetail = MutableLiveData<LoungePostResponse?>()
+    val postDetail: LiveData<LoungePostResponse?> get() = _postDetail
+
+    // LoungeId
+    private val _selectedLoungeId = MutableLiveData<Long>()
+    val selectedLoungeId: LiveData<Long> get() = _selectedLoungeId
+
+    // LoungePostId
+    private val _selectedLoungePostId = MutableLiveData<Long>()
+    val selectedLoungePostId: LiveData<Long> get() = _selectedLoungePostId
+
+    // MemberId
+    private val _selectedMemberId = MutableLiveData<Long>()
+    val selectedMemberId: LiveData<Long> get() = _selectedMemberId
+
+    // 게시물 저장
+    private val _postResponse = MutableLiveData<CommonResponse?>()
+    val postResponse: LiveData<CommonResponse?> get() = _postResponse
+
+    // 댓글 저장
+    private val _commentResponse = MutableLiveData<CommonResponse?>()
+    val commentResponse: LiveData<CommonResponse?> get() = _commentResponse
+
+    fun setSelectedLoungeId(loungeId: Long) {
+        _selectedLoungeId.value = loungeId
+    }
+
+    fun setSelectedLoungePostId(postId: Long) {
+        _selectedLoungePostId.value = postId
+    }
+
+    fun setSelectedMemberId(memberId: Long) {
+        _selectedMemberId.value = memberId
+    }
+
+    fun fetchLoungeList() {
+        viewModelScope.launch {
+            val response = loungeRepository.fetchLoungeList()
+            _loungeList.postValue(response)
+        }
+    }
+
+    fun fetchLoungeHome(loungeId: Long) {
+        viewModelScope.launch {
+            val response = loungeRepository.fetchLoungeHome(loungeId)
+            _loungeHome.postValue(response)
+        }
+    }
+
+    fun fetchPostDetail(loungeId: Long, postId: Long) {
+        viewModelScope.launch {
+            val response = loungeRepository.fetchPostDetail(loungeId, postId)
+            _postDetail.postValue(response)
+        }
+    }
+
+    fun registerLoungePost(loungePostRequest: LoungePostRequest, imageUris: List<Uri>, context: Context) {
+        viewModelScope.launch {
+            val response = loungeRepository.registerLoungePost(loungePostRequest, imageUris, context)
+            _postResponse.postValue(response)
+        }
+    }
+
+    fun registerComment(loungeCommentRequest: LoungeCommentRequest) {
+        viewModelScope.launch {
+            val response = loungeRepository.registerComment(loungeCommentRequest)
+            _commentResponse.postValue(response)
+        }
     }
 }

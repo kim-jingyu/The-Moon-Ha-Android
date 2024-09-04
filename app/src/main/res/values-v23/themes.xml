@@ -32,4 +32,12 @@
         <item name="itemTextColor">@color/bottom_navigation_color</item>
         <item name="itemIconTint">@color/bottom_navigation_color</item>
     </style>
+
+
+    <!-- Tab 폰트 스타일 정의 -->
+    <style name="CustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/happiness_sans_bold</item>
+    </style>
 </resources>
