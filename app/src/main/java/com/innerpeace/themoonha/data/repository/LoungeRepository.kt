@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
 import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
@@ -115,5 +116,21 @@ class LoungeRepository(private val loungeService: LoungeService) {
             }
         }
         return tempFile
+    }
+
+    // 댓글 저장
+    suspend fun registerComment(loungeCommentRequest: LoungeCommentRequest): CommonResponse? {
+        return try {
+            val response = loungeService.registerComment(loungeCommentRequest)
+
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("라운지 댓글 작성 실패", "${e.message}", e)
+            null
+        }
     }
 }

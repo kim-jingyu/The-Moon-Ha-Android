@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,15 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomePostViewAdapter
+import com.innerpeace.themoonha.adapter.lounge.item.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeLoungeTabBinding
+import com.innerpeace.themoonha.ui.ConditionalScrollLayoutManager
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 
@@ -36,6 +40,9 @@ class LoungeHomeLoungeTabFragment : Fragment() {
     private var _binding: FragmentLoungeHomeLoungeTabBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var layoutManager: ConditionalScrollLayoutManager
+
     private lateinit var adapter: LoungeHomePostViewAdapter
     private val viewModel: LoungeViewModel by activityViewModels {
         LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
@@ -55,6 +62,16 @@ class LoungeHomeLoungeTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 스크롤 control
+        layoutManager = ConditionalScrollLayoutManager(context)
+        binding.rvPostList.layoutManager = layoutManager
+
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        sharedViewModel.isScrollEnabled.observe(viewLifecycleOwner, { isEnabled ->
+            layoutManager.setScrollEnabled(isEnabled)
+        })
+
         // 데이터 불러오기
         viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
             if (home != null) {
@@ -69,9 +86,6 @@ class LoungeHomeLoungeTabFragment : Fragment() {
             navigateToDetailFragment(loungeItem)
         }
         binding.rvPostList.adapter = adapter
-
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        binding.rvPostList.layoutManager = linearLayoutManager
 
         adapter.setItems(item)
     }

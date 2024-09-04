@@ -18,6 +18,7 @@ import androidx.core.view.marginRight
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -154,18 +155,16 @@ class LoungePostWriteFragment : Fragment() {
         )
         viewModel.registerLoungePost(loungePostRequest, images, requireContext())
 
-        Log.d("저장 로그", loungePostRequest.toString())
-        Log.d("저장 로그", images.toString())
-
 
         viewModel.postResponse.observe(viewLifecycleOwner, Observer { response ->
             response?.let {
                 if (it.success) {
                     Toast.makeText(context, "게시물 등록 성공!", Toast.LENGTH_SHORT).show()
                     // 페이지 이동
-                    findNavController().navigate(R.id.action_loungePostWriteFragment_to_loungeHomeFragment)
-                    findNavController().popBackStack(R.id.loungeHomeFragment, true)
-                    findNavController().navigate(R.id.loungeHomeFragment)
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.loungeHomeFragment, true)  // loungeHomeFragment까지 백스택에서 제거
+                        .build()
+                    findNavController().navigate(R.id.loungeHomeFragment, null, navOptions)
                 } else {
                     Toast.makeText(context, "게시물 등록에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }

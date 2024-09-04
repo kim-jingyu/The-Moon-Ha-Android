@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
 import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
@@ -24,7 +25,7 @@ import kotlinx.coroutines.launch
  * 2024.08.30   조희정       라운지 목록 불러오기 구현
  * 2024.08.31   조희정       라운지 홈 불러오기 구현
  * 2024.09.02   조희정       라운지 게시글 상세보기 구현
- * 2024.09.03   조희정       라운지 게시글 저장 구현
+ * 2024.09.03   조희정       라운지 게시글 저장, 댓글 저장 구현
  */
 
 class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewModel() {
@@ -56,6 +57,10 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
     // 게시물 저장
     private val _postResponse = MutableLiveData<CommonResponse?>()
     val postResponse: LiveData<CommonResponse?> get() = _postResponse
+
+    // 댓글 저장
+    private val _commentResponse = MutableLiveData<CommonResponse?>()
+    val commentResponse: LiveData<CommonResponse?> get() = _commentResponse
 
     fun setSelectedLoungeId(loungeId: Long) {
         _selectedLoungeId.value = loungeId
@@ -94,6 +99,13 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
         viewModelScope.launch {
             val response = loungeRepository.registerLoungePost(loungePostRequest, imageUris, context)
             _postResponse.postValue(response)
+        }
+    }
+
+    fun registerComment(loungeCommentRequest: LoungeCommentRequest) {
+        viewModelScope.launch {
+            val response = loungeRepository.registerComment(loungeCommentRequest)
+            _commentResponse.postValue(response)
         }
     }
 }

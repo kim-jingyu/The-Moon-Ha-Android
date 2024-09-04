@@ -5,20 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeCommentViewAdapter
-import com.innerpeace.themoonha.adapter.lounge.LoungeHomePostViewAdapter
+import com.innerpeace.themoonha.adapter.lounge.LoungePostImageAdapter
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
+import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungePostBinding
-import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 
@@ -33,13 +36,16 @@ import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
  * ----------  --------    ---------------------------
  * 2024.08.24  	조희정       최초 생성
  * 2024.09.02   조희정       이미지, 댓글 recycler view 구현
+ * 2024.09.03   조희정       댓글 등록 구현
  * </pre>
  */
 class LoungePostFragment : Fragment() {
     private var _binding: FragmentLoungePostBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: LoungeCommentViewAdapter
+    private lateinit var commentAdapter: LoungeCommentViewAdapter
+    private lateinit var imageAdapter: LoungePostImageAdapter
+
     private val viewModel: LoungeViewModel by activityViewModels {
         LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
     }
@@ -77,47 +83,64 @@ class LoungePostFragment : Fragment() {
                     .into(binding.ivProfileImage)
                 binding.tvName.text = postDetail.loungePost.loungeMember.name
                 binding.tvDate.text = postDetail.loungePost.createdAt
-                addImagesToLayout(it.loungePost.loungePostImgList)
-                setupCommentRecyclerView(it.loungeCommentList)
+                binding.tvContent.text = postDetail.loungePost.content
+                setupImageRecyclerView(it.loungePost.loungePostImgList)
+                if (postDetail.loungeCommentList.isNotEmpty()) {
+                    binding.line.visibility = View.VISIBLE
+                    setupCommentRecyclerView(it.loungeCommentList)
+                }
             }
         })
-    }
-    
-    // 게시글 이미지 추가
-    private fun addImagesToLayout(imageUrls: List<String>) {
-        for (imageUrl in imageUrls) {
-            val imageView = ImageView(requireContext()).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    setMargins(0, 0, 0, 8.dpToPx()) // 이미지 간 8dp의 마진 설정
-                }
-                scaleType = ImageView.ScaleType.FIT_CENTER
-            }
 
-            // Glide를 사용하여 이미지 로드
-            Glide.with(this)
-                .load(imageUrl)
-                .into(imageView)
-
-            // LinearLayout에 이미지 추가
-            binding.llImages.addView(imageView)
+        // 댓글 등록 버튼
+        binding.btnCommentRegister.setOnClickListener {
+            registerComment()
         }
     }
 
-    // dp 값을 px 값으로 변환하는 함수
-    private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
+    // 이미지 Recycler View
+    private fun setupImageRecyclerView(item: List<String>) {
+        imageAdapter = LoungePostImageAdapter(item)
+        binding.rvImageList.adapter = imageAdapter
+
+        val linearLayoutManager = LinearLayoutManager(requireContext())
+        binding.rvImageList.layoutManager = linearLayoutManager
+    }
 
     // 댓글 Recycler View
     private fun setupCommentRecyclerView(item: List<LoungePostResponse.LoungeComment>) {
-        adapter = LoungeCommentViewAdapter()
-        binding.rvCommentList.adapter = adapter
+        commentAdapter = LoungeCommentViewAdapter()
+        binding.rvCommentList.adapter = commentAdapter
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
         binding.rvCommentList.layoutManager = linearLayoutManager
 
-        adapter.setItems(item)
+        commentAdapter.setItems(item)
+    }
+
+    // 댓글 등록
+    private fun registerComment() {
+        val commentText = binding.etNewComment.text.toString()
+
+        val selectedLoungePostId = viewModel.selectedLoungePostId.value ?: 0L
+        val selectedLoungeId = viewModel.selectedLoungeId.value ?: 0L
+        val loungeCommentRequest = LoungeCommentRequest(
+            loungePostId = selectedLoungePostId,
+            content = commentText
+        )
+        viewModel.registerComment(loungeCommentRequest)
+
+        viewModel.commentResponse.observe(viewLifecycleOwner, Observer { response ->
+            response?.let {
+                if (it.success) {
+                    Toast.makeText(context, "댓글 등록 성공!", Toast.LENGTH_SHORT).show()
+                    binding.etNewComment.text = null
+                    viewModel.fetchPostDetail(selectedLoungeId, selectedLoungePostId)
+                } else {
+                    Toast.makeText(context, "댓글 등록에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
     override fun onDestroyView() {

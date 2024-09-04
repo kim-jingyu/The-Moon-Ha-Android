@@ -1,21 +1,28 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeNoticeViewAdapter
+import com.innerpeace.themoonha.adapter.lounge.item.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeBinding
+import com.innerpeace.themoonha.ui.NewScrollView
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
@@ -38,6 +45,8 @@ class LoungeHomeFragment : Fragment() {
     private var _binding: FragmentLoungeHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var sharedViewModel: SharedViewModel
+
     private lateinit var adapter: LoungeHomeNoticeViewAdapter
     private val viewModel: LoungeViewModel by activityViewModels {
         LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
@@ -56,11 +65,27 @@ class LoungeHomeFragment : Fragment() {
         setHasOptionsMenu(true)
         setTabLayout()
 
+        // 네비게이션바
+        (activity as? MainActivity)?.hideNavigationBar()
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // 스크롤 설정
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
+        binding.mainScrollView.run {
+            header = binding.tab
+            stickListener = {
+                sharedViewModel.setScrollEnabled(true) // 스크롤 활성화
+            }
+            freeListener = {
+                sharedViewModel.setScrollEnabled(false) // 스크롤 비활성화
+            }
+        }
 
         // 데이터 불러오기
         viewModel.selectedLoungeId.observe(viewLifecycleOwner, Observer { loungeId ->
@@ -80,16 +105,13 @@ class LoungeHomeFragment : Fragment() {
     // 툴바 메뉴 변경
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item1 = menu.findItem(R.id.item1)
-        item1.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_write)?.apply {
-            setBounds(0, 0, 18, 18) // 아이콘 크기를 64x64로 설정
-        }
+        val icon1 = ContextCompat.getDrawable(requireContext(), R.drawable.ic_write)
+        item1.icon = icon1
 
         val item2 = menu.findItem(R.id.item2)
-        item2.icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search2)?.apply {
-            setBounds(0, 0, 16, 16) // 아이콘 크기를 64x64로 설정
-        }
+        val icon2 = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search2)
+        item2.icon = icon2
     }
-
     // 툴바 메뉴 기능
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

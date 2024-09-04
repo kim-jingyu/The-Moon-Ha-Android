@@ -1,6 +1,7 @@
 package com.innerpeace.themoonha.data.network
 
 import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
@@ -40,4 +41,9 @@ interface LoungeService {
         @Part("loungePostRequest") loungePostRequest: RequestBody,
         @Part files: List<MultipartBody.Part>?
     ): Response<CommonResponse>
+
+    @POST("lounge/comment/register")
+    suspend fun registerComment(
+        @Body loungeCommentRequest: LoungeCommentRequest): Response<CommonResponse>
+
 }

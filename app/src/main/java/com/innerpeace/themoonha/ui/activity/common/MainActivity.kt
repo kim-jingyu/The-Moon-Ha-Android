@@ -40,9 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         // 뒤로 가기 버튼 활성화
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val drawable = ContextCompat.getDrawable(this, R.drawable.ic_back)
-        val resizedDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap((drawable as BitmapDrawable).bitmap, 20, 20, true))
-        supportActionBar?.setHomeAsUpIndicator(resizedDrawable)
+        val drawable = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(drawable)
 
         // 하단 네비게이션바 설정
         val navController = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
