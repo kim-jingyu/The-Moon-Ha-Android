@@ -9,17 +9,19 @@ import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.craft.PrologueDTO
 import com.innerpeace.themoonha.databinding.FragmentPrologueItemBinding
 
-class PrologueAdapter(private var prologueList: List<PrologueDTO>) :
-    RecyclerView.Adapter<PrologueAdapter.PrologueViewHolder>() {
+class PrologueAdapter(
+    private var prologueList: List<PrologueDTO>,
+    private val onPrologueClick: (PrologueDTO) -> Unit
+) : RecyclerView.Adapter<PrologueAdapter.PrologueViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrologueViewHolder {
-        val binding = FragmentPrologueItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PrologueViewHolder(binding)
+        val binding =
+            FragmentPrologueItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return PrologueViewHolder(binding, onPrologueClick)
     }
 
     override fun onBindViewHolder(holder: PrologueViewHolder, position: Int) {
         val prologue = prologueList[position]
-        Log.i("PrologueAdapter", "Binding item at position $position: $prologue")
         holder.bind(prologue)
     }
 
@@ -30,11 +32,14 @@ class PrologueAdapter(private var prologueList: List<PrologueDTO>) :
         notifyDataSetChanged()
     }
 
-    class PrologueViewHolder(private val binding: FragmentPrologueItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PrologueViewHolder(private val binding: FragmentPrologueItemBinding,
+        private val onPrologueClick: (PrologueDTO) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(prologue: PrologueDTO) {
             binding.titleTextView.text = prologue.title
             binding.likeCountTextView.text = prologue.likeCnt.toString()
             binding.tutorNameTextView.text = prologue.tutorName
+
 
             val heartDrawable = if (prologue.alreadyLiked) {
                 R.drawable.prologue_already_liked
@@ -47,6 +52,10 @@ class PrologueAdapter(private var prologueList: List<PrologueDTO>) :
             Glide.with(binding.thumbnailImageView.context)
                 .load(prologue.thumbnailUrl)
                 .into(binding.thumbnailImageView)
+
+            binding.root.setOnClickListener {
+                onPrologueClick(prologue)
+            }
         }
     }
 }

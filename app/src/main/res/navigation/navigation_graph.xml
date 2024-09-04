@@ -39,7 +39,11 @@
     <fragment
             android:id="@+id/fragment_craft"
             android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
-            android:label="CraftFragment" />
+            android:label="CraftFragment" >
+        <action
+            android:id="@+id/action_fragment_craft_to_prologueDetailFragment"
+            app:destination="@id/prologueDetailFragment" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_live"
             android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
@@ -64,4 +68,8 @@
                 android:id="@+id/action_lessonDetailFragment_to_fragment_cart"
                 app:destination="@id/fragment_cart"/>
     </fragment>
+    <fragment
+        android:id="@+id/prologueDetailFragment"
+        android:name="PrologueDetailFragment"
+        android:label="PrologueDetailFragment" />
 </navigation>
