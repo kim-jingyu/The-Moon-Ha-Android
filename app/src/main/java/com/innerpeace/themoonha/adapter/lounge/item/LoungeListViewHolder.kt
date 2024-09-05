@@ -1,11 +1,11 @@
-package com.innerpeace.themoonha.ui.fragment.lounge
+package com.innerpeace.themoonha.adapter.lounge.item
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.innerpeace.themoonha.data.model.LoungeListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.databinding.ItemLoungeBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -22,27 +22,32 @@ import java.util.*
  * 2024.08.30  	조희정       최초 생성
  * </pre>
  */
-class LoungeViewHolder(private val binding: ItemLoungeBinding) : RecyclerView.ViewHolder(binding.root) {
+class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerView.ViewHolder(binding.root) {
 
     // Recycler View에 데이터 바인딩
-    fun onBind(lounge : LoungeListResponse) {
+    fun onBind(item: LoungeListResponse, clickListener: (LoungeListResponse) -> Unit) {
         Glide.with(binding.ivLoungeImage.context)
-            .load(lounge.loungeImgUrl)
+            .load(item.loungeImgUrl)
             .into(binding.ivLoungeImage)
 
-        binding.tvLoungeTitle.text = lounge.title
+        binding.tvLoungeTitle.text = item.title
 
-        val formattedTime = getFormattedPostedTime(lounge.latestPostTime)
+        val formattedTime = getFormattedPostedTime(item.latestPostTime)
 
-        binding.ivNewIcon.visibility = if (formattedTime == lounge.latestPostTime) View.VISIBLE else View.GONE
+        binding.ivNewIcon.visibility = if (formattedTime == item.latestPostTime) View.VISIBLE else View.GONE
         binding.tvLatestPostTime.text = formattedTime
+
+        // 클릭 리스너 설정
+        binding.root.setOnClickListener {
+            clickListener(item)
+        }
     }
 
     companion object {
-        fun from(parent: ViewGroup): LoungeViewHolder {
+        fun from(parent: ViewGroup): LoungeListViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemLoungeBinding.inflate(layoutInflater, parent, false)
-            return LoungeViewHolder(binding)
+            return LoungeListViewHolder(binding)
         }
     }
 

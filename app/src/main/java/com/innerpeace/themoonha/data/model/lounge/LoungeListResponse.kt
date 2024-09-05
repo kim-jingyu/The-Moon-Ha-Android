@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.data.model
+package com.innerpeace.themoonha.data.model.lounge
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -15,7 +15,7 @@ import java.util.*
  * </pre>
  */
 data class LoungeListResponse(
-    val loungeId: Int,
+    val loungeId: Long,
     val title: String,
     val loungeImgUrl: String,
     val latestPostTime: String
