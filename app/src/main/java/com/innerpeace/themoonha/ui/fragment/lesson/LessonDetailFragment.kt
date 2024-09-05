@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -25,8 +24,8 @@ import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentLessonDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LessonViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 
 class LessonDetailFragment : Fragment() {
     private var _binding: FragmentLessonDetailBinding? = null

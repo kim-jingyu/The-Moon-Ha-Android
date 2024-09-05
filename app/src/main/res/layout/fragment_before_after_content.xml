@@ -9,45 +9,26 @@
         android:id="@+id/beforeImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="36dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_before"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/beforeVideo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="36dp"
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintDimensionRatio="16:9" />
+        />
 
     <ImageView
         android:id="@+id/afterImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/ic_after"
         android:scaleType="centerCrop"
+        android:src="@drawable/ic_after"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/afterVideo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintDimensionRatio="16:9"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/beforeImage"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/title"
@@ -58,6 +39,7 @@
         android:textSize="13dp"
         android:ellipsize="end"
         android:maxLines="1"
+        app:layout_constraintTop_toBottomOf="@id/afterImage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

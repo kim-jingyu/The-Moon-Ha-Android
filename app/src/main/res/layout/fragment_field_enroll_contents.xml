@@ -6,29 +6,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.field.FieldEnrollContentsFragment">
 
-    <ImageView
-        android:id="@+id/contentImage"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="640dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_after"
+        android:id="@+id/contentContainer"
         android:background="@drawable/rounded_corner_content"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:shapeAppearanceOverlay="@style/CornersRoundShape" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/contentImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_before"
+            android:background="@drawable/rounded_corner_content"
+            android:clipToOutline="true" />
+
+        <VideoView
+            android:id="@+id/contentVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars="none"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cameraSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gallery"
-        app:layout_constraintTop_toBottomOf="@+id/contentImage">
+        app:layout_constraintTop_toBottomOf="@+id/contentContainer">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,19 +50,18 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:singleLine="true"
                 android:text="Before &amp; After"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:layout_marginEnd="20dp"
-                />
+                android:textColor="@color/green"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="분야별 한 입"
-                android:textColor="@color/green"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -75,11 +87,11 @@
         android:layout_marginTop="368dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="@id/contentImage"
+        app:layout_constraintBottom_toBottomOf="@id/contentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/contentImage"
+        app:layout_constraintTop_toTopOf="@id/contentContainer"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
@@ -87,39 +99,26 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="30dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
-
-    <ImageView
-        android:id="@+id/cameraSwitch"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_camera_switch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
+        app:layout_constraintTop_toBottomOf="@+id/contentContainer"
+        app:layout_constraintVertical_bias="0.483" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/nextButton"
         android:layout_width="60dp"
         android:layout_height="38dp"
-        android:layout_marginTop="580dp"
+        android:layout_marginTop="578dp"
         android:text="다음"
         android:textSize="13dp"
         app:cornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
-        app:layout_constraintTop_toTopOf="@+id/contentImage" />
+        app:layout_constraintTop_toTopOf="@+id/contentContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>

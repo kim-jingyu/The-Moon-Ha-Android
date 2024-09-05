@@ -17,7 +17,7 @@
             android:icon="@drawable/ic_lounge"
             android:paddingBottom="19dp" />
     <item
-            android:id="@+id/fragment_bite"
+            android:id="@+id/fragment_before_after"
             android:title="문화 한입"
             android:icon="@drawable/ic_bite"
             android:paddingBottom="19dp" />

@@ -19,8 +19,9 @@ import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
+import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -57,15 +58,17 @@ class BeforeAfterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.GONE
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
+        (activity as? MainActivity)?.apply {
+            hideToolbar()
+            hideBottomNavigation()
+        }
 
         binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        arguments?.getParcelable<BeforeAfterContent>("beforeAfterContent")?.let {
+        arguments?.getParcelable<BeforeAfterDetailResponse>("beforeAfterDetailResponse")?.let {
             lifecycleScope.launch {
                 setupBeforeContent(it)
                 setupAfterContent(it)
@@ -76,6 +79,7 @@ class BeforeAfterDetailFragment : Fragment() {
     }
 
     private fun setupHashtags(hashtags: List<String>) {
+        if (hashtags == null || hashtags.isEmpty()) return
         val flow = binding.root.findViewById<Flow>(R.id.hashtagFlow)
         val idList = mutableListOf<Int>()
 
@@ -99,9 +103,9 @@ class BeforeAfterDetailFragment : Fragment() {
         flow.referencedIds = idList.toIntArray()
     }
 
-    private suspend fun setupTextContent(content: BeforeAfterContent) = withContext(Dispatchers.Main) {
+    private suspend fun setupTextContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
         Glide.with(this@BeforeAfterDetailFragment)
-            .load(content.profileImageUrl)
+            .load(content.profileImgUrl)
             .circleCrop()
             .error(R.drawable.ic_zzang9)
             .into(binding.profileImageDetail)
@@ -134,11 +138,11 @@ class BeforeAfterDetailFragment : Fragment() {
         }
     }
 
-    private suspend fun setupAfterContent(content: BeforeAfterContent) = withContext(Dispatchers.Main) {
+    private suspend fun setupAfterContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
         val afterImageParams = binding.afterImageDetail.layoutParams as ConstraintLayout.LayoutParams
         val afterVideoParams = binding.afterVideoDetail.layoutParams as ConstraintLayout.LayoutParams
 
-        if (content.afterIsImage) {
+        if (content.afterIsImage == 1) {
             binding.afterImageDetail.visibility = View.VISIBLE
             binding.afterVideoDetail.visibility = View.GONE
             Glide.with(this@BeforeAfterDetailFragment)
@@ -172,13 +176,13 @@ class BeforeAfterDetailFragment : Fragment() {
         binding.afterVideoDetail.layoutParams = afterVideoParams
     }
 
-    private suspend fun setupBeforeContent(content: BeforeAfterContent) = withContext(Dispatchers.Main) {
+    private suspend fun setupBeforeContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
         val beforeImageParams = binding.beforeImageDetail.layoutParams as ConstraintLayout.LayoutParams
         val beforeVideoParams = binding.beforeVideoDetail.layoutParams as ConstraintLayout.LayoutParams
         val afterImageParams = binding.afterImageDetail.layoutParams as ConstraintLayout.LayoutParams
         val afterVideoParams = binding.afterVideoDetail.layoutParams as ConstraintLayout.LayoutParams
 
-        if (content.beforeIsImage) {
+        if (content.beforeIsImage == 1) {
             binding.beforeImageDetail.visibility = View.VISIBLE
             binding.beforeVideoDetail.visibility = View.GONE
             Glide.with(this@BeforeAfterDetailFragment)

@@ -1,20 +1,20 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
-import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterContent
+import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
+import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 
 /**
  * Before&After 프래그먼트
@@ -33,6 +33,9 @@ class BeforeAfterListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: BeforeAfterAdapter
+    private val viewModel: BeforeAfterViewModel by viewModels {
+        BeforeAfterViewModelFactory(BeforeAfterRepository())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,132 +49,100 @@ class BeforeAfterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launch {
-            val contents = withContext(Dispatchers.IO) {
-                getContents()
+        (activity as? MainActivity)?.apply {
+            showToolbar()
+            showBottomNavigation()
+        }
+
+        setHasOptionsMenu(true)
+        setupToBite()
+        setupRecyclerView()
+        observeViewModel()
+        viewModel.getBeforeAfterList()
+    }
+
+    private fun setupToBite() {
+        binding.biteForField.setOnClickListener {
+            findNavController().navigate(R.id.action_to_field)
+        }
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+
+        menu.findItem(R.id.item1).isVisible = false
+        menu.findItem(R.id.item2).isVisible = false
+
+        if (menu.findItem(Menu.FIRST) == null) {
+            menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_to_enroll_resized)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             }
-
-            val gridLayoutManager = GridLayoutManager(context, 2)
-            binding.recyclerView.layoutManager = gridLayoutManager
-
-            adapter = BeforeAfterAdapter(contents, this@BeforeAfterListFragment)
-            binding.recyclerView.adapter = adapter
-
-            binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                    super.onScrollStateChanged(recyclerView, newState)
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                        playVideo(true)
-                    } else {
-                        playVideo(false)
-                    }
-                }
-            })
-
-            binding.recyclerView.viewTreeObserver.addOnGlobalLayoutListener {
-                playVideo(true)
+            menu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_to_search_resized)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             }
         }
     }
 
-    private fun playVideo(playStatus: Boolean) {
-        if (_binding == null) {
-            return
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            Menu.FIRST -> {
+                navigateToBeforeAfterEnrollContents()
+                true
+            }
+            Menu.FIRST + 1 -> {
+                navigateToSearchFragment()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
+    }
 
-        lifecycleScope.launch {
-            val layoutManager = binding.recyclerView.layoutManager
-            if (layoutManager is GridLayoutManager) {
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+    private fun setupRecyclerView() {
+        val gridLayoutManager = GridLayoutManager(context, 2)
+        binding.beforeAfterListRecyclerView.layoutManager = gridLayoutManager
 
-                for (i in 0 until binding.recyclerView.childCount) {
-                    val content = binding.recyclerView.getChildAt(i)
-                    val viewHolder = binding.recyclerView.getChildViewHolder(content) as BeforeAfterAdapter.ViewHolder
+        adapter = BeforeAfterAdapter(emptyList()) { content ->
+            navigateToBeforeAfterDetail(content)
+        }
+        binding.beforeAfterListRecyclerView.adapter = adapter
+    }
 
-                    if (i + firstVisibleItemPosition in firstVisibleItemPosition..lastVisibleItemPosition) {
-                        withContext(Dispatchers.Main) {
-                            if (playStatus) {
-                                viewHolder.playVideo()
-                            } else {
-                                viewHolder.stopVideo()
-                            }
+    private fun navigateToBeforeAfterDetail(content: BeforeAfterListResponse) {
+        viewModel.getBeforeAfterDetail(content.beforeAfterId)
+        viewModel.beforeAfterDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
+            detailResponse?.let {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, BeforeAfterDetailFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable("beforeAfterDetailResponse", it)
                         }
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            viewHolder.stopVideo()
-                        }
-                    }
-                }
-            } else {
-                Log.e("BeforeAfterListFragment", "GridLayoutManager 할당 에러!!")
+                    })
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
 
-    private fun getContents(): List<BeforeAfterContent> {
-        return listOf(
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%B5%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B71.mp4",
-                beforeIsImage = false,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%B5%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B71.mp4",
-                afterIsImage = false,
-                title = "Example 1",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            ),
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/c.png",
-                beforeIsImage = true,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/c.png",
-                afterIsImage = true,
-                title = "Barça Atlètic kicks off its League campaign this Sunday 25 August at 8pm CEST with the visit of Real Unión Club de Irún to the Estadi Johan Cruyff. Throughout the season, the competition can be followed for free and live on Barça One, with match broadcasts available in three languages (Catalan, Spanish, and English), accessible in all territories where Barça One operates (Europe, United States, Canada, and Latin America).",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            ),
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%B5%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B71.mp4",
-                beforeIsImage = false,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                afterIsImage = true,
-                title = "Example 1",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            ),
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%B5%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B71.mp4",
-                beforeIsImage = false,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                afterIsImage = true,
-                title = "Example 1",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            ),
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%EC%A7%B1%EA%B5%AC%EC%99%80+%EC%B9%9C%EA%B5%AC_2560X1440.jpg",
-                beforeIsImage = true,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%EC%A7%B1%EA%B5%AC%EC%99%80+%EC%B9%9C%EA%B5%AC_2560X1440.jpg",
-                afterIsImage = true,
-                title = "Barça Atlètic kicks off its League campaign this Sunday 25 August at 8pm CEST with the visit of Real Unión Club de Irún to the Estadi Johan Cruyff. Throughout the season, the competition can be followed for free and live on Barça One, with match broadcasts available in three languages (Catalan, Spanish, and English), accessible in all territories where Barça One operates (Europe, United States, Canada, and Latin America).",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            ),
-            BeforeAfterContent(
-                beforeUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/%E1%84%8B%E1%85%AE%E1%86%B7%E1%84%8C%E1%85%B5%E1%86%A8%E1%84%8B%E1%85%B5%E1%84%82%E1%85%B3%E1%86%AB+%E1%84%89%E1%85%A1%E1%84%85%E1%85%A1%E1%86%B71.mp4",
-                beforeIsImage = false,
-                afterUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                afterIsImage = true,
-                title = "Example 1",
-                profileImageUrl = "https://moonha.s3.ap-northeast-2.amazonaws.com/tip2.png",
-                memberName = "User 1",
-                hashtags = mutableListOf("안녕", "하세요", "나무", "사과", "바나나", "파인애플")
-            )
-        )
+    private fun observeViewModel() {
+        viewModel.beforeAfterListResponse.asLiveData().observe(viewLifecycleOwner) { contents ->
+            adapter.updateContents(contents)
+        }
+    }
+
+    private fun navigateToSearchFragment() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, BeforeAfterSearchFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToBeforeAfterEnrollContents() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, BeforeAfterEnrollContentsFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {

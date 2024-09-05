@@ -6,42 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.beforeafter.BeforeAfterEnrollContentsFragment">
 
-    <ImageView
-        android:id="@+id/beforeContentImage"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_before"
-        android:background="@drawable/rounded_corner_content"
-        android:clipToOutline="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/beforeContentContainer"
+        app:layout_constraintBottom_toTopOf="@+id/afterContentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/afterContentImage"
+        <ImageView
+            android:id="@+id/beforeContentImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_before"
+            android:background="@drawable/rounded_corner_content"
+            android:clipToOutline="true" />
+
+        <VideoView
+            android:id="@+id/beforeContentVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/afterContentContainer"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/rounded_corner_content"
-        android:clipToOutline="true"
-        android:src="@drawable/ic_after"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beforeContentImage"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/beforeContentContainer">
+
+        <ImageView
+            android:id="@+id/afterContentImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_after" />
+
+        <VideoView
+            android:id="@+id/afterContentVideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars="none"
+        app:layout_constraintHorizontal_bias="0.36"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/cameraSwitch"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/gallery"
-        app:layout_constraintTop_toBottomOf="@+id/afterContentImage">
+        app:layout_constraintTop_toBottomOf="@+id/afterContentContainer">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,12 +75,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
                 android:singleLine="true"
                 android:text="Before &amp; After"
                 android:textColor="@color/green"
-                android:textSize="15dp"
-                android:layout_marginEnd="20dp"
-                />
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -88,11 +112,11 @@
         android:layout_marginTop="368dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_camera"
-        app:layout_constraintBottom_toBottomOf="@id/afterContentImage"
+        app:layout_constraintBottom_toBottomOf="@id/afterContentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/afterContentImage"
+        app:layout_constraintTop_toTopOf="@id/afterContentContainer"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
@@ -100,31 +124,18 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="30dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
+        app:layout_constraintTop_toBottomOf="@+id/afterContentContainer"
+        app:layout_constraintVertical_bias="0.483" />
 
-    <ImageView
-        android:id="@+id/cameraSwitch"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="16dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_camera_switch"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.981"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.977" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button"
+    <Button
+        android:id="@+id/nextButton"
         android:layout_width="60dp"
         android:layout_height="38dp"
         android:layout_marginTop="261dp"
@@ -134,5 +145,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
-        app:layout_constraintTop_toTopOf="@+id/afterContentImage" />
+        app:layout_constraintTop_toTopOf="@+id/afterContentContainer" />
 </androidx.constraintlayout.widget.ConstraintLayout>
