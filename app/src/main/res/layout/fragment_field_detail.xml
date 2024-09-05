@@ -8,8 +8,8 @@
         android:id="@+id/imageDetail"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_after"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -19,6 +19,7 @@
         android:id="@+id/videoDetail"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +36,8 @@
         app:layout_constraintEnd_toStartOf="@+id/memberNameDetail"
         app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/memberNameDetail" />
+        app:layout_constraintTop_toTopOf="@id/memberNameDetail"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/memberNameDetail"
@@ -48,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/videoDetail"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.871" />
 
     <TextView

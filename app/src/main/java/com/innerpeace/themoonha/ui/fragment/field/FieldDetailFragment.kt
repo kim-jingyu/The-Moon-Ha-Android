@@ -146,9 +146,6 @@ class FieldDetailFragment : Fragment() {
             Glide.with(this@FieldDetailFragment)
                 .load(content.contentUrl)
                 .into(binding.imageDetail)
-
-            imageParams.height = 0
-            imageParams.matchConstraintPercentHeight = 0.5f
         } else {
             binding.imageDetail.visibility = View.GONE
             binding.videoDetail.visibility = View.VISIBLE
@@ -166,9 +163,6 @@ class FieldDetailFragment : Fragment() {
                 }
             binding.videoDetail.player = player
             binding.videoDetail.useController = false
-
-            videoParams.height = 0
-            videoParams.matchConstraintPercentHeight = 0.5f
         }
 
         binding.imageDetail.layoutParams = imageParams
