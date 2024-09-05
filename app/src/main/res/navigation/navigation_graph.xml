@@ -31,7 +31,11 @@
     <fragment
             android:id="@+id/fragment_lounge"
             android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungeFragment"
-            android:label="LoungeFragment" />
+            android:label="LoungeFragment" >
+        <action
+                android:id="@+id/action_fragment_lounge_to_loungeHomeFragment"
+                app:destination="@id/loungeHomeFragment" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_cart"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartFragment"
@@ -39,7 +43,11 @@
     <fragment
             android:id="@+id/fragment_craft"
             android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
-            android:label="CraftFragment" />
+            android:label="CraftFragment" >
+        <action
+            android:id="@+id/action_fragment_craft_to_prologueDetailFragment"
+            app:destination="@id/prologueDetailFragment" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_live"
             android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
@@ -67,6 +75,21 @@
             app:destination="@id/fragment_field" />
     </fragment>
     <fragment
+            android:id="@+id/loungeHomeFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeFragment"
+            android:label="LoungeHomeFragment" >
+        <action
+                android:id="@+id/action_loungeHomeFragment_to_loungePostFragment"
+                app:destination="@id/loungePostFragment" />
+        <action
+                android:id="@+id/action_loungeHomeFragment_to_loungePostWriteFragment"
+                app:destination="@id/loungePostWriteFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/loungePostFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungePostFragment"
+            android:label="LoungePostFragment" />
+    <fragment
             android:id="@+id/shortFormDetailFragment"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.ShortFormDetailFragment"
             android:label="ShortFormDetailFragment">
@@ -81,5 +104,17 @@
         <action
                 android:id="@+id/action_lessonDetailFragment_to_fragment_cart"
                 app:destination="@id/fragment_cart"/>
+    </fragment>
+    <fragment
+        android:id="@+id/prologueDetailFragment"
+        android:name="PrologueDetailFragment"
+        android:label="PrologueDetailFragment" />
+    <fragment
+            android:id="@+id/loungePostWriteFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungePostWriteFragment"
+            android:label="LoungePostWriteFragment" >
+        <action
+                android:id="@+id/action_loungePostWriteFragment_to_loungeHomeFragment"
+                app:destination="@id/loungeHomeFragment" />
     </fragment>
 </navigation>

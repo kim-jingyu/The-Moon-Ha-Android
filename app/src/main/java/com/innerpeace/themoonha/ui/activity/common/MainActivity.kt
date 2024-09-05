@@ -1,10 +1,14 @@
 package com.innerpeace.themoonha.ui.activity.common
 
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innerpeace.themoonha.R
@@ -37,7 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         // 뒤로 가기 버튼 활성화
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back)
+        val drawable = ContextCompat.getDrawable(this, R.drawable.ic_arrow_left)
+        supportActionBar?.setHomeAsUpIndicator(drawable)
 
         // 하단 네비게이션바 설정
         val navController = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
@@ -82,5 +87,20 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    // 툴바 메뉴
+    override fun onPrepareOptionsMenu(menu: Menu): Boolean {
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    // 네비게이션 바 숨기기
+    fun hideNavigationBar() {
+        binding.bottomNavigationView.visibility = View.GONE
+    }
+
+    // 네비게이션 바 보이기
+    fun showNavigationBar() {
+        binding.bottomNavigationView.visibility = View.VISIBLE
     }
 }

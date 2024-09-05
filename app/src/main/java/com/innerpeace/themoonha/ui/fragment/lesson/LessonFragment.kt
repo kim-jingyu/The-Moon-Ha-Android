@@ -85,6 +85,14 @@ class LessonFragment : Fragment() {
             findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment)
         }
 
+        binding.craftButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_lesson_to_craftFragment)
+        }
+
+        binding.liveButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_lesson_to_liveFragment)
+        }
+
         binding.recyclerViewShortForm.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewShortForm.adapter = shortFormAdapter
 
