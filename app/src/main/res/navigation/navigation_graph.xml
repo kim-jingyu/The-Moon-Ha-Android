@@ -45,23 +45,27 @@
             android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
             android:label="LiveFragment" />
     <fragment
-        android:id="@+id/fragment_bite"
+        android:id="@+id/fragment_before_after"
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
         android:label="BeforeAfter">
         <action
-            android:id="@+id/action_to_beforeAfterList"
-            app:destination="@id/fragment_bite"
-            />
+            android:id="@+id/action_to_field"
+            app:destination="@id/fragment_field" />
         <action
-            android:id="@+id/action_to_bite_for"
-            app:destination="@id/fragment_bite_list"
-            />
+            android:id="@+id/action_to_beforeAfterList"
+            app:destination="@id/fragment_before_after" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_bite_list"
+        android:id="@+id/fragment_field"
         android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
-        android:label="BiteListFragment"
-        />
+        android:label="Field">
+        <action
+            android:id="@+id/action_to_beforeAfterList"
+            app:destination="@id/fragment_before_after" />
+        <action
+            android:id="@+id/action_to_field"
+            app:destination="@id/fragment_field" />
+    </fragment>
     <fragment
             android:id="@+id/shortFormDetailFragment"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.ShortFormDetailFragment"

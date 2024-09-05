@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.exception.FieldException
@@ -47,11 +48,14 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                 val response = datasource.retrieveFieldList()
                 if (response.isSuccessful && response.body() != null) {
                     _fieldListContents.value = response.body()!!
+                    Log.d("FieldViewModel", "Data successfully received: ${_fieldListContents.value.size} items")
                 } else {
                     _error.value = FieldRetrievingException()
+                    Log.e("FieldViewModel", "Failed to retrieve field list: ${response.message()}")
                 }
             } catch (e: Exception) {
                 _error.value = FieldRetrievingException()
+                Log.e("FieldViewModel", "Error while retrieving field list: ${e.message}")
             }
         }
     }
@@ -60,6 +64,7 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = datasource.retrieveFieldContent(fieldId)
+                Log.d("response", "getFieldDetail -> ${response.body()}")
                 if (response.isSuccessful && response.body() != null) {
                     _fieldDetailContent.value = response.body()!!
                 } else {

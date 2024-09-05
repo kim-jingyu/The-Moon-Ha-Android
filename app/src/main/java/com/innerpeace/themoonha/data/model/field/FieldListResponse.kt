@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FieldListResponse(
     val categoryId: Long,
-    val categoryName: String,
+    val category: String,
     val fieldId: Long,
     val thumbnailUrl:String,
     val title: String,

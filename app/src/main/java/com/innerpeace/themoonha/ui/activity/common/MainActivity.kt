@@ -1,11 +1,10 @@
 package com.innerpeace.themoonha.ui.activity.common
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.navigation.findNavController
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innerpeace.themoonha.R
@@ -22,6 +21,7 @@ import com.innerpeace.themoonha.databinding.ActivityMainBinding
  * ----------  --------    ---------------------------
  * 2024.08.23  	김진규       최초 생성
  * 2024.08.24  	조희정       툴바, 네비게이션바 기능 추가
+ * 2024.09.05  	김진규       네비게이션바 숨기기, 보이기 기능 추가
  * </pre>
  */
 class MainActivity : AppCompatActivity() {
@@ -57,6 +57,14 @@ class MainActivity : AppCompatActivity() {
     // 툴바 보이기
     fun showToolbar() {
         binding.toolbar.visibility = View.VISIBLE
+    }
+
+    fun showBottomNavigation() {
+        binding.bottomNavigationView.visibility = View.VISIBLE
+    }
+
+    fun hideBottomNavigation() {
+        binding.bottomNavigationView.visibility = View.GONE
     }
 
     // 툴바 메뉴 보이기

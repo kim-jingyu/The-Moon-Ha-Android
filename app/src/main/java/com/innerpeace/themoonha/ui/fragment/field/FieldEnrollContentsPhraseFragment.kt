@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.ui.fragment.beforeafter
+package com.innerpeace.themoonha.ui.fragment.field
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -23,16 +24,16 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterRequest
+import com.innerpeace.themoonha.data.model.field.FieldRequest
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
-import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
+import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
-import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsPhraseBinding
+import com.innerpeace.themoonha.databinding.FragmentFieldEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewmodel.FieldViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
+import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -42,28 +43,26 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
-class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
-    private var _binding: FragmentBeforeAfterEnrollContentsPhraseBinding? = null
+class FieldEnrollContentsPhraseFragment : Fragment() {
+    private var _binding: FragmentFieldEnrollContentsPhraseBinding? = null
     private val binding get() = _binding!!
 
-    private val beforeAfterViewModel: BeforeAfterViewModel by viewModels {
-        BeforeAfterViewModelFactory(BeforeAfterRepository())
+    private val fieldViewModel: FieldViewModel by viewModels {
+        FieldViewModelFactory(FieldRepository())
     }
 
     private val lessonViewModel: LessonViewModel by viewModels {
         LessonViewModelFactory(LessonRepository(ApiClient.getClient().create(LessonService::class.java)))
     }
 
-    private var beforeContentUri: Uri? = null
-    private var afterContentUri: Uri? = null
+    private var contentUri: Uri? = null
     private var selectedLessonId: Long? = null
     private val hashtags = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            beforeContentUri = it.getParcelable("beforeContentUri")
-            afterContentUri = it.getParcelable("afterContentUri")
+            contentUri = it.getParcelable("contentUri")
         }
 
         val memberId = getCurrentMemberId()
@@ -78,7 +77,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBeforeAfterEnrollContentsPhraseBinding.inflate(inflater, container, false)
+        _binding = FragmentFieldEnrollContentsPhraseBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -111,7 +110,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             }
 
             binding.nextButton.setOnClickListener {
-                submitBeforeAfterContent()
+                submitFieldContent()
             }
         })
 
@@ -132,7 +131,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         })
 
         binding.nextButton.setOnClickListener {
-            submitBeforeAfterContent()
+            submitFieldContent()
         }
     }
 
@@ -159,51 +158,49 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         binding.hashtagFlow.referencedIds = binding.hashtagFlow.referencedIds + hashtagView.id
     }
 
-    private fun submitBeforeAfterContent() {
+    private fun submitFieldContent() {
         val lessonId = selectedLessonId ?: run {
             return
         }
 
-        val beforeAfterRequest = BeforeAfterRequest(
+        val fieldRequest = FieldRequest(
             lessonId = lessonId,
             title = binding.inputPhrase.text.toString(),
             hashtags = hashtags
         )
 
-        val beforeContent = beforeContentUri?.let { uri ->
-            convertUriToMultiPart(uri, "beforeContent")
+        val content = contentUri?.let { uri ->
+            convertUriToMultiPart(uri, "content")
         }
 
-        val afterContent = afterContentUri?.let { uri ->
-            convertUriToMultiPart(uri, "afterContent")
+        val thumbnail = contentUri?.let { uri ->
+            createThumbnailMultiPart(uri, "thumbnail")
         }
 
-        val beforeThumbnail = beforeContentUri?.let { uri ->
-            createThumbnailMultiPart(uri, "beforeThumbnail")
-        }
-
-        val afterThumbnail = afterContentUri?.let { uri ->
-            createThumbnailMultiPart(uri, "afterThumbnail")
-        }
-
-        if (beforeContent != null && afterContent != null && beforeThumbnail != null && afterThumbnail != null) {
-            beforeAfterViewModel.makeBeforeAfter(
-                Gson().toJson(beforeAfterRequest).toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
-                beforeContent,
-                afterContent,
-                beforeThumbnail,
-                afterThumbnail
+        if (content != null && thumbnail != null) {
+            fieldViewModel.makeField(
+                Gson().toJson(fieldRequest).toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                content,
+                thumbnail
             )
-            observeMakeBeforeAfterResult()
+            observeMakeFieldResult()
         }
     }
 
-    private fun observeMakeBeforeAfterResult() {
+    private fun observeMakeFieldResult() {
         lifecycleScope.launchWhenStarted {
-            beforeAfterViewModel.makeBeforeAfterResponse.collect { result ->
+            fieldViewModel.makeFieldResponse.collect { result ->
                 result?.fold(
                     onSuccess = {
-                        findNavController().navigate(R.id.action_to_beforeAfterList)
+                        Log.d("FieldListFragment", "Navigating to field fragment")
+                        try {
+                            findNavController().navigate(R.id.action_to_field)
+                            Log.d("FieldListFragment", "Navigation success!")
+                        } catch (e: IllegalArgumentException) {
+                            Log.e("FieldListFragment", "Navigation failed: ${e.message}")
+                        } catch (e: Exception) {
+                            Log.e("FieldListFragment", "Unexpected error during navigation: ${e.message}")
+                        }
                     },
                     onFailure = {
                         Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()
@@ -263,7 +260,6 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         return tempFile
     }
 
-
     private fun convertUriToMultiPart(uri: Uri, content: String): MultipartBody.Part {
         val contentResolver = requireContext().contentResolver
         val tempFile = File.createTempFile(content, ".tmp", requireContext().cacheDir)
@@ -278,31 +274,17 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
     }
 
     private fun displayContent() {
-        beforeContentUri?.let { uri ->
+        contentUri?.let { uri ->
             val mimeType = requireContext().contentResolver.getType(uri)
             if (mimeType?.startsWith("image") == true) {
-                binding.beforeContentImage.visibility = View.VISIBLE
-                binding.beforeContentVideo.visibility = View.GONE
-                binding.beforeContentImage.setImageURI(uri)
+                binding.contentImage.visibility = View.VISIBLE
+                binding.contentVideo.visibility = View.GONE
+                binding.contentImage.setImageURI(uri)
             } else if (mimeType?.startsWith("video") == true) {
-                binding.beforeContentImage.visibility = View.GONE
-                binding.beforeContentVideo.visibility = View.VISIBLE
-                binding.beforeContentVideo.setVideoURI(uri)
-                binding.beforeContentVideo.start()
-            }
-        }
-
-        afterContentUri?.let { uri ->
-            val mimeType = requireContext().contentResolver.getType(uri)
-            if (mimeType?.startsWith("image") == true) {
-                binding.afterContentImage.visibility = View.VISIBLE
-                binding.afterContentVideo.visibility = View.GONE
-                binding.afterContentImage.setImageURI(uri)
-            } else if (mimeType?.startsWith("video") == true) {
-                binding.afterContentImage.visibility = View.GONE
-                binding.afterContentVideo.visibility = View.VISIBLE
-                binding.afterContentVideo.setVideoURI(uri)
-                binding.afterContentVideo.start()
+                binding.contentImage.visibility = View.GONE
+                binding.contentVideo.visibility = View.VISIBLE
+                binding.contentVideo.setVideoURI(uri)
+                binding.contentVideo.start()
             }
         }
     }

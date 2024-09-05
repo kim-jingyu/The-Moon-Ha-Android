@@ -12,6 +12,7 @@ import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
+import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 
@@ -48,6 +49,11 @@ class BeforeAfterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as? MainActivity)?.apply {
+            showToolbar()
+            showBottomNavigation()
+        }
+
         setHasOptionsMenu(true)
         setupToBite()
         setupRecyclerView()
@@ -57,7 +63,7 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupToBite() {
         binding.biteForField.setOnClickListener {
-            findNavController().navigate(R.id.action_to_bite_for)
+            findNavController().navigate(R.id.action_to_field)
         }
     }
 

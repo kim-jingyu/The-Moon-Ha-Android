@@ -10,7 +10,7 @@
         android:id="@+id/categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category Name"
+        android:hint="Category Name"
         android:textSize="16sp"
         android:textColor="@color/black"
         android:layout_marginBottom="8dp"

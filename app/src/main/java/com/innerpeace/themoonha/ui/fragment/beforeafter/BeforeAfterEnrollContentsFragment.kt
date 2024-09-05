@@ -13,13 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast.LENGTH_SHORT
 import android.widget.Toast.makeText
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsBinding
+import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import java.io.File
 
 /**
@@ -63,8 +62,10 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.GONE
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
+        (activity as? MainActivity)?.apply {
+            hideToolbar()
+            hideBottomNavigation()
+        }
 
         binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {

@@ -1,13 +1,19 @@
 package com.innerpeace.themoonha.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldContentBinding
 
-class FieldContentAdapter(private val fieldList: List<FieldListResponse>) : RecyclerView.Adapter<FieldContentAdapter.FieldContentViewHolder>() {
+class FieldContentAdapter(
+    private val fieldList: List<FieldListResponse>,
+    private val itemClickListener: (FieldListResponse) -> Unit
+    ) : RecyclerView.Adapter<FieldContentAdapter.FieldContentViewHolder>() {
     inner class FieldContentViewHolder(val binding: FragmentFieldContentBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
@@ -23,6 +29,7 @@ class FieldContentAdapter(private val fieldList: List<FieldListResponse>) : Recy
 
         Glide.with(holder.itemView.context)
             .load(fieldItem.thumbnailUrl)
+            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
             .into(holder.binding.content)
 
         holder.binding.title.text = fieldItem.title
@@ -30,7 +37,17 @@ class FieldContentAdapter(private val fieldList: List<FieldListResponse>) : Recy
 
         Glide.with(holder.itemView.context)
             .load(fieldItem.profileImgUrl)
+            .circleCrop()
             .into(holder.binding.profileImage)
+
+        holder.binding.root.setOnClickListener {
+            Log.d("FieldContentAdapter", "Root clicked: ${fieldItem.title}")
+            itemClickListener(fieldItem)
+        }
+        holder.binding.content.setOnClickListener { itemClickListener(fieldItem) }
+        holder.binding.title.setOnClickListener { itemClickListener(fieldItem) }
+        holder.binding.profileImage.setOnClickListener { itemClickListener(fieldItem) }
+        holder.binding.memberName.setOnClickListener { itemClickListener(fieldItem) }
     }
 
     override fun getItemCount(): Int = fieldList.size
