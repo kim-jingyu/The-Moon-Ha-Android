@@ -48,14 +48,26 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                 val response = datasource.retrieveFieldList()
                 if (response.isSuccessful && response.body() != null) {
                     _fieldListContents.value = response.body()!!
-                    Log.d("FieldViewModel", "Data successfully received: ${_fieldListContents.value.size} items")
                 } else {
                     _error.value = FieldRetrievingException()
-                    Log.e("FieldViewModel", "Failed to retrieve field list: ${response.message()}")
                 }
             } catch (e: Exception) {
                 _error.value = FieldRetrievingException()
-                Log.e("FieldViewModel", "Error while retrieving field list: ${e.message}")
+            }
+        }
+    }
+
+    fun getFieldListOrderByTitle() {
+        viewModelScope.launch {
+            try {
+                val response = datasource.retrieveFieldListOrderByTitle()
+                if (response.isSuccessful && response.body() != null) {
+                    _fieldListContents.value = response.body()!!
+                } else {
+                    _error.value = FieldRetrievingException()
+                }
+            } catch (e: Exception) {
+                _error.value = FieldRetrievingException()
             }
         }
     }
@@ -88,7 +100,7 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                     thumbnail,
                     content
                 )
-                if (response.isSuccess) {
+                if (response.success) {
                     _makeFieldResponse.value = Result.success(response.message)
                 } else {
                     _makeFieldResponse.value = Result.failure(FieldMakingException())

@@ -3,6 +3,8 @@ package com.innerpeace.themoonha.ui.fragment.field
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -49,16 +51,46 @@ class FieldListFragment : Fragment() {
         setHasOptionsMenu(true)
         setupRecyclerView()
         setupToBeforeAfter()
-
-        viewModel.getFieldList()
+        setupSpinner()
 
         lifecycleScope.launchWhenResumed {
             viewModel.fieldListResponse.collect { fieldList ->
+                Log.d("FieldListFragment", "Collected field list: ${fieldList.size} items")
                 if (fieldList.isEmpty()) {
                     Log.e("FieldListFragment", "fieldList is empty!")
                 }
                 val groupFieldList = groupDataByCategory(fieldList)
+                Log.d("FieldListFragment", "GroupFieldList size: ${groupFieldList.size}")
                 fieldListAdapter.update(groupFieldList)
+            }
+        }
+    }
+
+    private fun setupSpinner() {
+        val sortOptions = arrayOf("최신순", "제목순")
+        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.sort.adapter = arrayAdapter
+
+        binding.sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        viewModel.getFieldList()
+                    }
+                    1 -> {
+                        viewModel.getFieldListOrderByTitle()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                viewModel.getFieldList()
             }
         }
     }
@@ -110,6 +142,7 @@ class FieldListFragment : Fragment() {
     }
 
     private fun groupDataByCategory(fieldList: List<FieldListResponse>): List<FieldCategoryGroup> {
+        Log.d("FieldListFragment", "Grouping data by category, field list size: ${fieldList.size}")
         return fieldList.groupBy { it.categoryId }
             .mapNotNull { (categoryId, fields) ->
                 val firstField = fields.firstOrNull()

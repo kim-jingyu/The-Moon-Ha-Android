@@ -56,6 +56,21 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
         }
     }
 
+    fun getBeforeAfterListOrderByTitle() {
+        viewModelScope.launch {
+            try {
+                val response = datasource.retrieveBeforeAfterListOrderByTitle()
+                if (response.isSuccessful && response.body() != null) {
+                    _beforeAfterListContents.value = response.body()!!
+                } else {
+                    _error.value = BeforeAfterRetrievingException()
+                }
+            } catch (e: Exception) {
+                _error.value = BeforeAfterRetrievingException()
+            }
+        }
+    }
+
     fun getBeforeAfterDetail(beforeAfterId: Long) {
         viewModelScope.launch {
             try {
@@ -87,7 +102,7 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
                     beforeContent,
                     afterContent
                 )
-                if (response.isSuccess) {
+                if (response.success) {
                     _makeBeforeAfterResponse.value = Result.success(response.message)
                 } else {
                     _makeBeforeAfterResponse.value = Result.failure(BeforeAfterMakingException())

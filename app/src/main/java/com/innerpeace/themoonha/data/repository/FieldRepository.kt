@@ -29,6 +29,10 @@ class FieldRepository: FieldService {
         return api.retrieveFieldList()
     }
 
+    override suspend fun retrieveFieldListOrderByTitle(): Response<List<FieldListResponse>> {
+        return api.retrieveFieldListOrderByTitle()
+    }
+
     override suspend fun retrieveFieldContent(fieldId: Long): Response<FieldDetailResponse> {
         return api.retrieveFieldContent(fieldId)
     }

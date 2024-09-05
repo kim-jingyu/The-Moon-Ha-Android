@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,13 +24,12 @@ class FieldListAdapter(
 
         holder.binding.categoryName.text = categoryGroup.category
 
-        val fieldContenAdapter = FieldContentAdapter(categoryGroup.fieldList) { fieldItem ->
-            Log.d("FieldListAdapter", "Item clicked: ${fieldItem.title}")
+        val fieldContentAdapter = FieldContentAdapter(categoryGroup.fieldList) { fieldItem ->
             onItemClick(fieldItem)
         }
         holder.binding.horizontalRecyclerView.apply {
             layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)
-            adapter = fieldContenAdapter
+            adapter = fieldContentAdapter
             setHasFixedSize(true)
         }
     }
