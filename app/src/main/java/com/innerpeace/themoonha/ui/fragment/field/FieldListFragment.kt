@@ -12,15 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.FieldListAdapter
+import com.innerpeace.themoonha.adapter.bite.FieldListAdapter
 import com.innerpeace.themoonha.data.model.field.FieldCategoryGroup
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterSearchFragment
+import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.FieldViewModel
-import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
 class FieldListFragment : Fragment() {
@@ -44,6 +44,7 @@ class FieldListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? MainActivity)?.apply {
+            setToolbarTitle("문화 한 입")
             showToolbar()
             showBottomNavigation()
         }

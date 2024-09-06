@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.viewmodel.factory
+package com.innerpeace.themoonha.viewModel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

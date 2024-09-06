@@ -10,13 +10,13 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
+import com.innerpeace.themoonha.adapter.bite.BeforeAfterAdapter
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 
 /**
  * Before&After 프래그먼트
@@ -52,6 +52,7 @@ class BeforeAfterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? MainActivity)?.apply {
+            setToolbarTitle("문화 한 입")
             showToolbar()
             showBottomNavigation()
         }

@@ -32,7 +32,7 @@ import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsPhr
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
+import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull

@@ -57,7 +57,7 @@
     </fragment>
     <fragment
             android:id="@+id/fragment_live"
-            android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
+            android:name="com.innerpeace.themoonha.ui.fragment.live.LiveOnAirListFragment"
             android:label="LiveFragment" />
     <fragment
         android:id="@+id/fragment_before_after"
@@ -80,6 +80,29 @@
         <action
             android:id="@+id/action_to_field"
             app:destination="@id/fragment_field" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_onAir"
+        android:name="com.innerpeace.themoonha.ui.fragment.live.LiveOnAirListFragment"
+        android:label="OnAir">
+        <action
+            android:id="@+id/action_to_myLiveLesson"
+            app:destination="@id/fragment_myLiveLesson" />
+        <action
+            android:id="@+id/action_to_onAir"
+            app:destination="@id/fragment_onAir" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_myLiveLesson"
+        android:name="com.innerpeace.themoonha.ui.fragment.live.LiveMyLessonListFragment"
+        android:label="OnAir"
+        >
+        <action
+            android:id="@+id/action_to_myLiveLesson"
+            app:destination="@id/fragment_myLiveLesson" />
+        <action
+            android:id="@+id/action_to_onAir"
+            app:destination="@id/fragment_onAir" />
     </fragment>
     <fragment
             android:id="@+id/loungeHomeFragment"
