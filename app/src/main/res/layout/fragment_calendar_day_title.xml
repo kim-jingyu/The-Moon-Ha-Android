@@ -4,7 +4,6 @@
     android:weightSum="7"
     android:orientation="horizontal">
 
-    <!-- 하나하나가 요일을 나타내는 텍스트 뷰이다. -->
     <include layout="@layout/fragment_calendar_day_title_text" />
     <include layout="@layout/fragment_calendar_day_title_text" />
     <include layout="@layout/fragment_calendar_day_title_text" />

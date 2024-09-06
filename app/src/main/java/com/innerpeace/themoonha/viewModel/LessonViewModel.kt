@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.model.lesson.Branch
+import com.innerpeace.themoonha.data.model.lesson.CartResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonDTO
 import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
@@ -26,6 +27,9 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     private val _lessonDetail = MutableLiveData<LessonDetailResponse>()
     val lessonDetail: LiveData<LessonDetailResponse> get() = _lessonDetail
+
+    private val _lessonCart = MutableLiveData<List<CartResponse>>()
+    val lessonCart: LiveData<List<CartResponse>> get() = _lessonCart
 
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
@@ -49,6 +53,15 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
             val response = lessonRepository.fetchLessonDetail(lessonId)
             response?.let {
                 _lessonDetail.value = it
+            }
+        }
+    }
+
+    fun getLessonCart() {
+        viewModelScope.launch {
+            val response = lessonRepository.fetchLessonCart()
+            response?.let {
+                _lessonCart.value = it
             }
         }
     }
