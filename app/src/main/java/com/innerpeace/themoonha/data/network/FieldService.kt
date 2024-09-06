@@ -22,8 +22,11 @@ import retrofit2.http.*
  * </pre>
  */
 interface FieldService {
-    @GET("/bite/field")
+    @GET("/bite/field/by-latest")
     suspend fun retrieveFieldList() : Response<List<FieldListResponse>>
+
+    @GET("/bite/field/by-title")
+    suspend fun retrieveFieldListOrderByTitle() : Response<List<FieldListResponse>>
 
     @GET("/bite/field/{fieldId}")
     suspend fun retrieveFieldContent(@Path("fieldId") fieldId: Long) : Response<FieldDetailResponse>

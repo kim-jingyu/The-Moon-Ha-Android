@@ -22,8 +22,11 @@ import retrofit2.http.*
  * </pre>
  */
 interface BeforeAfterService {
-    @GET("/bite/before-after")
+    @GET("/bite/before-after/by-latest")
     suspend fun retrieveBeforeAfterList() : Response<List<BeforeAfterListResponse>>
+
+    @GET("/bite/before-after/by-title")
+    suspend fun retrieveBeforeAfterListOrderByTitle() : Response<List<BeforeAfterListResponse>>
 
     @GET("/bite/before-after/{beforeAfterId}")
     suspend fun retrieveBeforeAfterContent(@Path("beforeAfterId") beforeAfterId: Long) : Response<BeforeAfterDetailResponse>

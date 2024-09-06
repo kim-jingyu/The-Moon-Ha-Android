@@ -2,6 +2,8 @@ package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
 import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -57,8 +59,37 @@ class BeforeAfterListFragment : Fragment() {
         setHasOptionsMenu(true)
         setupToBite()
         setupRecyclerView()
+        setupSpinner()
         observeViewModel()
-        viewModel.getBeforeAfterList()
+    }
+
+    private fun setupSpinner() {
+        val sortOptions = arrayOf("최신순", "제목순")
+        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.sort.adapter = arrayAdapter
+
+        binding.sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (position) {
+                    0 -> {
+                        viewModel.getBeforeAfterList()
+                    }
+                    1 -> {
+                        viewModel.getBeforeAfterListOrderByTitle()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                viewModel.getBeforeAfterList()
+            }
+        }
     }
 
     private fun setupToBite() {
