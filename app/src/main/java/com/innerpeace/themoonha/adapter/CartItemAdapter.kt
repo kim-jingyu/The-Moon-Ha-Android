@@ -29,6 +29,7 @@ class CartItemAdapter(private val onCheckedChange: (CartResponse, Boolean) -> Un
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val listItem = getItem(position)
         when (holder) {
@@ -85,6 +86,10 @@ class CartItemAdapter(private val onCheckedChange: (CartResponse, Boolean) -> Un
             binding.cartItemCheckBox.isChecked = color != Color.TRANSPARENT
             binding.cartItemCheckBox.setOnCheckedChangeListener { _, isChecked ->
                 onCheckedChange(cartItem, isChecked)
+            }
+
+            binding.cartItemBox.setOnClickListener {
+                binding.cartItemCheckBox.performClick()
             }
         }
     }
