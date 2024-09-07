@@ -44,7 +44,7 @@
             android:id="@+id/branchJungdong"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="온라"
+            android:text="온라인"
             android:textSize="13sp"
             android:textColor="@color/branch_button_color"
             android:layout_columnWeight="1"
