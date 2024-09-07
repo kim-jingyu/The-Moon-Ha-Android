@@ -1,11 +1,14 @@
 package com.innerpeace.themoonha.adapter
 
+import android.icu.text.DecimalFormat
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
@@ -48,6 +51,7 @@ class LessonAdapter(
         private val cost: TextView = itemView.findViewById(R.id.cost)
         private val addToCartButton: Button = itemView.findViewById(R.id.addToCartButton)
 
+        @RequiresApi(Build.VERSION_CODES.N)
         fun bind(lesson: LessonDTO) {
             Glide.with(itemView.context)
                 .load(lesson.thumbnailUrl)
@@ -58,7 +62,8 @@ class LessonAdapter(
             cnt.text = "${lesson.cnt}회"
             tutorName.text = lesson.tutorName
             lessonTime.text = lesson.lessonTime
-            cost.text = "${lesson.cost} 원"
+            val decimalFormat = DecimalFormat("#,###")
+            cost.text = decimalFormat.format(lesson.cost) + " 원"
 
             itemView.setOnClickListener {
                 onLessonClick(lesson.lessonId)

@@ -3,6 +3,8 @@ package com.innerpeace.themoonha.ui.fragment.lesson
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.icu.text.DecimalFormat
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -55,6 +58,7 @@ class LessonDetailFragment : Fragment() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -71,10 +75,16 @@ class LessonDetailFragment : Fragment() {
                 binding.textViewCnt.text = "${it.cnt}회"
                 binding.textViewPlace.text = it.place
                 binding.textViewTutorName.text = it.tutorName
-                binding.textViewCost.text = "${it.cost} 원"
+                binding.textViewCost.text = formatCurrency(it.cost)
                 binding.textViewSummary.text = it.summary
                 binding.textViewCurriculum.text = it.curriculum
                 binding.textViewSupply.text = it.supply
+
+                if (it.onlineCost == null) {
+                    binding.textViewOnlineCost.text = "온라인 지원 X"
+                } else {
+                    binding.textViewOnlineCost.text = formatCurrency(it.onlineCost)
+                }
 
                 binding.textViewTutorName2.text = it.tutorName
 
@@ -265,6 +275,14 @@ class LessonDetailFragment : Fragment() {
 
         bottomSheetDialog.show()
     }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun formatCurrency(value: Int): String {
+        val decimalFormat = DecimalFormat("#,###")
+        return decimalFormat.format(value) + "원"
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         handler.removeCallbacks(videoPlayRunnable)

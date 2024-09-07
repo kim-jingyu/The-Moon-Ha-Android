@@ -251,6 +251,29 @@
                         android:layout_gravity="end"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/textViewOnlineCostLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="온라인 수강료"
+                    android:textColor="#808080"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/textViewOnlineCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="온라인 수강료"
+                    android:textColor="#000000"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
             <View
                     android:id="@+id/viewGrayLine"
                     android:layout_width="match_parent"

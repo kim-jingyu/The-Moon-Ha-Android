@@ -1,8 +1,11 @@
 package com.innerpeace.themoonha.adapter
 
 import android.graphics.Color
+import android.icu.text.DecimalFormat
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -59,16 +62,18 @@ class CartItemAdapter(private val onCheckedChange: (CartResponse, Boolean) -> Un
     inner class CartViewHolder(private val binding: FragmentCartItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @RequiresApi(Build.VERSION_CODES.N)
         fun bind(cartItem: CartResponse) {
             binding.cartItemTitle.text = cartItem.lessonTitle
             binding.period.text = cartItem.period.replace("-", ".")
             binding.lessonTime.text = "| " + cartItem.lessonTime.replace("-", ".")
             binding.tutorName.text = cartItem.tutorName
+            val decimalFormat = DecimalFormat("#,###")
             if (cartItem.onlineYn) {
-                binding.cost.text = "| " + cartItem.onlineCost.toString() + "원"
+                binding.cost.text = "| " + decimalFormat.format(cartItem.onlineCost) + "원"
                 binding.onlineYn.text = "온라인"
             } else {
-                binding.cost.text = "| " + cartItem.cost.toString() + "원"
+                binding.cost.text = "| " + decimalFormat.format(cartItem.cost) + "원"
                 binding.onlineYn.text = "오프라인"
             }
 
