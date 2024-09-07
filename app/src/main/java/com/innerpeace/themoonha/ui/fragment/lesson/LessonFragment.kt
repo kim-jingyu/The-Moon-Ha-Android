@@ -27,8 +27,8 @@ import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentLessonBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LessonViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 
 class LessonFragment : Fragment() {
     private var _binding: FragmentLessonBinding? = null
@@ -96,6 +96,14 @@ class LessonFragment : Fragment() {
 
         shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm ->
             findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment)
+        }
+
+        binding.craftButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_lesson_to_craftFragment)
+        }
+
+        binding.liveButton.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_lesson_to_liveFragment)
         }
 
         binding.recyclerViewShortForm.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

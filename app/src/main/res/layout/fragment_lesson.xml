@@ -88,6 +88,7 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
+                    android:id="@+id/searchButton"
                     android:layout_width="80dp"
                     android:layout_height="60dp"
                     android:background="@drawable/lesson_button_background"
@@ -109,6 +110,7 @@
                     android:layout_gravity="center"/>
 
             <ImageView
+                    android:id="@+id/craftButton"
                     android:layout_width="80dp"
                     android:layout_height="60dp"
                     android:background="@drawable/lesson_button_background"
@@ -119,6 +121,7 @@
                     android:layout_gravity="center"/>
 
             <ImageView
+                    android:id="@+id/liveButton"
                     android:layout_width="80dp"
                     android:layout_height="60dp"
                     android:background="@drawable/lesson_button_background"

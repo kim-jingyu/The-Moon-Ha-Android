@@ -1,7 +1,7 @@
 package com.innerpeace.themoonha.data.model.beforeafter
 
-import android.os.Parcel
 import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 /**
  * Before&After 콘텐츠 데이터 클래스
@@ -15,6 +15,7 @@ import android.os.Parcelable
  * 2024.08.25  	김진규       최초 생성
  * </pre>
  */
+@Parcelize
 data class BeforeAfterContent(
     val beforeUrl: String,
     val beforeIsImage: Boolean,
@@ -24,40 +25,4 @@ data class BeforeAfterContent(
     val profileImageUrl: String,
     val memberName: String,
     val hashtags: List<String>
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readByte() != 0.toByte(),
-        parcel.readString() ?: "",
-        parcel.readByte() != 0.toByte(),
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.createStringArrayList() ?: listOf()
-    )
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    override fun writeToParcel(parcel: Parcel, flag: Int) {
-        parcel.writeString(beforeUrl)
-        parcel.writeByte(if (beforeIsImage) 1 else 0)
-        parcel.writeString(afterUrl)
-        parcel.writeByte(if (afterIsImage) 1 else 0)
-        parcel.writeString(title)
-        parcel.writeString(profileImageUrl)
-        parcel.writeString(memberName)
-        parcel.writeStringList(hashtags)
-    }
-
-    companion object CREATOR : Parcelable.Creator<BeforeAfterContent> {
-        override fun createFromParcel(parcel: Parcel): BeforeAfterContent {
-            return BeforeAfterContent(parcel)
-        }
-
-        override fun newArray(size: Int): Array<BeforeAfterContent?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+) : Parcelable

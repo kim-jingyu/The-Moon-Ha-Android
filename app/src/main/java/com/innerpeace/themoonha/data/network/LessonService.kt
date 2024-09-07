@@ -4,6 +4,7 @@ import com.innerpeace.themoonha.data.model.CommonResponse
 import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.model.lesson.CartResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import retrofit2.http.Body
@@ -27,4 +28,7 @@ interface LessonService {
 
     @POST("lesson/pay")
     suspend fun payLesson(@Body sugangRequest: SugangRequest): CommonResponse
+
+    @GET("lesson/enroll")
+    suspend fun getLessonListByMember(): List<LessonEnrollResponse>
 }

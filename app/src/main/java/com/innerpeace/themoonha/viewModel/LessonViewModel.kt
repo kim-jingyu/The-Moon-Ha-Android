@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.viewModel
+package com.innerpeace.themoonha.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +12,7 @@ import com.innerpeace.themoonha.data.model.lesson.LessonDTO
 import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
+import com.innerpeace.themoonha.data.model.lesson.*
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
 import java.net.HttpURLConnection
@@ -38,6 +39,8 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
     private val _paymentStatus = MutableLiveData<Boolean>()
     val paymentStatus: LiveData<Boolean> get() = _paymentStatus
 
+    private val _lessonEnroll = MutableLiveData<List<LessonEnrollResponse>>()
+    val lessonEnroll: LiveData<List<LessonEnrollResponse>> get() = _lessonEnroll
 
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
@@ -98,6 +101,15 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
                 _paymentStatus.postValue(response != null && response.success)
             } catch (e: Exception) {
                 _paymentStatus.postValue(false)
+            }
+        }
+    }
+
+    fun getLessonEnroll() {
+        viewModelScope.launch {
+            val response = lessonRepository.fetchLessonEnroll()
+            response?.let {
+                _lessonEnroll.value = it
             }
         }
     }

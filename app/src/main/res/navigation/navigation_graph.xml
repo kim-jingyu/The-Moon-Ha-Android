@@ -50,15 +50,37 @@
     <fragment
             android:id="@+id/fragment_craft"
             android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
-            android:label="CraftFragment" />
+            android:label="CraftFragment" >
+        <action
+            android:id="@+id/action_fragment_craft_to_prologueDetailFragment"
+            app:destination="@id/prologueDetailFragment" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_live"
             android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
             android:label="LiveFragment" />
     <fragment
-        android:id="@+id/fragment_bite"
+        android:id="@+id/fragment_before_after"
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
-        android:label="BeforeAfter" />
+        android:label="BeforeAfter">
+        <action
+            android:id="@+id/action_to_field"
+            app:destination="@id/fragment_field" />
+        <action
+            android:id="@+id/action_to_beforeAfterList"
+            app:destination="@id/fragment_before_after" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_field"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
+        android:label="Field">
+        <action
+            android:id="@+id/action_to_beforeAfterList"
+            app:destination="@id/fragment_before_after" />
+        <action
+            android:id="@+id/action_to_field"
+            app:destination="@id/fragment_field" />
+    </fragment>
     <fragment
             android:id="@+id/loungeHomeFragment"
             android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeFragment"
@@ -90,7 +112,10 @@
                 android:id="@+id/action_lessonDetailFragment_to_fragment_cart"
                 app:destination="@id/fragment_cart"/>
     </fragment>
-            android:label="LessonDetailFragment"/>
+    <fragment
+        android:id="@+id/prologueDetailFragment"
+        android:name="PrologueDetailFragment"
+        android:label="PrologueDetailFragment" />
     <fragment
             android:id="@+id/loungePostWriteFragment"
             android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungePostWriteFragment"
