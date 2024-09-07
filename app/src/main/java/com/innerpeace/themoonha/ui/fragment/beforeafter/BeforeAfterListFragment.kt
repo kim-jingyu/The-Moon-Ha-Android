@@ -15,7 +15,7 @@ import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
+import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
 
 /**
@@ -95,7 +95,7 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupToBite() {
         binding.biteForField.setOnClickListener {
-            findNavController().navigate(R.id.action_to_field)
+            findNavController().navigate(R.id.action_before_after_to_field)
         }
     }
 

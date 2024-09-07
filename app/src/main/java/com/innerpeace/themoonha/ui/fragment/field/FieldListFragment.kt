@@ -19,8 +19,8 @@ import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterSearchFragment
-import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.FieldViewModel
+import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
 class FieldListFragment : Fragment() {
@@ -189,7 +189,7 @@ class FieldListFragment : Fragment() {
 
     private fun setupToBeforeAfter() {
         binding.beforeAfter.setOnClickListener {
-            findNavController().navigate(R.id.action_to_beforeAfterList)
+            findNavController().navigate(R.id.action_field_to_beforeAfterList)
         }
     }
 

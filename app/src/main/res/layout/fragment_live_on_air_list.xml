@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="ON AIR"
-        android:drawableEnd="@drawable/ic_onair_resized"
+        android:drawableEnd="@drawable/ic_onair_on_resized"
         android:textColor="@color/green"
         android:textSize="15dp"
         app:layout_constraintBottom_toTopOf="@+id/line"

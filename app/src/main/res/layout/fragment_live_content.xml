@@ -45,10 +45,11 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="317dp"
-        android:layout_height="23dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
+        android:layout_marginLeft="10dp"
         android:text="타이틀"
         android:textColor="@color/black"
         android:textSize="15dp"
@@ -75,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        app:srcCompat="@drawable/ic_dot"
+        app:srcCompat="@drawable/ic_dot_resized"
         app:layout_constraintStart_toEndOf="@id/instructorName"
         app:layout_constraintTop_toTopOf="@id/instructorName"
         app:layout_constraintBottom_toBottomOf="@id/instructorName"

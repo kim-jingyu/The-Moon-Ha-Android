@@ -10,14 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.live.LiveOnAirListAdapter
 import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import com.innerpeace.themoonha.databinding.FragmentLiveOnAirListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LiveViewModel
-import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LiveViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LiveViewModelFactory
 
 class LiveOnAirListFragment : Fragment() {
     private var _binding: FragmentLiveOnAirListBinding? = null
@@ -83,13 +84,15 @@ class LiveOnAirListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+        binding.fieldListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         adapter = LiveOnAirListAdapter(emptyList()) { content ->
-            navigateToLiveLessonDetail(content)
+            navigateToLiveLessonStreamingMain(content)
         }
         binding.fieldListRecyclerView.adapter = adapter
     }
 
-    private fun navigateToLiveLessonDetail(content: LiveLessonResponse) {
+    private fun navigateToLiveLessonStreamingMain(content: LiveLessonResponse) {
         viewModel.getLiveLessonDetail(content.liveId)
         viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
             detailResponse?.let {
@@ -107,7 +110,7 @@ class LiveOnAirListFragment : Fragment() {
 
     private fun setupToMyLiveLesson() {
         binding.myLiveLesson.setOnClickListener {
-            findNavController().navigate(R.id.action_to_myLiveLesson)
+            findNavController().navigate(R.id.action_onAir_to_myLiveLesson)
         }
     }
 
@@ -115,5 +118,4 @@ class LiveOnAirListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

@@ -4,7 +4,7 @@
         android:width="25dp"
         android:height="20dp"
         android:left="10dp"
-        android:drawable="@drawable/ic_onair"
+        android:drawable="@drawable/ic_onair_on"
         android:tint="@color/red"
         />
 </layer-list>

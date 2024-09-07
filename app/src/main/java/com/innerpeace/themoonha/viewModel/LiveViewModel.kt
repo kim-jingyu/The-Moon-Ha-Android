@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.viewModel
+package com.innerpeace.themoonha.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -10,14 +10,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.live.LiveMyLiveLessonListAdapter
 import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import com.innerpeace.themoonha.databinding.FragmentLiveMyLessonListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LiveViewModel
-import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LiveViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LiveViewModelFactory
 
 class LiveMyLessonListFragment : Fragment() {
     private var _binding: FragmentLiveMyLessonListBinding? = null
@@ -68,28 +69,30 @@ class LiveMyLessonListFragment : Fragment() {
             ) {
                 when (position) {
                     0 -> {
-                        viewModel.getLiveLessonListWithoutMember()
+                        viewModel.getLiveLessonListWithMember()
                     }
                     1 -> {
-                        viewModel.getLiveLessonListWithoutMemberOrderByTitle()
+                        viewModel.getLiveLessonListWithMemberOrderByTitle()
                     }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                viewModel.getLiveLessonListWithoutMember()
+                viewModel.getLiveLessonListWithMember()
             }
         }
     }
 
     private fun setupRecyclerView() {
+        binding.fieldListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         adapter = LiveMyLiveLessonListAdapter(emptyList()) { content ->
-            navigateToLiveLessonDetail(content)
+            navigateToLiveLessonStreamingMain(content)
         }
         binding.fieldListRecyclerView.adapter = adapter
     }
 
-    private fun navigateToLiveLessonDetail(content: LiveLessonResponse) {
+    private fun navigateToLiveLessonStreamingMain(content: LiveLessonResponse) {
         viewModel.getLiveLessonDetail(content.liveId)
         viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
             detailResponse?.let {
@@ -106,8 +109,8 @@ class LiveMyLessonListFragment : Fragment() {
     }
 
     private fun setupToOnAir() {
-        binding.myLiveLesson.setOnClickListener {
-            findNavController().navigate(R.id.action_to_myLiveLesson)
+        binding.onAir.setOnClickListener {
+            findNavController().navigate(R.id.action_myLiveLesson_to_onAir)
         }
     }
 

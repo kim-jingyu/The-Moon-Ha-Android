@@ -1,9 +1,9 @@
-package com.innerpeace.themoonha.viewModel.factory
+package com.innerpeace.themoonha.viewmodel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.innerpeace.themoonha.data.repository.LiveRepository
-import com.innerpeace.themoonha.viewModel.LiveViewModel
+import com.innerpeace.themoonha.viewmodel.LiveViewModel
 
 class LiveViewModelFactory(private val datasource: LiveRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

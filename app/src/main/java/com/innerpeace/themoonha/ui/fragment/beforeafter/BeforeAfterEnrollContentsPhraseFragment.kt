@@ -30,9 +30,9 @@ import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -203,7 +203,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             beforeAfterViewModel.makeBeforeAfterResponse.collect { result ->
                 result?.fold(
                     onSuccess = {
-                        findNavController().navigate(R.id.action_to_beforeAfterList)
+                        findNavController().navigate(R.id.action_before_after_to_beforeAfterList)
                     },
                     onFailure = {
                         Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()

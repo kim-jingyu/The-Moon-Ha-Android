@@ -31,9 +31,9 @@ import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.FieldViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -194,7 +194,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
                     onSuccess = {
                         Log.d("FieldListFragment", "Navigating to field fragment")
                         try {
-                            findNavController().navigate(R.id.action_to_field)
+                            findNavController().navigate(R.id.action_field_to_field)
                             Log.d("FieldListFragment", "Navigation success!")
                         } catch (e: IllegalArgumentException) {
                             Log.e("FieldListFragment", "Navigation failed: ${e.message}")
