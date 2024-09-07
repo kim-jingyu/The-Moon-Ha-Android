@@ -52,18 +52,6 @@ class BeforeAfterAdapter(
         holder.binding.root.setOnClickListener {
             itemClickListener(content)
         }
-
-        holder.binding.beforeImage.setOnClickListener {
-            itemClickListener(content)
-        }
-
-        holder.binding.afterImage.setOnClickListener {
-            itemClickListener(content)
-        }
-
-        holder.binding.title.setOnClickListener {
-            itemClickListener(content)
-        }
     }
 
     private fun setupBottomContent(

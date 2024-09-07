@@ -143,7 +143,6 @@ class FieldListFragment : Fragment() {
     }
 
     private fun groupDataByCategory(fieldList: List<FieldListResponse>): List<FieldCategoryGroup> {
-        Log.d("FieldListFragment", "Grouping data by category, field list size: ${fieldList.size}")
         return fieldList.groupBy { it.categoryId }
             .mapNotNull { (categoryId, fields) ->
                 val firstField = fields.firstOrNull()
@@ -171,11 +170,6 @@ class FieldListFragment : Fragment() {
     private fun navigateToFieldDetail(content: FieldListResponse) {
         viewModel.getFieldDetail(content.fieldId)
         viewModel.fieldDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            if (detailResponse == null) {
-                Log.e("FieldListFragment", "Detail response is null!")
-                return@observe
-            }
-
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, FieldDetailFragment().apply {
                     arguments = Bundle().apply {

@@ -114,20 +114,19 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
     }
 
     fun getLiveLessonDetail(liveId: Long) {
-            viewModelScope.launch {
-                try {
-                    val response = datasource.retrieveLiveLessonDetail(liveId)
-                    if (response.isSuccessful && response.body() != null) {
-                        _liveLessonDetail.value = response.body()!!
-                    } else {
-                        _error.value = LiveRetrievingException()
-                    }
-                } catch (e: Exception) {
+        viewModelScope.launch {
+            try {
+                val response = datasource.retrieveLiveLessonDetail(liveId)
+                if (response.isSuccessful && response.body() != null) {
+                    _liveLessonDetail.value = response.body()!!
+                } else {
                     _error.value = LiveRetrievingException()
                 }
+            } catch (e: Exception) {
+                _error.value = LiveRetrievingException()
             }
         }
-
+    }
 
     fun makeLesson(
         liveLessonRequest: RequestBody,

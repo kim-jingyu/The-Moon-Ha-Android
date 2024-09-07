@@ -2,7 +2,6 @@ package com.innerpeace.themoonha.data.model.live
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.*
 
 @Parcelize
 data class LiveLessonDetailResponse(
@@ -15,7 +14,7 @@ data class LiveLessonDetailResponse(
     val thumbnailUrl: String,
     val broadcastUrl: String,
     val status: LiveStatus,
-    val createdAt: Date,
+    val createdAt: Long,
     val minutesAgo: Long,
     val isEnrolled: Boolean
 ) : Parcelable

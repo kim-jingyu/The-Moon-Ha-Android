@@ -70,14 +70,6 @@ class LiveMyLiveLessonListAdapter(
         holder.binding.root.setOnClickListener {
             itemClickListener(content)
         }
-
-        holder.binding.liveContentImage.setOnClickListener {
-            itemClickListener(content)
-        }
-
-        holder.binding.title.setOnClickListener {
-            itemClickListener(content)
-        }
     }
 
     fun updateContents(contents: List<LiveLessonResponse>) {

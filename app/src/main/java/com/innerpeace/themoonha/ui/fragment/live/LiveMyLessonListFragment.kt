@@ -1,6 +1,7 @@
 package com.innerpeace.themoonha.ui.fragment.live
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -94,17 +95,20 @@ class LiveMyLessonListFragment : Fragment() {
 
     private fun navigateToLiveLessonStreamingMain(content: LiveLessonResponse) {
         viewModel.getLiveLessonDetail(content.liveId)
-        viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            detailResponse?.let {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, LiveStreamingMainFragment().apply {
-                        arguments = Bundle().apply {
-                            putParcelable("liveLessonDetailResponse", it)
-                        }
-                    })
-                    .addToBackStack(null)
-                    .commit()
+
+        viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { response ->
+            if (response == null) {
+                Log.e("LiveMainFragment", "detailResponse is null")
+                return@observe
             }
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, LiveStreamingMainFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("liveLessonDetailResponse", response)
+                    }
+                })
+                .addToBackStack(null)
+                .commit()
         }
     }
 

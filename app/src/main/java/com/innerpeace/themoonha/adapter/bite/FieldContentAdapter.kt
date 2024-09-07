@@ -42,10 +42,6 @@ class FieldContentAdapter(
         holder.binding.root.setOnClickListener {
             itemClickListener(fieldItem)
         }
-        holder.binding.content.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.title.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.profileImage.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.memberName.setOnClickListener { itemClickListener(fieldItem) }
     }
 
     override fun getItemCount(): Int = fieldList.size

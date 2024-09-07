@@ -18,7 +18,7 @@
     <ImageView
         android:id="@+id/onair_indicator"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
+        android:layout_height="300dp"
         android:background="@color/light_gray_1"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,16 +52,13 @@
 
     <FrameLayout
         android:id="@+id/live_streaming_info_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
         app:layout_constraintTop_toBottomOf="@id/onair_indicator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_border_live_main"
-        >
-
-        <include layout="@layout/fragment_live_streaming_main_info" />
-    </FrameLayout>
-
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
