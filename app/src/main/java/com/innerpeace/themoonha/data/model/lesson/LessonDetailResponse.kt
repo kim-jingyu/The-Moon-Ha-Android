@@ -10,6 +10,7 @@ data class LessonDetailResponse(
     val place: String,
     val tutorName: String,
     val cost: Int,
+    val onlineCost: Int?,
     val summary: String,
     val curriculum: String,
     val supply: String,

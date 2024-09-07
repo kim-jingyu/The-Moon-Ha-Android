@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="130dp"
-    android:layout_margin="8dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginBottom="4dp"
     android:padding="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
@@ -17,27 +19,56 @@
             android:id="@+id/cartItemCheckBox"
             android:layout_width="29dp"
             android:layout_height="38dp"
-            android:layout_margin="5dp"
+            android:layout_marginRight="10dp"
             android:buttonTint="@color/light_green"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/colorIndicator"
             android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="10dp"
+            android:layout_height="match_parent"
             android:background="#FF0000"
-            app:layout_constraintStart_toEndOf="@id/cartItemCheckBox"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/onlineYn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:background="@drawable/rounded_green_background"
+            android:textSize="10sp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="온라인"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/colorIndicator"
+            />
+
+        <TextView
+            android:id="@+id/targetDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:padding="4dp"
+            android:background="@drawable/rounded_black_background"
+            android:textSize="10sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:text="타겟 설명"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/onlineYn"
+            />
 
         <TextView
             android:id="@+id/cartItemTitle"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
             android:paddingHorizontal="10dp"
             android:maxLines="1"
             android:ellipsize="end"
@@ -46,7 +77,7 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/infoLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/colorIndicator"
+            app:layout_constraintTop_toBottomOf="@id/cartItemCheckBox"
             tools:text="감성을 자극하는 아름다운 선율의 첼로 12회(6.8개강)" />
 
         <LinearLayout
@@ -59,7 +90,7 @@
             app:layout_constraintTop_toBottomOf="@id/cartItemTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp">
 
             <TextView

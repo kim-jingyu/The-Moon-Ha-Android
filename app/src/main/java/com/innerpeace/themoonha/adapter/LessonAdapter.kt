@@ -14,7 +14,7 @@ import com.innerpeace.themoonha.data.model.lesson.LessonDTO
 class LessonAdapter(
     private var lessons: List<LessonDTO>,
     private val onLessonClick: (Long) -> Unit,
-    private val onAddToCartClick: () -> Unit
+    private val onAddToCartClick: (Long) -> Unit
 ) : RecyclerView.Adapter<LessonAdapter.LessonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
@@ -36,7 +36,7 @@ class LessonAdapter(
 
     class LessonViewHolder(
         itemView: View, private val onLessonClick: (Long) -> Unit,
-        private val onAddToCartClick: () -> Unit
+        private val onAddToCartClick: (Long) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
 
         private val thumbnail: ImageView = itemView.findViewById(R.id.thumbnail)
@@ -65,7 +65,7 @@ class LessonAdapter(
             }
 
             addToCartButton.setOnClickListener {
-                onAddToCartClick()
+                onAddToCartClick(lesson.lessonId)
             }
         }
     }

@@ -42,7 +42,11 @@
     <fragment
             android:id="@+id/fragment_cart"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartFragment"
-            android:label="CartFragment" />
+            android:label="CartFragment" >
+        <action
+            android:id="@+id/action_fragment_cart_to_fragment_lesson"
+            app:destination="@id/fragment_lesson" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_craft"
             android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
