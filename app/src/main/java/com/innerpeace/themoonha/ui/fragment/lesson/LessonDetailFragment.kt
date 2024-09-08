@@ -3,6 +3,8 @@ package com.innerpeace.themoonha.ui.fragment.lesson
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.icu.text.DecimalFormat
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,14 +13,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.AppCompatButton
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
@@ -45,12 +52,13 @@ class LessonDetailFragment : Fragment() {
     ): View? {
         _binding = FragmentLessonDetailBinding.inflate(inflater, container, false)
         val view = binding.root
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.GONE
+        (activity as? MainActivity)?.hideNavigationBar()
         (activity as? MainActivity)?.setToolbarTitle("강좌 상세")
 
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,10 +75,16 @@ class LessonDetailFragment : Fragment() {
                 binding.textViewCnt.text = "${it.cnt}회"
                 binding.textViewPlace.text = it.place
                 binding.textViewTutorName.text = it.tutorName
-                binding.textViewCost.text = "${it.cost} 원"
+                binding.textViewCost.text = formatCurrency(it.cost)
                 binding.textViewSummary.text = it.summary
                 binding.textViewCurriculum.text = it.curriculum
                 binding.textViewSupply.text = it.supply
+
+                if (it.onlineCost == null) {
+                    binding.textViewOnlineCost.text = "온라인 지원 X"
+                } else {
+                    binding.textViewOnlineCost.text = formatCurrency(it.onlineCost)
+                }
 
                 binding.textViewTutorName2.text = it.tutorName
 
@@ -89,7 +103,7 @@ class LessonDetailFragment : Fragment() {
         setupTabLayout()
 
         binding.addToCartButton.setOnClickListener {
-            findNavController().navigate(R.id.action_lessonDetailFragment_to_fragment_cart)
+            showOnlineYnSelectionDialog()
         }
 
         binding.scrollView.post {
@@ -199,6 +213,73 @@ class LessonDetailFragment : Fragment() {
         })
 
         animator.start()
+    }
+
+    private fun showOnlineYnSelectionDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.fragment_lesson_detail_dialog, null)
+        bottomSheetDialog.setContentView(dialogView)
+
+        val btnCompleteSelection = dialogView.findViewById<AppCompatButton>(R.id.btnCompleteSelection)
+        val btnOffline = dialogView.findViewById<AppCompatButton>(R.id.branchHyundaiSeoul)
+        val btnOnline = dialogView.findViewById<AppCompatButton>(R.id.branchJungdong)
+
+        btnCompleteSelection.isEnabled = false
+
+        var isOfflineSelected = false
+        var isOnlineSelected = false
+
+        btnOffline.setOnClickListener {
+            isOfflineSelected = true
+            isOnlineSelected = false
+
+            btnCompleteSelection.isEnabled = true
+            btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.black))
+
+            btnOffline.isSelected = true
+            btnOnline.isSelected = false
+        }
+
+        btnOnline.setOnClickListener {
+            isOnlineSelected = true
+            isOfflineSelected = false
+
+            btnCompleteSelection.isEnabled = true
+            btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.black))
+
+            btnOnline.isSelected = true
+            btnOffline.isSelected = false
+        }
+
+        if (btnCompleteSelection.isEnabled) {
+            btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.black))
+        } else {
+            btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.gray))
+        }
+
+        btnCompleteSelection.setOnClickListener {
+            val onlineYn = isOnlineSelected
+            val lessonId = arguments?.getLong("lessonId") ?: return@setOnClickListener
+
+            val cartRequest = CartRequest(lessonId, onlineYn)
+
+            viewModel.addLessonCart(cartRequest).observe(viewLifecycleOwner, Observer { success ->
+                if (success) {
+                    findNavController().navigate(R.id.action_lessonDetailFragment_to_fragment_cart)
+                    bottomSheetDialog.dismiss()
+                } else {
+                    Log.e("LessonDetailFragment", "장바구니 추가 실패")
+                }
+            })
+        }
+
+        bottomSheetDialog.show()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun formatCurrency(value: Int): String {
+        val decimalFormat = DecimalFormat("#,###")
+        return decimalFormat.format(value) + "원"
     }
 
 

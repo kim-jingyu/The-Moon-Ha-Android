@@ -23,6 +23,9 @@
         <action
                 android:id="@+id/action_fragment_lesson_to_lessonDetailFragment"
                 app:destination="@id/lessonDetailFragment"/>
+        <action
+            android:id="@+id/action_fragment_lesson_to_cartContentFragment"
+            app:destination="@id/cartContentFragment" />
     </fragment>
     <fragment
             android:id="@+id/fragment_schedule"
@@ -39,7 +42,11 @@
     <fragment
             android:id="@+id/fragment_cart"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartFragment"
-            android:label="CartFragment" />
+            android:label="CartFragment" >
+        <action
+            android:id="@+id/action_fragment_cart_to_fragment_lesson"
+            app:destination="@id/fragment_lesson" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_craft"
             android:name="com.innerpeace.themoonha.ui.fragment.craft.CraftFragment"
@@ -117,4 +124,8 @@
                 android:id="@+id/action_loungePostWriteFragment_to_loungeHomeFragment"
                 app:destination="@id/loungeHomeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cartContentFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartContentFragment"
+        android:label="CartContentFragment" />
 </navigation>

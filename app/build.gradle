@@ -43,6 +43,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -81,4 +82,5 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.2'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 }

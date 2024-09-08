@@ -1,9 +1,13 @@
 package com.innerpeace.themoonha.data.repository
 
 import android.util.Log
+import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lesson.CartRequest
+import com.innerpeace.themoonha.data.model.lesson.CartResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
+import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import com.innerpeace.themoonha.data.network.LessonService
 
 class LessonRepository(private val lessonService: LessonService) {
@@ -22,6 +26,33 @@ class LessonRepository(private val lessonService: LessonService) {
             lessonService.getLessonDetail(lessonId)
         } catch (e: Exception) {
             Log.e("강좌 상세 조회 응답 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    suspend fun fetchLessonCart(): List<CartResponse>? {
+        return try {
+            lessonService.getLessonCart()
+        } catch (e: Exception) {
+            Log.e("강좌 장바구니 조회 응답 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    suspend fun fetchAddLessonCart(cartRequest: CartRequest) : CommonResponse? {
+        return try {
+            lessonService.addLessonCart(cartRequest)
+        } catch (e: Exception) {
+            Log.e("강좌 장바구니 담기 응답 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    suspend fun fetchPayLesson(sugangRequest: SugangRequest) : CommonResponse? {
+        return try {
+            lessonService.payLesson(sugangRequest)
+        } catch (e: Exception) {
+            Log.e("강좌 신청 응답 실패", "${e.message}", e)
             null
         }
     }

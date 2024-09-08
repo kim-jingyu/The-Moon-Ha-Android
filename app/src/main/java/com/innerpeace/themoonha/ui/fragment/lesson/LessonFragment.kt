@@ -1,6 +1,7 @@
 package com.innerpeace.themoonha.ui.fragment.lesson
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.LessonAdapter
 import com.innerpeace.themoonha.adapter.ShortFormAdapter
 import com.innerpeace.themoonha.data.model.lesson.Branch
+import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.model.lesson.LessonListRequest
 import com.innerpeace.themoonha.data.model.lesson.toQueryMap
 import com.innerpeace.themoonha.data.network.ApiClient
@@ -76,8 +78,19 @@ class LessonFragment : Fragment() {
         binding.recyclerViewLesson.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         lessonAdapter = LessonAdapter(lessons = listOf(), onLessonClick = { lessonId ->
             findNavController().navigate(R.id.action_fragment_lesson_to_lessonDetailFragment, bundleOf("lessonId" to lessonId)  )
-        }, onAddToCartClick = {
-            findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+        }, onAddToCartClick = { lessonId ->
+            val cartRequest = CartRequest(
+                lessonId = lessonId,
+                onlineYn = false
+            )
+
+            viewModel.addLessonCart(cartRequest).observe(viewLifecycleOwner, Observer { success ->
+                if (success) {
+                    findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+                } else {
+                    Log.e("LessonFragment", "장바구니에 상품 추가 실패")
+                }
+            })
         })
         binding.recyclerViewLesson.adapter = lessonAdapter
 
@@ -95,6 +108,10 @@ class LessonFragment : Fragment() {
 
         binding.recyclerViewShortForm.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recyclerViewShortForm.adapter = shortFormAdapter
+
+        binding.myCultureCenter.setOnClickListener {
+            findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+        }
 
         // ViewModel의 데이터 관찰
         viewModel.lessonList.observe(viewLifecycleOwner, Observer { lessons ->

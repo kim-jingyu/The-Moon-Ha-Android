@@ -4,9 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.innerpeace.themoonha.adapter.CartItemAdapter
+import com.innerpeace.themoonha.data.model.lesson.Branch
+import com.innerpeace.themoonha.data.model.lesson.CartRequest
+import com.innerpeace.themoonha.data.model.lesson.CartResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonDTO
+import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
+import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
+import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import com.innerpeace.themoonha.data.model.lesson.*
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
+import java.net.HttpURLConnection
 
 class LessonViewModel(private val lessonRepository: LessonRepository) : ViewModel() {
     private val _lessonList = MutableLiveData<List<LessonDTO>>()
@@ -23,6 +32,12 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     private val _lessonDetail = MutableLiveData<LessonDetailResponse>()
     val lessonDetail: LiveData<LessonDetailResponse> get() = _lessonDetail
+
+    private val _lessonCart = MutableLiveData<List<CartResponse>>()
+    val lessonCart: LiveData<List<CartResponse>> get() = _lessonCart
+
+    private val _paymentStatus = MutableLiveData<Boolean>()
+    val paymentStatus: LiveData<Boolean> get() = _paymentStatus
 
     private val _lessonEnroll = MutableLiveData<List<LessonEnrollResponse>>()
     val lessonEnroll: LiveData<List<LessonEnrollResponse>> get() = _lessonEnroll
@@ -49,6 +64,43 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
             val response = lessonRepository.fetchLessonDetail(lessonId)
             response?.let {
                 _lessonDetail.value = it
+            }
+        }
+    }
+
+    fun getLessonCart() {
+        viewModelScope.launch {
+            val response = lessonRepository.fetchLessonCart()
+            response?.let {
+                _lessonCart.value = it
+            }
+        }
+    }
+
+    fun addLessonCart(cartRequest: CartRequest): LiveData<Boolean> {
+        val result = MutableLiveData<Boolean>()
+
+        viewModelScope.launch {
+            try {
+                val response = lessonRepository.fetchAddLessonCart(cartRequest)
+                if (response != null) {
+                    result.postValue(response.success)
+                }
+            } catch (e: Exception) {
+                result.postValue(false) // 오류 발생 시 실패 처리
+            }
+        }
+
+        return result
+    }
+
+    fun payLesson(sugangRequest: SugangRequest) {
+        viewModelScope.launch {
+            try {
+                val response = lessonRepository.fetchPayLesson(sugangRequest)
+                _paymentStatus.postValue(response != null && response.success)
+            } catch (e: Exception) {
+                _paymentStatus.postValue(false)
             }
         }
     }
