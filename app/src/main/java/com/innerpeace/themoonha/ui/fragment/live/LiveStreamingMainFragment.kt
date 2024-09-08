@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.innerpeace.themoonha.BuildConfig.BASE_IP_ADDRESS
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
@@ -14,12 +17,27 @@ import com.innerpeace.themoonha.databinding.FragmentLiveStreamingMainBinding
 import com.innerpeace.themoonha.viewmodel.LiveViewModel
 import com.innerpeace.themoonha.viewmodel.factory.LiveViewModelFactory
 
+/**
+ * 실시간 강좌 - 스트리밍 메인 페이지 프래그먼트
+ * @author 김진규
+ * @since 2024.09.06
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.06  	김진규       최초 생성
+ * </pre>
+ */
 class LiveStreamingMainFragment : Fragment() {
     private var _binding: FragmentLiveStreamingMainBinding? = null
     private val binding get() = _binding!!
+    private var player: ExoPlayer? = null
     private val viewModel: LiveViewModel by viewModels {
         LiveViewModelFactory(LiveRepository())
     }
+
+    private var liveId: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +56,10 @@ class LiveStreamingMainFragment : Fragment() {
             return
         }
 
+        liveId = resp.liveId
+        viewModel.joinLiveLesson(liveId)
+        setOnAirPlayer(resp.broadcastUrl)
+
         val mainInfoFragment = LiveStreamingMainInfoFragment().apply {
             arguments = Bundle().apply {
                 putParcelable("liveLessonDetailResponse", resp)
@@ -52,5 +74,31 @@ class LiveStreamingMainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        releaseOnAirPlayer()
+    }
+
+    private fun releaseOnAirPlayer() {
+        player?.release()
+        player = null
+        viewModel.leaveLiveLesson(liveId)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player?.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        player?.play()
+    }
+
+    private fun setOnAirPlayer(streamUrl: String) {
+        player = ExoPlayer.Builder(requireContext()).build()
+        binding.onAirPlayer.player = player
+        val mediaItem = MediaItem.fromUri(streamUrl.replace("localhost", BASE_IP_ADDRESS))
+        player?.setMediaItem(mediaItem)
+        player?.prepare()
+        player?.playWhenReady = true
     }
 }

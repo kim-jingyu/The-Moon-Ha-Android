@@ -44,27 +44,27 @@ interface LiveService {
         @Part thumbnail: MultipartBody.Part
     ): CommonResponse
 
-    @POST("/{liveId}/end")
+    @POST("/live/{liveId}/end")
     suspend fun endLiveLesson(@Path("liveId") liveId: Long): CommonResponse
 
-    @GET("/{liveId}/status")
+    @GET("/live/{liveId}/status")
     suspend fun retrieveLiveLessonStatus(@Path("liveId") liveId: Long): Response<LiveLessonStatusResponse>
 
-    @GET("/{liveId}/viewers")
+    @GET("/live/{liveId}/viewers")
     suspend fun getViewersCount(@Path("liveId") liveId: Long): Response<Int>
 
-    @GET("/{liveId}/likes")
+    @GET("/live/{liveId}/likes")
     suspend fun getLLikesCount(@Path("liveId") liveId: Long): Response<Int>
 
-    @POST("/{liveId}/join")
+    @POST("/live/{liveId}/join")
     suspend fun joinLiveLesson(@Path("liveId") liveId: Long): Response<Int>
 
     @POST("/{liveId}/leave")
     suspend fun leaveLiveLesson(@Path("liveId") liveId: Long): Response<Int>
 
-    @POST("/{liveId}/like")
+    @POST("/live/{liveId}/like")
     suspend fun likeLiveLesson(@Path("liveId") liveId: Long): Response<Int>
 
-    @GET("/{liveId}/share")
+    @GET("/live/{liveId}/share")
     suspend fun getShareLink(@Path("liveId") liveId: Long): Response<String>
 }

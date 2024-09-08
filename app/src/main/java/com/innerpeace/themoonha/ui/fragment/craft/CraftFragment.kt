@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.ui.fragment.craft
 
-import android.R.attr.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -31,7 +29,7 @@ import com.innerpeace.themoonha.data.repository.CraftRepository
 import com.innerpeace.themoonha.databinding.FragmentCraftBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.CraftViewModel
-import com.innerpeace.themoonha.viewModel.factory.CraftViewModelFactory
+import com.innerpeace.themoonha.viewmodel.factory.CraftViewModelFactory
 
 
 class CraftFragment : Fragment() {

@@ -192,7 +192,7 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
         }
     }
 
-    fun getLLikesCount(liveId: Long) {
+    fun getLikesCount(liveId: Long) {
         viewModelScope.launch {
             try {
                 val response = datasource.getLLikesCount(liveId)

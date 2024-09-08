@@ -30,9 +30,9 @@ import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
+import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -42,6 +42,18 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Before&After 콘텐츠 등록 문구 추가 프래그먼트
+ * @author 김진규
+ * @since 2024.08.28
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.28  	김진규       최초 생성
+ * </pre>
+ */
 class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
     private var _binding: FragmentBeforeAfterEnrollContentsPhraseBinding? = null
     private val binding get() = _binding!!

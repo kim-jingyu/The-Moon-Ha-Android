@@ -31,9 +31,9 @@ import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.FieldViewModel
 import com.innerpeace.themoonha.viewmodel.LessonViewModel
+import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -43,6 +43,18 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * 분야별 한 입 콘텐츠 등록 문구 추가 프래그먼트
+ * @author 김진규
+ * @since 2024.09.03
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  	김진규       최초 생성
+ * </pre>
+ */
 class FieldEnrollContentsPhraseFragment : Fragment() {
     private var _binding: FragmentFieldEnrollContentsPhraseBinding? = null
     private val binding get() = _binding!!

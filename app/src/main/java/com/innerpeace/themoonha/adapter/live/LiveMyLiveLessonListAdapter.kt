@@ -52,6 +52,7 @@ class LiveMyLiveLessonListAdapter(
             .circleCrop()
             .into(holder.binding.profileImage)
         holder.binding.instructorName.text = onAirContent.instructorName
+        holder.binding.minutesAgo.text = "${onAirContent.minutesAgo}분전"
     }
 
     private fun setUpContent(

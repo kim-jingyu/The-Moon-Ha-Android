@@ -1,10 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -22,10 +18,9 @@ import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeBinding
-import com.innerpeace.themoonha.ui.NewScrollView
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LoungeViewModel
-import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LoungeViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LoungeViewModelFactory
 
 /**
  * 라운지 개별 홈 프래그먼트

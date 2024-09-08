@@ -21,6 +21,18 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewmodel.LiveViewModel
 import com.innerpeace.themoonha.viewmodel.factory.LiveViewModelFactory
 
+/**
+ * 실시간 강좌 - 내 강좌 목록 조회 프래그먼트
+ * @author 김진규
+ * @since 2024.09.06
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.06  	김진규       최초 생성
+ * </pre>
+ */
 class LiveMyLessonListFragment : Fragment() {
     private var _binding: FragmentLiveMyLessonListBinding? = null
     private val binding get() = _binding!!

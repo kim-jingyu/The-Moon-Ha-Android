@@ -23,6 +23,18 @@ import com.innerpeace.themoonha.viewmodel.FieldViewModel
 import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
+/**
+ * 분야별 한 입 목록 조회 프래그먼트
+ * @author 김진규
+ * @since 2024.09.05
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.05  	김진규       최초 생성
+ * </pre>
+ */
 class FieldListFragment : Fragment() {
     private var _binding: FragmentFieldListBinding? = null
     private val binding get() = _binding!!

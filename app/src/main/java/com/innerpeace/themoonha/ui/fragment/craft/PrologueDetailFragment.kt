@@ -19,7 +19,7 @@ import com.innerpeace.themoonha.data.network.CraftService
 import com.innerpeace.themoonha.data.repository.CraftRepository
 import com.innerpeace.themoonha.databinding.FragmentPrologueDetailBinding
 import com.innerpeace.themoonha.viewModel.CraftViewModel
-import com.innerpeace.themoonha.viewModel.factory.CraftViewModelFactory
+import com.innerpeace.themoonha.viewmodel.factory.CraftViewModelFactory
 
 class PrologueDetailFragment : Fragment() {
     private var _binding: FragmentPrologueDetailBinding? = null

@@ -2,28 +2,22 @@ package com.innerpeace.themoonha.ui.fragment.lounge
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.util.TypedValue
 import android.view.*
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.marginRight
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.lounge.LoungeHomeMemberViewAdapter
 import com.innerpeace.themoonha.adapter.lounge.LoungePostImageAddAdapter
 import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
 import com.innerpeace.themoonha.data.network.ApiClient
@@ -31,8 +25,8 @@ import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungePostWriteBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LoungeViewModel
-import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LoungeViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LoungeViewModelFactory
 
 /**
  * 라운지 게시글 작성 프래그먼트

@@ -3,4 +3,6 @@
     <string name="service_name">TheMoonHa</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="kakao_app_key">fc09399d8a76d6b42a0449480b4af419</string>
+    <string name="kakao_scheme">kakaovTUKwpxKO2+ep24VWt68bUOWMug=</string>
 </resources>

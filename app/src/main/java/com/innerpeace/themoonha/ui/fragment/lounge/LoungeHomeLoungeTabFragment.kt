@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomePostViewAdapter
 import com.innerpeace.themoonha.adapter.lounge.item.SharedViewModel
@@ -20,8 +18,8 @@ import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeLoungeTabBinding
 import com.innerpeace.themoonha.ui.ConditionalScrollLayoutManager
-import com.innerpeace.themoonha.viewModel.LoungeViewModel
-import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LoungeViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LoungeViewModelFactory
 
 /**
  * 라운지 라운지 탭 프레그먼트
