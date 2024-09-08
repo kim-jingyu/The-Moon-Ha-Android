@@ -4,18 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.innerpeace.themoonha.adapter.CartItemAdapter
 import com.innerpeace.themoonha.data.model.lesson.Branch
 import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.model.lesson.CartResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonDTO
 import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
-import com.innerpeace.themoonha.data.model.lesson.*
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
-import java.net.HttpURLConnection
 
 class LessonViewModel(private val lessonRepository: LessonRepository) : ViewModel() {
     private val _lessonList = MutableLiveData<List<LessonDTO>>()
