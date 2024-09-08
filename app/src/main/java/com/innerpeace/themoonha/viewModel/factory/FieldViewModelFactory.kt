@@ -1,9 +1,9 @@
-package com.innerpeace.themoonha.viewmodel.factory
+package com.innerpeace.themoonha.viewModel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.innerpeace.themoonha.data.repository.FieldRepository
-import com.innerpeace.themoonha.viewmodel.FieldViewModel
+import com.innerpeace.themoonha.viewModel.FieldViewModel
 
 class FieldViewModelFactory(private val dataSource: FieldRepository) :ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -1,10 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -16,13 +12,12 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeNoticeViewAdapter
-import com.innerpeace.themoonha.adapter.lounge.item.SharedViewModel
+import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeBinding
-import com.innerpeace.themoonha.ui.NewScrollView
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory

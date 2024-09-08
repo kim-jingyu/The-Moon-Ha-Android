@@ -30,10 +30,10 @@ import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
-import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
-import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewModel.LessonViewModel
+import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
+import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

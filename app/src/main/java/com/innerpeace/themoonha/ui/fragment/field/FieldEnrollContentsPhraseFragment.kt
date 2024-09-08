@@ -31,10 +31,10 @@ import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldEnrollContentsPhraseBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.FieldViewModel
-import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
-import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewModel.FieldViewModel
+import com.innerpeace.themoonha.viewModel.LessonViewModel
+import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
+import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import kotlinx.coroutines.flow.collect
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

@@ -2,9 +2,7 @@ package com.innerpeace.themoonha.adapter.lounge
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.innerpeace.themoonha.adapter.lounge.item.LoungeHomePostViewHolder
-import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
-import com.innerpeace.themoonha.adapter.lounge.item.LoungeListViewHolder
+import com.innerpeace.themoonha.adapter.lounge.viewHolder.LoungeHomePostViewHolder
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 
 /**

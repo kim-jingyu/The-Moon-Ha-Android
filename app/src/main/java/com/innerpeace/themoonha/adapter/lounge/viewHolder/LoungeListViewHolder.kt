@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter.lounge.item
+package com.innerpeace.themoonha.adapter.lounge.viewHolder
 
 import android.view.LayoutInflater
 import android.view.View

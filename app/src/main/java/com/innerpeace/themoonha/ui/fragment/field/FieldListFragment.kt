@@ -19,8 +19,8 @@ import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterSearchFragment
-import com.innerpeace.themoonha.viewmodel.FieldViewModel
-import com.innerpeace.themoonha.viewmodel.factory.FieldViewModelFactory
+import com.innerpeace.themoonha.viewModel.FieldViewModel
+import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
 class FieldListFragment : Fragment() {

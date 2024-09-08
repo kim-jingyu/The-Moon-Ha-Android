@@ -1,18 +1,11 @@
-package com.innerpeace.themoonha.adapter.lounge.item
+package com.innerpeace.themoonha.adapter.lounge.viewHolder
 
-import android.graphics.Color
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
-import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import com.innerpeace.themoonha.databinding.ItemCommentBinding
-import com.innerpeace.themoonha.databinding.ItemPostBinding
 
 /**
  * 라운지 게시물 댓글 Recycler View Holder

@@ -1,9 +1,9 @@
-package com.innerpeace.themoonha.viewmodel.factory
+package com.innerpeace.themoonha.viewModel.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
-import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
 
 class BeforeAfterViewModelFactory(private val dataSource: BeforeAfterRepository) :ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

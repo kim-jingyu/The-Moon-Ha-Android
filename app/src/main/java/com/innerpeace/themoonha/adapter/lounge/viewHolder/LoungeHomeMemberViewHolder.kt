@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter.lounge.item
+package com.innerpeace.themoonha.adapter.lounge.viewHolder
 
 /**
  * 라운지 홈 라운지 참여자 Recycler View Holder
@@ -13,16 +13,11 @@ package com.innerpeace.themoonha.adapter.lounge.item
  * </pre>
  */
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
-import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
-import com.innerpeace.themoonha.databinding.ItemLoungeBinding
 import com.innerpeace.themoonha.databinding.ItemMemberBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 class LoungeHomeMemberViewHolder(private val binding: ItemMemberBinding) : RecyclerView.ViewHolder(binding.root) {
 

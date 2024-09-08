@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter.lounge.item
+package com.innerpeace.themoonha.viewModel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

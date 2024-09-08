@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayout
+import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.databinding.FragmentScheduleBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeInfoTabFragment
+import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeLoungeTabFragment
 
 /**
  * 스케줄 프래그먼트
@@ -36,6 +40,35 @@ class ScheduleFragment : Fragment() {
         (activity as? MainActivity)?.setToolbarTitle("스케줄")
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setTabLayout()
+    }
+
+    // 탭 설정
+    private fun setTabLayout() {
+        replaceFragment(ScheduleWeeklyFragment())
+
+        binding.tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position) {
+                    0 -> replaceFragment(ScheduleWeeklyFragment())
+//                    1 -> replaceFragment()
+                }
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+        binding.tab.getTabAt(0)?.select()
+    }
+
+    // 탭 페이지 이동
+    private fun replaceFragment(fragment: Fragment) {
+        childFragmentManager.beginTransaction()
+            .replace(R.id.tab_layout_fragment, fragment)
+            .commit()
     }
 
     override fun onDestroyView() {

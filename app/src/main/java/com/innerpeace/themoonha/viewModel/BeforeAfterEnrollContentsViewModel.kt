@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.viewmodel
+package com.innerpeace.themoonha.viewModel
 
 import androidx.lifecycle.ViewModel
 import okhttp3.MultipartBody

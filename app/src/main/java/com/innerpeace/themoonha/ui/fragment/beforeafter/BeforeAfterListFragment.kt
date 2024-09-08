@@ -15,8 +15,8 @@ import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.BeforeAfterViewModel
-import com.innerpeace.themoonha.viewmodel.factory.BeforeAfterViewModelFactory
+import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 
 /**
  * Before&After 프래그먼트
