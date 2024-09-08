@@ -1,22 +1,15 @@
-package com.innerpeace.themoonha.adapter.lounge.item
+package com.innerpeace.themoonha.adapter.lounge.viewHolder
 
-import android.content.Context
 import android.content.res.Resources
-import android.graphics.Color
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
-import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.databinding.ItemPostBinding
 
 /**
@@ -57,10 +50,10 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
 
     private fun bindImages(imageUrls: List<String>?) {
         val gridLayout = binding.glImages
-        gridLayout.removeAllViews() // 기존의 뷰를 모두 제거합니다.
+        gridLayout.removeAllViews()
 
         if (imageUrls.isNullOrEmpty()) {
-            gridLayout.visibility = View.GONE // 이미지가 없을 경우 GridLayout을 숨깁니다.
+            gridLayout.visibility = View.GONE
             return
         } else {
             gridLayout.visibility = View.VISIBLE
@@ -102,16 +95,16 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
                         .transform(CenterCrop(), RoundedCorners(20))
                         .into(imageView)
                     if (i == 0) {
-                        gridLayout.addView(imageView, createGridLayoutParams(0, 0, 2, 1, marginSize)) // 첫 번째 이미지는 세로로 2칸
+                        gridLayout.addView(imageView, createGridLayoutParams(0, 0, 2, 1, marginSize))
                     } else {
-                        gridLayout.addView(imageView, createGridLayoutParams((i + 1) % 2, 1, 1, 1, marginSize)) // 나머지 두 이미지는 아래쪽에 각 한 칸씩
+                        gridLayout.addView(imageView, createGridLayoutParams((i + 1) % 2, 1, 1, 1, marginSize))
                     }
                 }
             }
             else -> {
                 gridLayout.columnCount = 2
                 gridLayout.rowCount = 2
-                for (i in 0 until 4) { // 최대 4개 이미지만 표시
+                for (i in 0 until 4) {
                     val imageView = createImageView(context, marginSize)
                     Glide.with(context)
                         .load(imageUrls[i])

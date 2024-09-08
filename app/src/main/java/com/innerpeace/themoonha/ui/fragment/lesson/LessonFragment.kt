@@ -27,8 +27,8 @@ import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentLessonBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewmodel.LessonViewModel
-import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewModel.LessonViewModel
+import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 
 class LessonFragment : Fragment() {
     private var _binding: FragmentLessonBinding? = null

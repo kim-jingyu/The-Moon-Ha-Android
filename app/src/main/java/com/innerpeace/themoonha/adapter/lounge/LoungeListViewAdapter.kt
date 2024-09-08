@@ -1,10 +1,9 @@
 package com.innerpeace.themoonha.adapter.lounge
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
-import com.innerpeace.themoonha.adapter.lounge.item.LoungeListViewHolder
+import com.innerpeace.themoonha.adapter.lounge.viewHolder.LoungeListViewHolder
 
 /**
  * 라운지 목록 Recycler View

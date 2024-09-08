@@ -1,0 +1,4053 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:viewBindingIgnore="true">
+
+    <GridLayout
+            android:id="@+id/gl_time_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="8"
+            android:rowCount="60">
+
+        <!-- 요일 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:text=""
+                android:layout_columnWeight="1"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="일"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="월"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="화"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="수"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="목"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="금"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:text="토"
+                style="@style/calendar_date_tv"
+                android:layout_gravity="fill" />
+
+        <!-- 10:00 -->
+        <TextView
+                android:layout_width="16dp"
+                android:layout_height="10dp"
+                android:text="10"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:gravity="center"
+                android:textSize="8sp"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="sunday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="monday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="tuesday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="wednesday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="thursday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="friday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1000"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:layout_columnWeight="2"
+                android:tag="saturday1000"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 10:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1010"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1010"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 10:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1020"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1020"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 10:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1030"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1030"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 10:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1040"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1040"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 10:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1050"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1050"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 11:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="11"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1100"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1100"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 11:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1110"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1110"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 11:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1120"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1120"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 11:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1130"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1130"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 11:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1140"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1140"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 11:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1150"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1150"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 12:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="12"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1200"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1200"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 12:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1210"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1210"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 12:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1220"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1220"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 12:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1230"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1230"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 12:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1240"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1240"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 12:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1250"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1250"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 13:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="13"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1300"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1300"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 13:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1310"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1310"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 13:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1320"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1320"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 13:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1330"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1330"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 13:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1340"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1340"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 13:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1350"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1350"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 14:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="14"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1400"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1400"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 14:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1410"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1410"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 14:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1420"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1420"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 14:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1430"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1430"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 14:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1440"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1440"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 14:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1450"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1450"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 15:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="15"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1500"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1500"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 15:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1510"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1510"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 15:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1520"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1520"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 15:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1530"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1530"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 15:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1540"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1540"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 15:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1550"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1550"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 16:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="16"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1600"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1600"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 16:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1610"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1610"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 16:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1620"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1620"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 16:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1630"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1630"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 16:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1640"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1640"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 16:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1650"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1650"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 17:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="17"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1700"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1700"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 17:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1710"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1710"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 17:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1720"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1720"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 17:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1730"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1730"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 17:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1740"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1740"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 17:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1750"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1750"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 18:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="18"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1800"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1800"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 18:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1810"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1810"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 18:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1820"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1820"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 18:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1830"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1830"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 18:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1840"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1840"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 18:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1850"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1850"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <!-- 19:00 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="19"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:paddingEnd="4dp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="right" />
+
+        <TextView
+                android:id="@+id/sunday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1900"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1900"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 19:10 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1910"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1910"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 19:20 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1920"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1920"
+                android:background="@drawable/line_bottom_right_dash"
+                android:layout_gravity="fill" />
+
+        <!-- 19:30 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1930"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1930"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 19:40 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1940"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1940"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <!-- 19:50 -->
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:gravity="center"
+                android:layout_rowWeight="1"
+                android:textSize="8sp"
+                android:background="@drawable/line_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/sunday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="sunday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/monday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="monday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/tuesday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="tuesday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/wednesday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="wednesday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/thursday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="thursday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/friday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="friday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+        <TextView
+                android:id="@+id/saturday1950"
+                android:layout_width="0dp"
+                android:layout_height="10dp"
+                android:tag="saturday1950"
+                android:background="@drawable/line_bottom_right"
+                android:layout_gravity="fill" />
+
+    </GridLayout>
+</ScrollView>

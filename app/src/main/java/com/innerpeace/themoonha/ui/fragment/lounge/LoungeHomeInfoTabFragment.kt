@@ -9,13 +9,10 @@ import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeMemberViewAdapter
-import com.innerpeace.themoonha.adapter.lounge.LoungeHomePostViewAdapter
-import com.innerpeace.themoonha.adapter.lounge.item.SharedViewModel
+import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
