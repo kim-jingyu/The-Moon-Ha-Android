@@ -26,9 +26,10 @@ import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentCartContentBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.viewModel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
+import com.innerpeace.themoonha.viewmodel.LessonViewModel
+import com.innerpeace.themoonha.viewmodel.factory.LessonViewModelFactory
 import com.kizitonwose.calendarview.model.CalendarDay
+import com.kizitonwose.calendarview.model.DayOwner
 import com.kizitonwose.calendarview.ui.DayBinder
 import com.kizitonwose.calendarview.ui.ViewContainer
 import java.time.DayOfWeek
@@ -162,6 +163,12 @@ class CartContentFragment : Fragment() {
             override fun bind(container: DayViewContainer, day: CalendarDay) {
                 val localDate = day.date
                 container.dayTextView.text = localDate.dayOfMonth.toString()
+
+                if (day.owner != DayOwner.THIS_MONTH) {
+                    container.dayTextView.setTextColor(Color.LTGRAY)
+                } else {
+                    container.dayTextView.setTextColor(Color.BLACK)
+                }
 
                 val events = selectedEvents[localDate]
                 if (events != null) {
