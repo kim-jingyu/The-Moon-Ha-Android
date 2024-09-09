@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
@@ -49,19 +51,21 @@ class ScheduleFragment : Fragment() {
 
     // 탭 설정
     private fun setTabLayout() {
+        // 초기화면 주간 보기 프래그먼트로 설정
         replaceFragment(ScheduleWeeklyFragment())
+        setActiveTab(binding.tvWeeklyView)
 
-        binding.tab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                when (tab?.position) {
-                    0 -> replaceFragment(ScheduleWeeklyFragment())
-//                    1 -> replaceFragment()
-                }
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
-        })
-        binding.tab.getTabAt(0)?.select()
+        // 주간 보기 탭 클릭 시 프래그먼트 변경
+        binding.tvWeeklyView.setOnClickListener {
+            replaceFragment(ScheduleWeeklyFragment())
+            setActiveTab(binding.tvWeeklyView)
+        }
+
+        // 월별 보기 탭 클릭 시 프래그먼트 변경
+        binding.tvMonthlyView.setOnClickListener {
+            replaceFragment(ScheduleMonthlyFragment())
+            setActiveTab(binding.tvMonthlyView)
+        }
     }
 
     // 탭 페이지 이동
@@ -69,6 +73,16 @@ class ScheduleFragment : Fragment() {
         childFragmentManager.beginTransaction()
             .replace(R.id.tab_layout_fragment, fragment)
             .commit()
+    }
+
+    // 선택된 탭의 색상 활성화
+    private fun setActiveTab(selectedTextView: TextView) {
+        // 모든 탭의 색상을 기본 색상으로 설정
+        binding.tvWeeklyView.setTextColor(ContextCompat.getColor(requireContext(), R.color.silver))
+        binding.tvMonthlyView.setTextColor(ContextCompat.getColor(requireContext(), R.color.silver))
+
+        // 선택된 TextView의 색상 변경 (예: 파란색)
+        selectedTextView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
     }
 
     override fun onDestroyView() {

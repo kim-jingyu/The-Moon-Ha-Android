@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+    <TextView
+            android:id="@+id/tvLessonTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수업명"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    <TextView
+            android:id="@+id/tvLessonBranch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지점명" />
+
+    <TextView
+            android:id="@+id/tvLessonTutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="강사명" />
+
+    <TextView
+            android:id="@+id/tvLessonTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수업 시간" />
+</LinearLayout>
