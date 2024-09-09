@@ -11,7 +11,7 @@ import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 
 class ShortFormAdapter( private var shortForms: List<ShortFormDTO>,
-                        private val onItemClicked: (ShortFormDTO) -> Unit
+                        private val onItemClicked: (ShortFormDTO, Int) -> Unit
 ) : RecyclerView.Adapter<ShortFormAdapter.ShortFormViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShortFormViewHolder {
@@ -24,7 +24,7 @@ class ShortFormAdapter( private var shortForms: List<ShortFormDTO>,
         holder.bind(shortForm)
 
         holder.itemView.setOnClickListener {
-            onItemClicked(shortForm)
+            onItemClicked(shortForm, position)
         }
     }
 
