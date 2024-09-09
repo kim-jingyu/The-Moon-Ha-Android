@@ -22,14 +22,16 @@ data class LoungePostResponse(
         val noticeYn: Boolean,
         val loungePostImgList: List<String>,
         val createdAt: String,
-        val loungeMember: LoungeMember
+        val loungeMember: LoungeMember,
+        val permissionYn: Boolean
     )
 
     data class LoungeComment(
         val loungeCommentId: Long,
         val content: String,
         val createdAt: String,
-        val loungeMember: LoungeMember
+        val loungeMember: LoungeMember,
+        val permissionYn: Boolean
     )
 
     data class LoungeMember(
