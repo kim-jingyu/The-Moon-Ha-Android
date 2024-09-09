@@ -26,7 +26,8 @@ data class LoungeHomeResponse(
         val tutorId: Int,
         val tutorName: String,
         val tutorImgUrl: String,
-        val summary: String
+        val summary: String,
+        val permissionYn: Boolean
     )
 
     data class LoungeNoticePost(
@@ -44,7 +45,8 @@ data class LoungeHomeResponse(
         val noticeYn: Boolean,
         val loungePostImgList: List<String>,
         val createdAt: String,
-        val loungeMember: LoungeMember
+        val loungeMember: LoungeMember,
+        val permissionYn: Boolean
     )
 
     data class Attendance(

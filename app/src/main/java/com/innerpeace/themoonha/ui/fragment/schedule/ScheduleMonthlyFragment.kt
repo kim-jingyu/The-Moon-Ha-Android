@@ -156,7 +156,7 @@ class ScheduleMonthlyFragment : Fragment() {
 
                         // 수업이 있으면 다이얼로그
                         if (eventsForDay.isNotEmpty()) {
-                            showLessonModal(eventsForDay)
+                            showLessonModal(eventsForDay, day)
                         }
                     }
                 }
@@ -280,12 +280,14 @@ class ScheduleMonthlyFragment : Fragment() {
     }
 
     // 강좌 상세정보 다이얼로그
-    private fun showLessonModal(eventsForDay: List<ScheduleMonthlyResponse>) {
+    private fun showLessonModal(eventsForDay: List<ScheduleMonthlyResponse>, day: CalendarDay) {
 
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val dialogBinding = DialogLessonInfoBinding.inflate(layoutInflater)
         val dialogAdapter = ScheduleDialogAdapter(eventsForDay)
         dialogBinding.vpLessonOfDay.adapter = dialogAdapter
+        val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일", Locale.getDefault())
+        dialogBinding.tvSelectedDate.text = "${day.date.format(formatter)}일의 강좌"
 
         // 인디케이터 연결
         dialogBinding.vpScheduleDotsIndicator.setViewPager2(dialogBinding.vpLessonOfDay)

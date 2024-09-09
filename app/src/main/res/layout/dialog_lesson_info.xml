@@ -7,6 +7,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+    <TextView
+            android:id="@+id/tv_selected_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2024년 8월 23일의 강좌"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginLeft="8dp"
+            android:visibility="visible"/>
+
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_lesson_of_day"
             android:layout_width="match_parent"
