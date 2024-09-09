@@ -10,7 +10,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.BeforeAfterAdapter
+import com.innerpeace.themoonha.adapter.bite.BeforeAfterAdapter
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
@@ -94,7 +94,7 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupToBite() {
         binding.biteForField.setOnClickListener {
-            findNavController().navigate(R.id.action_to_field)
+            findNavController().navigate(R.id.action_before_after_to_field)
         }
     }
 
