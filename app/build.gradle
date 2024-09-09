@@ -47,7 +47,6 @@ android {
     buildFeatures {
         viewBinding true
     }
-
 }
 
 dependencies {
@@ -87,4 +86,5 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
+    implementation "com.kakao.sdk:v2-share:2.11.2"
 }

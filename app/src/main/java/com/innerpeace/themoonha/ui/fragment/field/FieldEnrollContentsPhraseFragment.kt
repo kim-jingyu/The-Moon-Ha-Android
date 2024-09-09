@@ -43,6 +43,18 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * 분야별 한 입 콘텐츠 등록 문구 추가 프래그먼트
+ * @author 김진규
+ * @since 2024.09.03
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  	김진규       최초 생성
+ * </pre>
+ */
 class FieldEnrollContentsPhraseFragment : Fragment() {
     private var _binding: FragmentFieldEnrollContentsPhraseBinding? = null
     private val binding get() = _binding!!
@@ -194,7 +206,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
                     onSuccess = {
                         Log.d("FieldListFragment", "Navigating to field fragment")
                         try {
-                            findNavController().navigate(R.id.action_to_field)
+                            findNavController().navigate(R.id.action_field_to_field)
                             Log.d("FieldListFragment", "Navigation success!")
                         } catch (e: IllegalArgumentException) {
                             Log.e("FieldListFragment", "Navigation failed: ${e.message}")

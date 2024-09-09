@@ -15,28 +15,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/onair_indicator"
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/onAirPlayer"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
-        android:background="@color/light_gray_1"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/top_bar_container" />
 
     <TextView
-        android:id="@+id/onair_textview"
+        android:id="@+id/onAirTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="ONAIR"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/onair_indicator"
-        app:layout_constraintEnd_toEndOf="@id/onair_indicator"
+        app:layout_constraintBottom_toBottomOf="@id/onAirPlayer"
+        app:layout_constraintEnd_toEndOf="@id/onAirPlayer"
         app:layout_constraintHorizontal_bias="0.969"
-        app:layout_constraintStart_toStartOf="@id/onair_indicator"
-        app:layout_constraintTop_toTopOf="@id/onair_indicator"
+        app:layout_constraintStart_toStartOf="@id/onAirPlayer"
+        app:layout_constraintTop_toTopOf="@id/onAirPlayer"
         app:layout_constraintVertical_bias="0.024" />
 
     <ImageView
@@ -44,24 +41,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_onair_indicator"
-        app:layout_constraintStart_toEndOf="@id/onair_textview"
-        app:layout_constraintTop_toTopOf="@id/onair_textview"
-        app:layout_constraintEnd_toEndOf="@id/onair_indicator"
-        app:layout_constraintBottom_toBottomOf="@id/onair_textview"
+        app:layout_constraintStart_toEndOf="@id/onAirTextview"
+        app:layout_constraintTop_toTopOf="@id/onAirTextview"
+        app:layout_constraintEnd_toEndOf="@id/onAirPlayer"
+        app:layout_constraintBottom_toBottomOf="@id/onAirTextview"
         />
 
     <FrameLayout
         android:id="@+id/live_streaming_info_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/onair_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="15dp"
+        app:layout_constraintTop_toBottomOf="@id/onAirPlayer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/rounded_border_live_main"
-        >
-
-        <include layout="@layout/fragment_live_streaming_main_info" />
-    </FrameLayout>
-
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,26 +1,104 @@
 package com.innerpeace.themoonha.ui.fragment.live
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.innerpeace.themoonha.BuildConfig.BASE_IP_ADDRESS
 import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
+import com.innerpeace.themoonha.data.repository.LiveRepository
+import com.innerpeace.themoonha.databinding.FragmentLiveStreamingMainBinding
+import com.innerpeace.themoonha.viewModel.LiveViewModel
+import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
 
+/**
+ * 실시간 강좌 - 스트리밍 메인 페이지 프래그먼트
+ * @author 김진규
+ * @since 2024.09.06
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.06  	김진규       최초 생성
+ * </pre>
+ */
 class LiveStreamingMainFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var _binding: FragmentLiveStreamingMainBinding? = null
+    private val binding get() = _binding!!
+    private var player: ExoPlayer? = null
+    private val viewModel: LiveViewModel by viewModels {
+        LiveViewModelFactory(LiveRepository())
     }
+
+    private var liveId: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_live_streaming_main, container, false)
+        _binding = FragmentLiveStreamingMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val resp: LiveLessonDetailResponse = arguments?.getParcelable("liveLessonDetailResponse")!!
+        if (resp == null){
+            Log.e("LiveMainFragment", "No detailResponse received in arguments")
+            return
+        }
+
+        liveId = resp.liveId
+        viewModel.joinLiveLesson(liveId)
+        setOnAirPlayer(resp.broadcastUrl)
+
+        val mainInfoFragment = LiveStreamingMainInfoFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("liveLessonDetailResponse", resp)
+            }
+        }
+
+        childFragmentManager.beginTransaction()
+            .replace(R.id.live_streaming_info_container, mainInfoFragment)
+            .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        releaseOnAirPlayer()
+    }
+
+    private fun releaseOnAirPlayer() {
+        player?.release()
+        player = null
+        viewModel.leaveLiveLesson(liveId)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        player?.pause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        player?.play()
+    }
+
+    private fun setOnAirPlayer(streamUrl: String) {
+        player = ExoPlayer.Builder(requireContext()).build()
+        binding.onAirPlayer.player = player
+        val mediaItem = MediaItem.fromUri(streamUrl.replace("localhost", BASE_IP_ADDRESS))
+        player?.setMediaItem(mediaItem)
+        player?.prepare()
+        player?.playWhenReady = true
     }
 }

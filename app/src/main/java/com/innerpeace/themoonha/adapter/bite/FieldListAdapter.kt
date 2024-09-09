@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.bite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.bite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,12 +18,12 @@ class FieldContentAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FieldContentAdapter.FieldContentViewHolder {
+    ): FieldContentViewHolder {
         val binding = FragmentFieldContentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FieldContentViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FieldContentAdapter.FieldContentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FieldContentViewHolder, position: Int) {
         val fieldItem = fieldList[position % fieldList.size]
 
         Glide.with(holder.itemView.context)
@@ -42,10 +42,6 @@ class FieldContentAdapter(
         holder.binding.root.setOnClickListener {
             itemClickListener(fieldItem)
         }
-        holder.binding.content.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.title.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.profileImage.setOnClickListener { itemClickListener(fieldItem) }
-        holder.binding.memberName.setOnClickListener { itemClickListener(fieldItem) }
     }
 
     override fun getItemCount(): Int = fieldList.size

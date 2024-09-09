@@ -8,15 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeCommentViewAdapter
 import com.innerpeace.themoonha.adapter.lounge.LoungePostImageAdapter
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
-import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService

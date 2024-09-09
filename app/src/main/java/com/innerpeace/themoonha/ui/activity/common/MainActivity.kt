@@ -1,18 +1,16 @@
 package com.innerpeace.themoonha.ui.activity.common
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.databinding.ActivityMainBinding
+import com.kakao.sdk.common.KakaoSdk
 
 /**
  * 메인 액티비티
@@ -35,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        KakaoSdk.init(this, resources.getString(R.string.kakao_app_key))
 
         // 상단 툴바 설정
         setSupportActionBar(binding.toolbar)

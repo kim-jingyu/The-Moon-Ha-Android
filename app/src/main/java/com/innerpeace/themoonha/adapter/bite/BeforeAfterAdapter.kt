@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.bite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -42,7 +42,7 @@ class BeforeAfterAdapter(
         listenEvent(holder, content)
         setupBeforeContent(holder, content)
         setupAfterContent(holder, content)
-        setupTextContent(holder, content)
+        setupBottomContent(holder, content)
     }
 
     private fun listenEvent(
@@ -52,21 +52,9 @@ class BeforeAfterAdapter(
         holder.binding.root.setOnClickListener {
             itemClickListener(content)
         }
-
-        holder.binding.beforeImage.setOnClickListener {
-            itemClickListener(content)
-        }
-
-        holder.binding.afterImage.setOnClickListener {
-            itemClickListener(content)
-        }
-
-        holder.binding.title.setOnClickListener {
-            itemClickListener(content)
-        }
     }
 
-    private fun setupTextContent(
+    private fun setupBottomContent(
         holder: ViewHolder,
         content: BeforeAfterListResponse
     ) {
