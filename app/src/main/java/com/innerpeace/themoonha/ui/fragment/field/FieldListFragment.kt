@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.FieldListAdapter
+import com.innerpeace.themoonha.adapter.bite.FieldListAdapter
 import com.innerpeace.themoonha.data.model.field.FieldCategoryGroup
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
@@ -23,6 +23,18 @@ import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
+/**
+ * 분야별 한 입 목록 조회 프래그먼트
+ * @author 김진규
+ * @since 2024.09.05
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.05  	김진규       최초 생성
+ * </pre>
+ */
 class FieldListFragment : Fragment() {
     private var _binding: FragmentFieldListBinding? = null
     private val binding get() = _binding!!
@@ -44,6 +56,7 @@ class FieldListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as? MainActivity)?.apply {
+            setToolbarTitle("문화 한 입")
             showToolbar()
             showBottomNavigation()
         }
@@ -142,7 +155,6 @@ class FieldListFragment : Fragment() {
     }
 
     private fun groupDataByCategory(fieldList: List<FieldListResponse>): List<FieldCategoryGroup> {
-        Log.d("FieldListFragment", "Grouping data by category, field list size: ${fieldList.size}")
         return fieldList.groupBy { it.categoryId }
             .mapNotNull { (categoryId, fields) ->
                 val firstField = fields.firstOrNull()
@@ -170,11 +182,6 @@ class FieldListFragment : Fragment() {
     private fun navigateToFieldDetail(content: FieldListResponse) {
         viewModel.getFieldDetail(content.fieldId)
         viewModel.fieldDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            if (detailResponse == null) {
-                Log.e("FieldListFragment", "Detail response is null!")
-                return@observe
-            }
-
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragmentContainerView, FieldDetailFragment().apply {
                     arguments = Bundle().apply {
@@ -188,7 +195,7 @@ class FieldListFragment : Fragment() {
 
     private fun setupToBeforeAfter() {
         binding.beforeAfter.setOnClickListener {
-            findNavController().navigate(R.id.action_to_beforeAfterList)
+            findNavController().navigate(R.id.action_field_to_beforeAfterList)
         }
     }
 

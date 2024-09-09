@@ -42,6 +42,18 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
+/**
+ * Before&After 콘텐츠 등록 문구 추가 프래그먼트
+ * @author 김진규
+ * @since 2024.08.28
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.28  	김진규       최초 생성
+ * </pre>
+ */
 class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
     private var _binding: FragmentBeforeAfterEnrollContentsPhraseBinding? = null
     private val binding get() = _binding!!
@@ -203,7 +215,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             beforeAfterViewModel.makeBeforeAfterResponse.collect { result ->
                 result?.fold(
                     onSuccess = {
-                        findNavController().navigate(R.id.action_to_beforeAfterList)
+                        findNavController().navigate(R.id.action_before_after_to_beforeAfterList)
                     },
                     onFailure = {
                         Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()

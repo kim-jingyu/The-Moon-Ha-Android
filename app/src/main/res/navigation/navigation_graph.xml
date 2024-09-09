@@ -16,7 +16,7 @@
                 app:destination="@id/fragment_cart" />
         <action
                 android:id="@+id/action_fragment_lesson_to_liveFragment"
-                app:destination="@id/fragment_live" />
+                app:destination="@id/fragment_onAir" />
         <action
                 android:id="@+id/action_fragment_lesson_to_shortFormDetailFragment"
                 app:destination="@id/shortFormDetailFragment"/>
@@ -56,18 +56,14 @@
             app:destination="@id/prologueDetailFragment" />
     </fragment>
     <fragment
-            android:id="@+id/fragment_live"
-            android:name="com.innerpeace.themoonha.ui.fragment.live.LiveStreamingChatFragment"
-            android:label="LiveFragment" />
-    <fragment
         android:id="@+id/fragment_before_after"
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
         android:label="BeforeAfter">
         <action
-            android:id="@+id/action_to_field"
+            android:id="@+id/action_before_after_to_field"
             app:destination="@id/fragment_field" />
         <action
-            android:id="@+id/action_to_beforeAfterList"
+            android:id="@+id/action_before_after_to_beforeAfterList"
             app:destination="@id/fragment_before_after" />
     </fragment>
     <fragment
@@ -75,11 +71,34 @@
         android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
         android:label="Field">
         <action
-            android:id="@+id/action_to_beforeAfterList"
+            android:id="@+id/action_field_to_beforeAfterList"
             app:destination="@id/fragment_before_after" />
         <action
-            android:id="@+id/action_to_field"
+            android:id="@+id/action_field_to_field"
             app:destination="@id/fragment_field" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_onAir"
+        android:name="com.innerpeace.themoonha.ui.fragment.live.LiveOnAirListFragment"
+        android:label="OnAir">
+        <action
+            android:id="@+id/action_onAir_to_onAir"
+            app:destination="@id/fragment_onAir" />
+        <action
+            android:id="@+id/action_onAir_to_myLiveLesson"
+            app:destination="@id/fragment_myLiveLesson" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_myLiveLesson"
+        android:name="com.innerpeace.themoonha.ui.fragment.live.LiveMyLessonListFragment"
+        android:label="MyLiveLesson"
+        >
+        <action
+            android:id="@+id/action_myLiveLesson_to_onAir"
+            app:destination="@id/fragment_onAir" />
+        <action
+            android:id="@+id/action_myLiveLesson_to_myLiveLesson"
+            app:destination="@id/fragment_myLiveLesson" />
     </fragment>
     <fragment
             android:id="@+id/loungeHomeFragment"
