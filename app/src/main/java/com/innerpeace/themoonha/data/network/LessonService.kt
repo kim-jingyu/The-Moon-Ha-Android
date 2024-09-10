@@ -1,17 +1,8 @@
 package com.innerpeace.themoonha.data.network
 
 import com.innerpeace.themoonha.data.model.CommonResponse
-import com.innerpeace.themoonha.data.model.lesson.CartRequest
-import com.innerpeace.themoonha.data.model.lesson.CartResponse
-import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
-import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
-import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
-import com.innerpeace.themoonha.data.model.lesson.SugangRequest
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import com.innerpeace.themoonha.data.model.lesson.*
+import retrofit2.http.*
 
 interface LessonService {
     @GET("lesson/list")
@@ -31,4 +22,7 @@ interface LessonService {
 
     @GET("lesson/enroll")
     suspend fun getLessonListByMember(): List<LessonEnrollResponse>
+
+    @GET("lesson/field/enroll")
+    suspend fun getLessonFieldListByMember(): List<LessonEnrollResponse>
 }

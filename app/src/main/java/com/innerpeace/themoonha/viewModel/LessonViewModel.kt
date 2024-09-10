@@ -4,14 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.innerpeace.themoonha.data.model.lesson.Branch
-import com.innerpeace.themoonha.data.model.lesson.CartRequest
-import com.innerpeace.themoonha.data.model.lesson.CartResponse
-import com.innerpeace.themoonha.data.model.lesson.LessonDTO
-import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
-import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
-import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
-import com.innerpeace.themoonha.data.model.lesson.SugangRequest
+import com.innerpeace.themoonha.data.model.lesson.*
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
 
@@ -39,6 +32,9 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     private val _lessonEnroll = MutableLiveData<List<LessonEnrollResponse>>()
     val lessonEnroll: LiveData<List<LessonEnrollResponse>> get() = _lessonEnroll
+
+    private val _lessonFieldEnroll = MutableLiveData<List<LessonEnrollResponse>>()
+    val lessonFieldEnroll: LiveData<List<LessonEnrollResponse>> get() = _lessonFieldEnroll
 
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
@@ -108,6 +104,15 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
             val response = lessonRepository.fetchLessonEnroll()
             response?.let {
                 _lessonEnroll.value = it
+            }
+        }
+    }
+
+    fun getLessonFieldEnroll() {
+        viewModelScope.launch {
+            val response = lessonRepository.fetchLessonFieldEnroll()
+            response?.let {
+                _lessonFieldEnroll.value = it
             }
         }
     }

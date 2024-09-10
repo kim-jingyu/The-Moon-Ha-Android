@@ -2,6 +2,7 @@ package com.innerpeace.themoonha.ui.fragment.field
 
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -149,6 +150,8 @@ class FieldDetailFragment : Fragment() {
         } else {
             binding.imageDetail.visibility = View.GONE
             binding.videoDetail.visibility = View.VISIBLE
+
+            Log.d("FieldDetailFragment", "Video URL: ${content.contentUrl}")
 
             player = ExoPlayer.Builder(requireContext())
                 .setRenderersFactory(
