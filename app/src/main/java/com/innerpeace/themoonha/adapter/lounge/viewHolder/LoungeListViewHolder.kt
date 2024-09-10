@@ -53,8 +53,8 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
     fun getFormattedPostedTime(latestPostTime: String): String {
         return try {
-            val inputFormat = SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분", Locale.KOREAN)
-            val outputFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN)
+            val inputFormat = SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.KOREAN)
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd.", Locale.KOREAN)
             val date = inputFormat.parse(latestPostTime)
             if (date != null) {
                 outputFormat.format(date)
