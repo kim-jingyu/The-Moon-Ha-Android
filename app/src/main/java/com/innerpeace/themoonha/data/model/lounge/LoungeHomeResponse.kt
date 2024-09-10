@@ -16,7 +16,7 @@ data class LoungeHomeResponse(
     val loungeInfo: LoungeInfo,
     val loungeNoticePostList: List<LoungeNoticePost>,
     val loungePostList: List<LoungePost>,
-    val attendanceList: List<Attendance>,
+    val attendanceList: AttendanceMembersResponse,
     val loungeMemberList: List<LoungeMember>
 ) {
     data class LoungeInfo(
@@ -47,14 +47,6 @@ data class LoungeHomeResponse(
         val createdAt: String,
         val loungeMember: LoungeMember,
         val permissionYn: Boolean
-    )
-
-    data class Attendance(
-        val attendanceId: Long,
-        val memberId: Long,
-        val name: String,
-        val attendanceDate: String,
-        val attendanceYn: Boolean
     )
 
     data class LoungeMember(

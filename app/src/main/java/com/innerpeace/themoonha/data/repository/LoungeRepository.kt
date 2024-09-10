@@ -5,6 +5,8 @@ import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
 import com.innerpeace.themoonha.data.model.CommonResponse
+import com.innerpeace.themoonha.data.model.lounge.Attendance
+import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
@@ -15,6 +17,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -32,6 +35,7 @@ import java.io.InputStream
  * 2024.08.30   조희정       라운지 목록 불러오기 구현
  * 2024.09.02   조희정       라운지 게시글 상세보기 구현
  * 2024.09.03   조희정       라운지 게시글 저장 구현
+ * 2024.09.09   조희정       출석 시작, 출석 수정 구현
  * </pre>
  */
 class LoungeRepository(private val loungeService: LoungeService) {
@@ -130,6 +134,31 @@ class LoungeRepository(private val loungeService: LoungeService) {
             }
         } catch (e: Exception) {
             Log.e("라운지 댓글 작성 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    // 출석 시작
+    suspend fun startAttendance(lessonId: Long): List<Attendance>? {
+        return try {
+            loungeService.startAttendance(lessonId)
+        } catch (e: Exception) {
+            Log.e("출석 시작 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    // 출석 수정
+    suspend fun updateAttendanceStatus(attendanceId: Long): CommonResponse? {
+        return try {
+            val response = loungeService.updateAttendanceStatus(attendanceId)
+            if (response.isSuccessful) {
+                response.body()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log.e("출석 상태 업데이트 실패", "${e.message}", e)
             null
         }
     }

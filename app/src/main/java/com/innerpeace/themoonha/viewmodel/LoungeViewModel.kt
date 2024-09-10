@@ -2,6 +2,7 @@ package com.innerpeace.themoonha.viewModel
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
  * 2024.08.31   조희정       라운지 홈 불러오기 구현
  * 2024.09.02   조희정       라운지 게시글 상세보기 구현
  * 2024.09.03   조희정       라운지 게시글 저장, 댓글 저장 구현
+ * 2024.09.09   조희정       출석 시작, 출석 수정 구현
  */
 
 class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewModel() {
@@ -40,6 +42,10 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
     // 게시물
     private val _postDetail = MutableLiveData<LoungePostResponse?>()
     val postDetail: LiveData<LoungePostResponse?> get() = _postDetail
+
+    // 출석 시작 리스트
+    private val _attendanceStartList = MutableLiveData<List<Attendance>?>()
+    val attendanceStartList: LiveData<List<Attendance>?> get() = _attendanceStartList
 
     // LoungeId
     private val _selectedLoungeId = MutableLiveData<Long>()
@@ -107,4 +113,30 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
             _commentResponse.postValue(response)
         }
     }
+
+    fun startAttendance() {
+        val lessonId = _loungeHome.value?.loungeInfo?.lessonId ?: return
+        viewModelScope.launch {
+            val response = loungeRepository.startAttendance(lessonId)
+            _attendanceStartList.postValue(response)
+        }
+    }
+
+    suspend fun updateAttendanceStatus(attendanceId: Long): Boolean {
+        return try {
+            val response = loungeRepository.updateAttendanceStatus(attendanceId)
+            if (response != null) {
+                Log.d("출석", "출석 상태 업데이트 성공")
+                true
+            } else {
+                Log.e("출석", "출석 상태 업데이트 실패")
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("출석", "출석 상태 업데이트 실패: ${e.message}")
+            false
+        }
+    }
+
+
 }
