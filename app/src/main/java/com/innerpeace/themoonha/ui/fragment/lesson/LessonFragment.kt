@@ -94,8 +94,9 @@ class LessonFragment : Fragment() {
         })
         binding.recyclerViewLesson.adapter = lessonAdapter
 
-        shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm ->
-            findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment)
+        shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm, position ->
+            val bundle = bundleOf("selectedPosition" to position)
+            findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment, bundle)
         }
 
         binding.craftButton.setOnClickListener {

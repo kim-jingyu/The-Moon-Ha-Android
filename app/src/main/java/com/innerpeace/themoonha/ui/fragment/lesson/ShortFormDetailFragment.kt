@@ -47,6 +47,9 @@ class ShortFormDetailFragment : Fragment() {
         viewModel.shortFormList.observe(viewLifecycleOwner) { shortForms ->
             adapter = ShortFormDetailAdapter(shortForms)
             viewPager.adapter = adapter
+
+            val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
+            viewPager.setCurrentItem(selectedPosition, false)
         }
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
