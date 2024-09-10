@@ -96,6 +96,7 @@ class LessonFragment : Fragment() {
 
         shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm, position ->
             val bundle = bundleOf("selectedPosition" to position)
+            viewModel.setCurrentShortFormId(shortForm.lessonId)
             findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment, bundle)
         }
 

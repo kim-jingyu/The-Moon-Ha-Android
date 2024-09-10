@@ -22,7 +22,7 @@
             android:icon="@drawable/ic_bite"
             android:paddingBottom="19dp" />
     <item
-            android:id="@+id/fragment_my_info"
+            android:id="@+id/signInFragment"
             android:title="내 정보"
             android:icon="@drawable/ic_my_info"
             android:paddingBottom="19dp" />

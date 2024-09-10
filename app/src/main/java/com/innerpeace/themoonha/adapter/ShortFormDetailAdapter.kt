@@ -17,6 +17,10 @@ import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 class ShortFormDetailAdapter(private var shortForms: List<ShortFormDTO>) :
     RecyclerView.Adapter<ShortFormDetailAdapter.ShortFormDetailViewHolder>() {
 
+    fun getShortFormAt(position: Int): ShortFormDTO? {
+        return if (position in shortForms.indices) shortForms[position] else null
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
