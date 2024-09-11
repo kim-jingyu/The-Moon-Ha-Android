@@ -87,4 +87,6 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
     implementation "com.kakao.sdk:v2-share:2.11.2"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:4.9.1"
+
 }

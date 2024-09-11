@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_fragment_lesson_to_cartContentFragment"
             app:destination="@id/cartContentFragment" />
+        <action
+            android:id="@+id/action_fragment_lesson_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
             android:id="@+id/fragment_schedule"
@@ -163,4 +166,12 @@
         android:id="@+id/cartContentFragment"
         android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartContentFragment"
         android:label="CartContentFragment" />
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.auth.SignInFragment"
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_fragment_lesson"
+            app:destination="@id/fragment_lesson" />
+    </fragment>
 </navigation>

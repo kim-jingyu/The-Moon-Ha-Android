@@ -77,12 +77,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             contentUri = it.getParcelable("contentUri")
         }
 
-        val memberId = getCurrentMemberId()
-        lessonViewModel.getLessonEnroll()
-    }
-
-    private fun getCurrentMemberId(): Long? {
-        return null
+        lessonViewModel.getLessonFieldEnroll()
     }
 
     override fun onCreateView(
@@ -104,7 +99,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         displayContent()
         val lessonSpinner = binding.lessonSpinner
 
-        lessonViewModel.lessonEnroll.observe(viewLifecycleOwner, { lessons ->
+        lessonViewModel.lessonFieldEnroll.observe(viewLifecycleOwner, { lessons ->
             val lessonTitles = lessons.map { it.title }
             val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, lessonTitles)
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

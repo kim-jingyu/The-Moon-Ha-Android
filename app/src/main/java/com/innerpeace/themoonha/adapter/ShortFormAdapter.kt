@@ -22,7 +22,6 @@ class ShortFormAdapter( private var shortForms: List<ShortFormDTO>,
     override fun onBindViewHolder(holder: ShortFormViewHolder, position: Int) {
         val shortForm = shortForms[position]
         holder.bind(shortForm)
-
         holder.itemView.setOnClickListener {
             onItemClicked(shortForm, position)
         }

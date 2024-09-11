@@ -53,6 +53,7 @@ class LessonDetailFragment : Fragment() {
         _binding = FragmentLessonDetailBinding.inflate(inflater, container, false)
         val view = binding.root
         (activity as? MainActivity)?.hideNavigationBar()
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.VISIBLE
         (activity as? MainActivity)?.setToolbarTitle("강좌 상세")
 
         return view
@@ -63,7 +64,7 @@ class LessonDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val lessonId = arguments?.getLong("lessonId") ?: return
-        Log.i("lessonId = ", lessonId.toString())
+        Log.i("lessonId : ", lessonId.toString())
         viewModel.getLessonDetail(lessonId)
 
         viewModel.lessonDetail.observe(viewLifecycleOwner, Observer { lessonDetail ->
@@ -155,6 +156,13 @@ class LessonDetailFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         handler.postDelayed(videoPlayRunnable, 3000)
+        val shortFormDetailFragment = parentFragmentManager.findFragmentByTag("ShortFormDetailFragment") as? ShortFormDetailFragment
+        shortFormDetailFragment?.let {
+            val viewPager = it.binding.viewPager2
+            val currentPage = viewModel.currentPage
+            Log.i("currentPage : ", viewModel.currentPage.toString())
+            viewPager.setCurrentItem(currentPage, false)
+        }
     }
 
     override fun onPause() {

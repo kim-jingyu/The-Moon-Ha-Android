@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
@@ -78,12 +79,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             afterContentUri = it.getParcelable("afterContentUri")
         }
 
-        val memberId = getCurrentMemberId()
         lessonViewModel.getLessonEnroll()
-    }
-
-    private fun getCurrentMemberId(): Long? {
-        return null
     }
 
     override fun onCreateView(
@@ -275,9 +271,9 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         return tempFile
     }
 
-
     private fun convertUriToMultiPart(uri: Uri, content: String): MultipartBody.Part {
         val contentResolver = requireContext().contentResolver
+        requireActivity().grantUriPermission(requireActivity().packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
         val tempFile = File.createTempFile(content, ".tmp", requireContext().cacheDir)
         tempFile.outputStream().use {
             contentResolver.openInputStream(uri)?.copyTo(it)

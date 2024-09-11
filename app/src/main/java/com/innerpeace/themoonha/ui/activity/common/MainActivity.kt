@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.databinding.ActivityMainBinding
 import com.kakao.sdk.common.KakaoSdk
 
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ApiClient.init(this)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

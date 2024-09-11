@@ -178,7 +178,6 @@ class FieldListFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
-
     private fun navigateToFieldDetail(selectedPosition: Int) {
         viewModel.getFieldDetails()
 
@@ -189,7 +188,10 @@ class FieldListFragment : Fragment() {
                 putInt("selectedPosition", selectedPosition)
             }
         )
+    }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setupToBeforeAfter() {
