@@ -15,6 +15,9 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
     private val _shortFormList = MutableLiveData<List<ShortFormDTO>>()
     val shortFormList: LiveData<List<ShortFormDTO>> get() = _shortFormList
 
+    private val _currentShortFormId = MutableLiveData<Long>()
+    val currentShortFormId: LiveData<Long> get() = _currentShortFormId
+
     private val _memberName = MutableLiveData<String>()
     val memberName: LiveData<String> get() = _memberName
 
@@ -35,6 +38,8 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     private val _lessonFieldEnroll = MutableLiveData<List<LessonEnrollResponse>>()
     val lessonFieldEnroll: LiveData<List<LessonEnrollResponse>> get() = _lessonFieldEnroll
+
+    var currentPage: Int = 0
 
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
@@ -115,5 +120,8 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
                 _lessonFieldEnroll.value = it
             }
         }
+        
+    fun setCurrentShortFormId(lessonId: Long) {
+        _currentShortFormId.value = lessonId
     }
 }
