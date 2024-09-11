@@ -1,13 +1,11 @@
 package com.innerpeace.themoonha.ui.fragment.field
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -179,9 +177,6 @@ class FieldListFragment : Fragment() {
         }
     }
     private fun navigateToFieldDetail(selectedPosition: Int) {
-        viewModel.getFieldDetails()
-
-
         findNavController().navigate(
             R.id.action_field_to_detail,
             Bundle().apply {

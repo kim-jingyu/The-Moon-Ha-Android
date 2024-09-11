@@ -13,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.GlideException
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.innerpeace.themoonha.R
@@ -61,7 +60,6 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
 
                 beforeVideoParams.height = 0
                 beforeVideoParams.matchConstraintPercentHeight = 0.5f
-                controlVideoPlayer(beforePlayer, binding.playIcon, binding.pauseIcon)
             }
         }
 
@@ -92,7 +90,6 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
 
                 afterVideoParams.height = 0
                 afterVideoParams.matchConstraintPercentHeight = 0.5f
-                controlVideoPlayer(afterPlayer, binding.playIcon, binding.pauseIcon)
             }
         }
 

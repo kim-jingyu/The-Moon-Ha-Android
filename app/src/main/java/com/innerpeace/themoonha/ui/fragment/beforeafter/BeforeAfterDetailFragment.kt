@@ -1,36 +1,21 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.helper.widget.Flow
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.bite.BeforeAfterDetailAdapter
-import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterDetailResponse
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Before&After Detail 프래그먼트
@@ -76,7 +61,7 @@ class BeforeAfterDetailFragment : Fragment() {
             activity?.onBackPressed()
         }
 
-        viewModel.getBeforeAfterDetails()
+        viewModel.getBeforeAfterDetails(selectedPosition)
 
         lifecycleScope.launch {
             viewModel.beforeAfterDetailResponse.collect { details ->

@@ -1,37 +1,20 @@
 package com.innerpeace.themoonha.ui.fragment.field
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.helper.widget.Flow
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.bite.FieldDetailAdapter
-import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Field Detail 프래그먼트
@@ -77,7 +60,7 @@ class FieldDetailFragment : Fragment() {
         val viewPager = binding.viewPager2
         val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
 
-        viewModel.getFieldDetails()
+        viewModel.getFieldDetails(selectedPosition)
 
         lifecycleScope.launchWhenStarted {
             viewModel.fieldDetailResponses.collect { details ->
