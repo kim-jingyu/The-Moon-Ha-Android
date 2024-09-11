@@ -14,7 +14,7 @@
                 android:id="@+id/branchName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="천호점"
+                android:text="모든 지점"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:layout_marginLeft="20dp"
