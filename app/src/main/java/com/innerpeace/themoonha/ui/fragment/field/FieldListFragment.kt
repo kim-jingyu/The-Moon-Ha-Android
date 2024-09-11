@@ -180,17 +180,27 @@ class FieldListFragment : Fragment() {
     }
 
     private fun navigateToFieldDetail(content: FieldListResponse) {
+        showLoading(true)
         viewModel.getFieldDetail(content.fieldId)
         viewModel.fieldDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, FieldDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("fieldDetailResponse", detailResponse)
-                    }
-                })
-                .addToBackStack(null)
-                .commit()
+            if (detailResponse != null) {
+                showLoading(false)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView, FieldDetailFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable("fieldDetailResponse", detailResponse)
+                        }
+                    })
+                    .addToBackStack(null)
+                    .commit()
+            } else {
+                Log.d("FieldDetailFragment", "Waiting for data to be loaded...")
+            }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setupToBeforeAfter() {
