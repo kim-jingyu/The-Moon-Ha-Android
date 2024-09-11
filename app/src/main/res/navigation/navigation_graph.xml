@@ -65,6 +65,14 @@
         <action
             android:id="@+id/action_before_after_to_beforeAfterList"
             app:destination="@id/fragment_before_after" />
+        <action
+            android:id="@+id/action_before_after_to_detail"
+            app:destination="@id/fragment_before_after_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_before_after_detail"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterDetailFragment"
+        android:label="BeforeAfterDetail">
     </fragment>
     <fragment
         android:id="@+id/fragment_field"
@@ -76,6 +84,14 @@
         <action
             android:id="@+id/action_field_to_field"
             app:destination="@id/fragment_field" />
+        <action
+            android:id="@+id/action_field_to_detail"
+            app:destination="@+id/fragment_field_detail" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_field_detail"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldDetailFragment"
+        android:label="FieldDetail">
     </fragment>
     <fragment
         android:id="@+id/fragment_onAir"

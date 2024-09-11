@@ -31,13 +31,13 @@ import okhttp3.RequestBody
  */
 class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
     private val _fieldListContents = MutableStateFlow<List<FieldListResponse>>(emptyList())
-    private val _fieldDetailContent = MutableStateFlow<FieldDetailResponse?>(null)
+    private val _fieldDetailContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
     private val _fieldSearchContents = MutableStateFlow<List<FieldSearchResponse>>(emptyList())
     private val _makeFieldResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<FieldException?>(null)
 
     val fieldListResponse: StateFlow<List<FieldListResponse>> get() = _fieldListContents.asStateFlow()
-    val fieldDetailResponse: StateFlow<FieldDetailResponse?> get() = _fieldDetailContent.asStateFlow()
+    val fieldDetailResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailContents.asStateFlow()
     val fieldSearchResponse: StateFlow<List<FieldSearchResponse>> get() = _fieldSearchContents.asStateFlow()
     val makeFieldResponse: StateFlow<Result<String>> = _makeFieldResponse.asStateFlow()
     val error: StateFlow<FieldException?> get() = _error.asStateFlow()
@@ -72,13 +72,13 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun getFieldDetail(fieldId: Long) {
+    fun getFieldDetails() {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveFieldContent(fieldId)
+                val response = datasource.retrieveFieldContents()
                 Log.d("response", "getFieldDetail -> ${response.body()}")
                 if (response.isSuccessful && response.body() != null) {
-                    _fieldDetailContent.value = response.body()!!
+                    _fieldDetailContents.value = response.body()!!
                 } else {
                     _error.value = FieldRetrievingException()
                 }

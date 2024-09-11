@@ -31,6 +31,9 @@ interface FieldService {
     @GET("/bite/field/{fieldId}")
     suspend fun retrieveFieldContent(@Path("fieldId") fieldId: Long) : Response<FieldDetailResponse>
 
+    @GET("/bite/field/details")
+    suspend fun retrieveFieldContents() : Response<List<FieldDetailResponse>>
+
     @Multipart
     @POST("/bite/field")
     suspend fun makeField(

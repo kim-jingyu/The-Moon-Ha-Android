@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.exception.BeforeAfterException
@@ -30,13 +31,13 @@ import okhttp3.RequestBody
  */
 class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : ViewModel() {
     private val _beforeAfterListContents = MutableStateFlow<List<BeforeAfterListResponse>>(emptyList())
-    private val _beforeAfterDetailContent = MutableStateFlow<BeforeAfterDetailResponse?>(null)
+    private val _beforeAfterDetailContents = MutableStateFlow<List<BeforeAfterDetailResponse>>(emptyList())
     private val _beforeAfterSearchContents = MutableStateFlow<List<BeforeAfterSearchResponse>>(emptyList())
     private val _makeBeforeAfterResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<BeforeAfterException?>(null)
 
     val beforeAfterListResponse: StateFlow<List<BeforeAfterListResponse>> get() = _beforeAfterListContents.asStateFlow()
-    val beforeAfterDetailResponse: StateFlow<BeforeAfterDetailResponse?> get() = _beforeAfterDetailContent.asStateFlow()
+    val beforeAfterDetailResponse: StateFlow<List<BeforeAfterDetailResponse>> get() = _beforeAfterDetailContents.asStateFlow()
     val beforeAfterSearchResponse: StateFlow<List<BeforeAfterSearchResponse>> get() = _beforeAfterSearchContents.asStateFlow()
     val makeBeforeAfterResponse: StateFlow<Result<String>> = _makeBeforeAfterResponse.asStateFlow()
     val error: StateFlow<BeforeAfterException?> get() = _error.asStateFlow()
@@ -71,12 +72,12 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
         }
     }
 
-    fun getBeforeAfterDetail(beforeAfterId: Long) {
+    fun getBeforeAfterDetails() {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveBeforeAfterContent(beforeAfterId)
+                val response = datasource.retrieveBeforeAfterContents()
                 if (response.isSuccessful && response.body() != null) {
-                    _beforeAfterDetailContent.value = response.body()!!
+                    _beforeAfterDetailContents.value = response.body()!!
                 } else {
                     _error.value = BeforeAfterRetrievingException()
                 }
@@ -108,9 +109,11 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
                     _makeBeforeAfterResponse.value = Result.failure(BeforeAfterMakingException())
                 }
             } catch (e: Exception) {
+                Log.e("API Error", "Error making BeforeAfter", e)
                 _makeBeforeAfterResponse.value = Result.failure(BeforeAfterMakingException())
             }
         }
+
     }
 
     fun searchBeforeAfterByTitle(keyword: String) {

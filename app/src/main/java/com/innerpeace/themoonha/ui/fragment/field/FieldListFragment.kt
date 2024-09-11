@@ -65,16 +65,16 @@ class FieldListFragment : Fragment() {
         setupRecyclerView()
         setupToBeforeAfter()
         setupSpinner()
+        observeFieldList()
+    }
 
-        lifecycleScope.launchWhenResumed {
+    private fun observeFieldList() {
+        lifecycleScope.launchWhenStarted {
             viewModel.fieldListResponse.collect { fieldList ->
-                Log.d("FieldListFragment", "Collected field list: ${fieldList.size} items")
-                if (fieldList.isEmpty()) {
-                    Log.e("FieldListFragment", "fieldList is empty!")
+                if (fieldList.isNotEmpty()) {
+                    val groupFieldList = groupDataByCategory(fieldList)
+                    fieldListAdapter.update(groupFieldList)
                 }
-                val groupFieldList = groupDataByCategory(fieldList)
-                Log.d("FieldListFragment", "GroupFieldList size: ${groupFieldList.size}")
-                fieldListAdapter.update(groupFieldList)
             }
         }
     }
@@ -168,8 +168,8 @@ class FieldListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        fieldListAdapter = FieldListAdapter(emptyList()) { content ->
-            navigateToFieldDetail(content)
+        fieldListAdapter = FieldListAdapter(emptyList()) { position ->
+            navigateToFieldDetail(position)
         }
 
         binding.fieldListRecyclerView.apply {
@@ -179,18 +179,17 @@ class FieldListFragment : Fragment() {
         }
     }
 
-    private fun navigateToFieldDetail(content: FieldListResponse) {
-        viewModel.getFieldDetail(content.fieldId)
-        viewModel.fieldDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainerView, FieldDetailFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("fieldDetailResponse", detailResponse)
-                    }
-                })
-                .addToBackStack(null)
-                .commit()
-        }
+    private fun navigateToFieldDetail(selectedPosition: Int) {
+        viewModel.getFieldDetails()
+
+
+        findNavController().navigate(
+            R.id.action_field_to_detail,
+            Bundle().apply {
+                putInt("selectedPosition", selectedPosition)
+            }
+        )
+
     }
 
     private fun setupToBeforeAfter() {
