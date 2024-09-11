@@ -72,13 +72,20 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun getFieldDetails() {
+    fun getFieldDetails(selectedPosition: Int) {
         viewModelScope.launch {
             try {
                 val response = datasource.retrieveFieldContents()
-                Log.d("response", "getFieldDetail -> ${response.body()}")
                 if (response.isSuccessful && response.body() != null) {
-                    _fieldDetailContents.value = response.body()!!
+                    val fieldDetails = response.body()!!
+                    val selectedItem = fieldDetails[selectedPosition]
+                    println("selectedItem = ${selectedItem}")
+
+                    val sortedDetails = mutableListOf(selectedItem).apply {
+                        addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
+                    }
+
+                    _fieldDetailContents.value = sortedDetails
                 } else {
                     _error.value = FieldRetrievingException()
                 }

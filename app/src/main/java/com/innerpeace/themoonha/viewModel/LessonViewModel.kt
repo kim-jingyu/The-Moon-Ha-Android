@@ -120,7 +120,8 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
                 _lessonFieldEnroll.value = it
             }
         }
-        
+    }
+
     fun setCurrentShortFormId(lessonId: Long) {
         _currentShortFormId.value = lessonId
     }

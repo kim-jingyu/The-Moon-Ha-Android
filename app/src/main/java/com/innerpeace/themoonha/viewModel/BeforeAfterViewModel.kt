@@ -72,12 +72,20 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
         }
     }
 
-    fun getBeforeAfterDetails() {
+    fun getBeforeAfterDetails(selectedPosition: Int) {
         viewModelScope.launch {
             try {
                 val response = datasource.retrieveBeforeAfterContents()
                 if (response.isSuccessful && response.body() != null) {
-                    _beforeAfterDetailContents.value = response.body()!!
+                    val beforeAfterDetails = response.body()!!
+                    val selectedItem = beforeAfterDetails[selectedPosition]
+                    println("selectedItem = ${selectedItem}")
+
+                    val sortedDetails = mutableListOf(selectedItem).apply {
+                        addAll(beforeAfterDetails.filterIndexed { index, _ -> index != selectedPosition })
+                    }
+
+                    _beforeAfterDetailContents.value = sortedDetails
                 } else {
                     _error.value = BeforeAfterRetrievingException()
                 }
