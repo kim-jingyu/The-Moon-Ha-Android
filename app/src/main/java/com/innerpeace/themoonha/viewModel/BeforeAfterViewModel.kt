@@ -79,7 +79,6 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
                 if (response.isSuccessful && response.body() != null) {
                     val beforeAfterDetails = response.body()!!
                     val selectedItem = beforeAfterDetails[selectedPosition]
-                    println("selectedItem = ${selectedItem}")
 
                     val sortedDetails = mutableListOf(selectedItem).apply {
                         addAll(beforeAfterDetails.filterIndexed { index, _ -> index != selectedPosition })

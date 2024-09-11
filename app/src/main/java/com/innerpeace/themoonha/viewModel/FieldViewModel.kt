@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.exception.FieldException
@@ -79,7 +78,6 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                 if (response.isSuccessful && response.body() != null) {
                     val fieldDetails = response.body()!!
                     val selectedItem = fieldDetails[selectedPosition]
-                    println("selectedItem = ${selectedItem}")
 
                     val sortedDetails = mutableListOf(selectedItem).apply {
                         addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
