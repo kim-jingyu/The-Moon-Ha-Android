@@ -45,8 +45,9 @@ class ShortFormDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val viewPager = binding.viewPager2
+
+        viewModel.currentShortFormId.value?.let { viewModel.getShortFormDetail(it) }
 
         viewModel.shortFormList.observe(viewLifecycleOwner) { shortForms ->
             adapter = ShortFormDetailAdapter(shortForms)

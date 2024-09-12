@@ -2,7 +2,12 @@ package com.innerpeace.themoonha.data.repository
 
 import android.util.Log
 import com.innerpeace.themoonha.data.model.CommonResponse
-import com.innerpeace.themoonha.data.model.lesson.*
+import com.innerpeace.themoonha.data.model.lesson.CartRequest
+import com.innerpeace.themoonha.data.model.lesson.CartResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonDetailResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
+import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
+import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import com.innerpeace.themoonha.data.network.LessonService
 
 class LessonRepository(private val lessonService: LessonService) {
@@ -61,12 +66,11 @@ class LessonRepository(private val lessonService: LessonService) {
         }
     }
 
-    suspend fun fetchLessonFieldEnroll(): List<LessonEnrollResponse>? {
-        return try {
-            lessonService.getLessonFieldListByMember()
+    suspend fun fetchShortFormDetail(shortFormId: Long) {
+        try {
+            lessonService.getShortFormDetail(shortFormId)
         } catch (e: Exception) {
-            Log.e("회원별 강좌 목록 조회 응답 실패", "${e.message}", e)
-            null
+            Log.e("숏폼 조회 응답 실패", "${e.message}", e)
         }
     }
 }

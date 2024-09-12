@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid android:color="@android:color/black"/>
     <!-- 테두리의 둥근 정도를 태그처럼 작게 -->
-    <corners android:radius="2dp"/>
+    <corners android:radius="3dp"/>
     <!-- 작고 간결한 테두리 느낌을 위해 padding을 줄입니다 -->
     <padding
             android:left="4dp"
