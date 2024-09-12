@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="310dp"
     android:layout_gravity="center_horizontal"
     android:layout_marginHorizontal="3dp"
     android:layout_marginBottom="20dp"
@@ -75,8 +75,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="Cnt"
-                android:textStyle="normal"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="11sp" />
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:text="Tutor Name"
-                android:textStyle="normal"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="11sp" />
 
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lesson Time"
-                android:textStyle="normal"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -131,6 +131,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -138,17 +139,21 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/addToCartButton"
-                android:layout_width="160dp"
-                android:layout_height="35dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:textSize="12sp"
+                android:layout_marginEnd="7dp"
                 android:background="@drawable/button_border_black"
                 android:text="장바구니"
                 android:textColor="@android:color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/applyButton"
-                android:layout_width="160dp"
-                android:layout_height="35dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                android:layout_height="30dp"
                 android:background="@drawable/button_border_black"
                 android:text="신청하기"
                 android:textColor="@android:color/black" />
