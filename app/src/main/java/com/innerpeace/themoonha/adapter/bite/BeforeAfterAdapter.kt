@@ -21,7 +21,7 @@ import com.innerpeace.themoonha.databinding.FragmentBeforeAfterContentBinding
  */
 class BeforeAfterAdapter(
     private var contents: List<BeforeAfterListResponse>,
-    private val itemClickListener: (BeforeAfterListResponse) -> Unit)
+    private val itemClickListener: (Int) -> Unit)
     : RecyclerView.Adapter<BeforeAfterAdapter.ViewHolder>()
 {
 
@@ -39,7 +39,7 @@ class BeforeAfterAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val content = contents[position]
-        listenEvent(holder, content)
+        listenEvent(holder, position)
         setupBeforeContent(holder, content)
         setupAfterContent(holder, content)
         setupBottomContent(holder, content)
@@ -47,10 +47,10 @@ class BeforeAfterAdapter(
 
     private fun listenEvent(
         holder: ViewHolder,
-        content: BeforeAfterListResponse
+        position: Int
     ) {
         holder.binding.root.setOnClickListener {
-            itemClickListener(content)
+            itemClickListener(position)
         }
     }
 

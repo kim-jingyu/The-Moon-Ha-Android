@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.exception.FieldException
@@ -31,13 +30,13 @@ import okhttp3.RequestBody
  */
 class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
     private val _fieldListContents = MutableStateFlow<List<FieldListResponse>>(emptyList())
-    private val _fieldDetailContent = MutableStateFlow<FieldDetailResponse?>(null)
+    private val _fieldDetailContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
     private val _fieldSearchContents = MutableStateFlow<List<FieldSearchResponse>>(emptyList())
     private val _makeFieldResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<FieldException?>(null)
 
     val fieldListResponse: StateFlow<List<FieldListResponse>> get() = _fieldListContents.asStateFlow()
-    val fieldDetailResponse: StateFlow<FieldDetailResponse?> get() = _fieldDetailContent.asStateFlow()
+    val fieldDetailResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailContents.asStateFlow()
     val fieldSearchResponse: StateFlow<List<FieldSearchResponse>> get() = _fieldSearchContents.asStateFlow()
     val makeFieldResponse: StateFlow<Result<String>> = _makeFieldResponse.asStateFlow()
     val error: StateFlow<FieldException?> get() = _error.asStateFlow()
@@ -72,13 +71,19 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun getFieldDetail(fieldId: Long) {
+    fun getFieldDetails(selectedPosition: Int) {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveFieldContent(fieldId)
-                Log.d("response", "getFieldDetail -> ${response.body()}")
+                val response = datasource.retrieveFieldContents()
                 if (response.isSuccessful && response.body() != null) {
-                    _fieldDetailContent.value = response.body()!!
+                    val fieldDetails = response.body()!!
+                    val selectedItem = fieldDetails[selectedPosition]
+
+                    val sortedDetails = mutableListOf(selectedItem).apply {
+                        addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
+                    }
+
+                    _fieldDetailContents.value = sortedDetails
                 } else {
                     _error.value = FieldRetrievingException()
                 }
