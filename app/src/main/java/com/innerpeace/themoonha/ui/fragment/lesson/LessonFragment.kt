@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.LessonAdapter
@@ -138,6 +139,11 @@ class LessonFragment : Fragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.branch_selection_dialog, null)
         bottomSheetDialog.setContentView(dialogView)
+
+        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        BottomSheetBehavior.from(bottomSheet!!).skipCollapsed = false
+        BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
 
         val branchButtonsMap = mapOf(
             Branch.TRADE_CENTER to dialogView.findViewById<Button>(R.id.branchTradeCenter),
