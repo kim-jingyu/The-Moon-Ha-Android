@@ -8,41 +8,45 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:paddingBottom="16dp">
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
                 android:id="@+id/branchName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="모든 지점"
                 android:textColor="@color/black"
-                android:textSize="30sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:textSize="20sp"
+                android:layout_gravity="center_vertical"/>
 
-        <ImageView
+            <ImageView
                 android:id="@+id/branchArrow"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
                 android:contentDescription="아래 방향 화살표"
                 android:src="@drawable/ic_arrow_down"
-                app:layout_constraintStart_toEndOf="@id/branchName"
-                app:layout_constraintTop_toTopOf="@id/branchName"
-                app:layout_constraintBottom_toBottomOf="@id/branchName"/>
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
         <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/branchName">
+                app:layout_constraintTop_toBottomOf="@id/linearLayout1">
 
             <ImageView
                     android:layout_width="24dp"
@@ -59,16 +63,15 @@
                     android:layout_marginTop="10dp"
                     android:text="금주의 1분 강좌"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewShortForm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:clipToPadding="false"
+                android:layout_marginBottom="20dp"
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,61 +79,64 @@
                 app:layout_constraintTop_toBottomOf="@id/linearLayout"
                 tools:listitem="@layout/fragment_short_form_item"/>
 
-        <GridLayout
-                android:id="@+id/gridLayoutButtons"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                app:layout_constraintTop_toBottomOf="@id/recyclerViewShortForm"
-                app:layout_constraintStart_toStartOf="parent"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
+            android:id="@+id/linearLayoutButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recyclerViewShortForm">
 
             <ImageView
-                    android:id="@+id/searchButton"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/lesson_button_background"
-                    android:clipToOutline="true"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/lesson_search_button"
-                    android:elevation="2dp"
-                    android:layout_gravity="center"/>
+                android:id="@+id/searchButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/lesson_button_background"
+                android:clipToOutline="true"
+                android:src="@drawable/lesson_search_button"
+                android:elevation="2dp"
+                android:layout_gravity="center"/>
 
             <ImageView
-                    android:id="@+id/myCultureCenter"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/lesson_button_background"
-                    android:clipToOutline="true"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/lesson_my_culture_button"
-                    android:elevation="2dp"
-                    android:layout_gravity="center"/>
+                android:id="@+id/myCultureCenter"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/lesson_button_background"
+                android:clipToOutline="true"
+                android:src="@drawable/lesson_my_culture_button"
+                android:elevation="2dp"
+                android:layout_gravity="center"/>
 
             <ImageView
-                    android:id="@+id/craftButton"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/lesson_button_background"
-                    android:clipToOutline="true"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/lesson_craft_button"
-                    android:elevation="2dp"
-                    android:layout_gravity="center"/>
+                android:id="@+id/craftButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/lesson_button_background"
+                android:clipToOutline="true"
+                android:src="@drawable/lesson_craft_button"
+                android:elevation="2dp"
+                android:layout_gravity="center"/>
 
             <ImageView
-                    android:id="@+id/liveButton"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/lesson_button_background"
-                    android:clipToOutline="true"
-                    android:layout_margin="8dp"
-                    android:src="@drawable/lesson_streaming__button"
-                    android:elevation="2dp"
-                    android:layout_gravity="center"/>
-        </GridLayout>
+                android:id="@+id/liveButton"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/lesson_button_background"
+                android:clipToOutline="true"
+                android:src="@drawable/lesson_streaming__button"
+                android:elevation="2dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
         <TextView
                 android:id="@+id/textViewMemberName"
@@ -140,28 +146,23 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="16dp"
-                app:layout_constraintTop_toBottomOf="@id/gridLayoutButtons"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/linearLayoutButtons"
                 app:layout_constraintStart_toStartOf="parent"/>
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewLesson"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginRight="12dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:orientation="vertical"
-                android:paddingTop="8dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewMemberName"
-                tools:listitem="@layout/fragment_lesson_item"/>
+            android:id="@+id/recyclerViewLesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMemberName"
+            tools:listitem="@layout/fragment_lesson_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

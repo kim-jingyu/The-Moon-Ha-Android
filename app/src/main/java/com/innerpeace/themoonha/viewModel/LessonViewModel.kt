@@ -120,4 +120,11 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
     fun setCurrentShortFormId(lessonId: Long) {
         _currentShortFormId.value = lessonId
     }
+
+
+    fun getShortFormDetail(shortFormId: Long) {
+        viewModelScope.launch {
+            lessonRepository.fetchShortFormDetail(shortFormId)
+        }
+    }
 }

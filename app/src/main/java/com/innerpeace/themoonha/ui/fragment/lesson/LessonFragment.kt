@@ -65,7 +65,7 @@ class LessonFragment : Fragment() {
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("문화센터")
 
-        binding.branchName.setOnClickListener {
+        binding.linearLayout1.setOnClickListener {
             showBranchSelectionDialog()
         }
 
@@ -97,6 +97,7 @@ class LessonFragment : Fragment() {
         shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm, position ->
             val bundle = bundleOf("selectedPosition" to position)
             viewModel.setCurrentShortFormId(shortForm.lessonId)
+//            viewModel.getShortFormDetail(shortForm.shortFormId)
             findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment, bundle)
         }
 
