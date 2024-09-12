@@ -31,13 +31,15 @@ import okhttp3.RequestBody
  */
 class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : ViewModel() {
     private val _beforeAfterListContents = MutableStateFlow<List<BeforeAfterListResponse>>(emptyList())
-    private val _beforeAfterDetailContents = MutableStateFlow<List<BeforeAfterDetailResponse>>(emptyList())
+    private val _beforeAfterDetailByLatestContents = MutableStateFlow<List<BeforeAfterDetailResponse>>(emptyList())
+    private val _beforeAfterDetailByTitleContents = MutableStateFlow<List<BeforeAfterDetailResponse>>(emptyList())
     private val _beforeAfterSearchContents = MutableStateFlow<List<BeforeAfterSearchResponse>>(emptyList())
     private val _makeBeforeAfterResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<BeforeAfterException?>(null)
 
     val beforeAfterListResponse: StateFlow<List<BeforeAfterListResponse>> get() = _beforeAfterListContents.asStateFlow()
-    val beforeAfterDetailResponse: StateFlow<List<BeforeAfterDetailResponse>> get() = _beforeAfterDetailContents.asStateFlow()
+    val beforeAfterDetailByLatestResponse: StateFlow<List<BeforeAfterDetailResponse>> get() = _beforeAfterDetailByLatestContents.asStateFlow()
+    val beforeAfterDetailByTitleResponse: StateFlow<List<BeforeAfterDetailResponse>> get() = _beforeAfterDetailByTitleContents.asStateFlow()
     val beforeAfterSearchResponse: StateFlow<List<BeforeAfterSearchResponse>> get() = _beforeAfterSearchContents.asStateFlow()
     val makeBeforeAfterResponse: StateFlow<Result<String>> = _makeBeforeAfterResponse.asStateFlow()
     val error: StateFlow<BeforeAfterException?> get() = _error.asStateFlow()
@@ -72,10 +74,10 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
         }
     }
 
-    fun getBeforeAfterDetails(selectedPosition: Int) {
+    fun getBeforeAfterDetailsByLatest(selectedPosition: Int) {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveBeforeAfterContents()
+                val response = datasource.retrieveBeforeAfterContentsByLatest()
                 if (response.isSuccessful && response.body() != null) {
                     val beforeAfterDetails = response.body()!!
                     val selectedItem = beforeAfterDetails[selectedPosition]
@@ -84,7 +86,29 @@ class BeforeAfterViewModel(private val datasource: BeforeAfterRepository) : View
                         addAll(beforeAfterDetails.filterIndexed { index, _ -> index != selectedPosition })
                     }
 
-                    _beforeAfterDetailContents.value = sortedDetails
+                    _beforeAfterDetailByLatestContents.value = sortedDetails
+                } else {
+                    _error.value = BeforeAfterRetrievingException()
+                }
+            } catch (e: Exception) {
+                _error.value = BeforeAfterRetrievingException()
+            }
+        }
+    }
+
+    fun getBeforeAfterDetailsByTitle(selectedPosition: Int) {
+        viewModelScope.launch {
+            try {
+                val response = datasource.retrieveBeforeAfterContentsByTitle()
+                if (response.isSuccessful && response.body() != null) {
+                    val beforeAfterDetails = response.body()!!
+                    val selectedItem = beforeAfterDetails[selectedPosition]
+
+                    val sortedDetails = mutableListOf(selectedItem).apply {
+                        addAll(beforeAfterDetails.filterIndexed { index, _ -> index != selectedPosition })
+                    }
+
+                    _beforeAfterDetailByLatestContents.value = sortedDetails
                 } else {
                     _error.value = BeforeAfterRetrievingException()
                 }

@@ -31,8 +31,11 @@ interface BeforeAfterService {
     @GET("/bite/before-after/{beforeAfterId}")
     suspend fun retrieveBeforeAfterContent(@Path("beforeAfterId") beforeAfterId: Long) : Response<BeforeAfterDetailResponse>
 
-    @GET("/bite/before-after/details")
-    suspend fun retrieveBeforeAfterContents() : Response<List<BeforeAfterDetailResponse>>
+    @GET("/bite/before-after/details/by-latest")
+    suspend fun retrieveBeforeAfterContentsByLatest() : Response<List<BeforeAfterDetailResponse>>
+
+    @GET("/bite/before-after/details/by-title")
+    suspend fun retrieveBeforeAfterContentsByTitle() : Response<List<BeforeAfterDetailResponse>>
 
     @Multipart
     @POST("/bite/before-after")

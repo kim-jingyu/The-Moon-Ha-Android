@@ -42,6 +42,8 @@ class FieldListFragment : Fragment() {
         FieldViewModelFactory(FieldRepository())
     }
 
+    private var sortOption: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,9 +95,11 @@ class FieldListFragment : Fragment() {
                 when (position) {
                     0 -> {
                         viewModel.getFieldList()
+                        sortOption = 0
                     }
                     1 -> {
                         viewModel.getFieldListOrderByTitle()
+                        sortOption = 1
                     }
                 }
             }
@@ -178,20 +182,17 @@ class FieldListFragment : Fragment() {
     }
     private fun navigateToFieldDetail(selectedPosition: Int) {
         findNavController().navigate(
-            R.id.action_field_to_detail,
+            R.id.fieldDetailFragment,
             Bundle().apply {
                 putInt("selectedPosition", selectedPosition)
+                putInt("sortOption", sortOption)
             }
         )
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressLayout.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
     private fun setupToBeforeAfter() {
         binding.beforeAfter.setOnClickListener {
-            findNavController().navigate(R.id.action_field_to_beforeAfterList)
+            findNavController().navigate(R.id.beforeAfterListFragment)
         }
     }
 

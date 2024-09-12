@@ -20,17 +20,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_before"
-            android:background="@drawable/rounded_corner_content"
-            android:clipToOutline="true" />
+            android:background="@drawable/rounded_corner_content" />
 
         <VideoView
             android:id="@+id/beforeContentVideo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:layout_gravity="center"
-            />
+            android:layout_gravity="center" />
+
     </FrameLayout>
 
     <FrameLayout
@@ -45,9 +43,7 @@
             android:id="@+id/afterContentImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToOutline="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_after" />
+            android:scaleType="centerCrop" />
 
         <VideoView
             android:id="@+id/afterContentVideo"
@@ -98,7 +94,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:scaleType="centerInside"
@@ -146,4 +142,30 @@
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
         app:layout_constraintTop_toTopOf="@+id/afterContentContainer" />
+
+    <TextView
+        android:id="@+id/beforeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Before"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/beforeContentContainer"
+        app:layout_constraintStart_toStartOf="@id/beforeContentContainer"
+        app:layout_constraintEnd_toEndOf="@id/beforeContentContainer"
+        app:layout_constraintBottom_toBottomOf="@id/beforeContentContainer"
+        />
+
+    <TextView
+        android:id="@+id/afterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="After"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/afterContentContainer"
+        app:layout_constraintStart_toStartOf="@id/afterContentContainer"
+        app:layout_constraintEnd_toEndOf="@id/afterContentContainer"
+        app:layout_constraintBottom_toBottomOf="@id/afterContentContainer"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

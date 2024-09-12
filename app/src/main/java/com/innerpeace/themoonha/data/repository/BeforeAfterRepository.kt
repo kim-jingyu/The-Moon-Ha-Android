@@ -37,8 +37,12 @@ class BeforeAfterRepository: BeforeAfterService {
         return api.retrieveBeforeAfterContent(beforeAfterId)
     }
 
-    override suspend fun retrieveBeforeAfterContents(): Response<List<BeforeAfterDetailResponse>> {
-        return api.retrieveBeforeAfterContents()
+    override suspend fun retrieveBeforeAfterContentsByLatest(): Response<List<BeforeAfterDetailResponse>> {
+        return api.retrieveBeforeAfterContentsByLatest()
+    }
+
+    override suspend fun retrieveBeforeAfterContentsByTitle(): Response<List<BeforeAfterDetailResponse>> {
+        return api.retrieveBeforeAfterContentsByTitle()
     }
 
     override suspend fun makeBeforeAfter(

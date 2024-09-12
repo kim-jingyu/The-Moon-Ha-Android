@@ -63,12 +63,10 @@ class FieldEnrollContentsFragment : Fragment() {
             hideBottomNavigation()
         }
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.cameraButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.cameraButton.setOnClickListener {
             if (hasCameraPermission()) {
                 selectCameraMode()

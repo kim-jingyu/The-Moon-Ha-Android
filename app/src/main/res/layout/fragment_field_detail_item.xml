@@ -114,12 +114,15 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/hashtagFlow"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="5dp"
+        app:flow_horizontalAlign="start"
         app:flow_horizontalGap="8dp"
         app:flow_wrapMode="chain"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleDetail" />
 </androidx.constraintlayout.widget.ConstraintLayout>

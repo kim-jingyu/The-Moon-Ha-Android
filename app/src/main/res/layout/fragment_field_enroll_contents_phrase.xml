@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToOutline="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_after" />
+            android:scaleType="fitCenter" />
 
         <VideoView
             android:id="@+id/contentVideo"
@@ -38,7 +37,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:scaleType="centerInside"
@@ -86,6 +85,8 @@
         android:hint="문구 추가.."
         android:imeOptions="actionDone"
         android:inputType="text"
+        android:background="@android:color/transparent"
+        android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.101"
@@ -95,31 +96,32 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/hashtagFlow"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="4dp"
         android:layout_marginRight="20dp"
         app:flow_wrapMode="aligned"
         app:layout_constraintEnd_toStartOf="@id/nextButton"
-        app:layout_constraintHorizontal_bias="0.421"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inputPhrase" />
 
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="38dp"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:text="작성"
-        android:textSize="13dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         app:cornerRadius="16dp"
-        android:backgroundTint="@color/green"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.886"
+        app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.955" />
+        app:layout_constraintVertical_bias="0.50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

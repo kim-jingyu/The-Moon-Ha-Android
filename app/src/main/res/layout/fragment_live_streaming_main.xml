@@ -10,16 +10,20 @@
         android:id="@+id/top_bar_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.exoplayer2.ui.PlayerView
         android:id="@+id/onAirPlayer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/top_bar_container" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:resize_mode="fill"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_bar_container"
+        app:layout_constraintDimensionRatio="16:9"
+        />
 
     <TextView
         android:id="@+id/onAirTextview"
@@ -49,13 +53,11 @@
 
     <FrameLayout
         android:id="@+id/live_streaming_info_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="15dp"
-        app:layout_constraintTop_toBottomOf="@id/onAirPlayer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/rounded_border_live_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onAirPlayer"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

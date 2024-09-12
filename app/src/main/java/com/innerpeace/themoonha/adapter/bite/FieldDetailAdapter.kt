@@ -1,13 +1,9 @@
 package com.innerpeace.themoonha.adapter.bite
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -48,7 +44,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                 }
                 binding.videoDetail.player = player
                 binding.videoDetail.useController = false
-                controlVideoPlayer(player, binding.playIcon, binding.pauseIcon)
+                controlVideoPlayer(player)
             }
         }
 
@@ -83,47 +79,26 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                     binding.titleDetail.maxLines = 1
                     binding.titleDetail.ellipsize = TextUtils.TruncateAt.END
                     binding.moreButton.text = "더보기"
+                    binding.moreButton.visibility = View.VISIBLE
                     isTextExpanded = false
                 }
             }
         }
 
         private fun controlVideoPlayer(
-            player: ExoPlayer?,
-            playIcon: ImageView,
-            pauseIcon: ImageView
+            player: ExoPlayer?
         ) {
             player?.let {
-                playIcon.visibility = View.GONE
-                pauseIcon.visibility = View.GONE
-
                 binding.root.setOnClickListener {
                     if (player.isPlaying) {
                         player.pause()
-                        setIconWithAnimation(pauseIcon)
                     } else {
                         player.play()
-                        setIconWithAnimation(playIcon)
                     }
                 }
             }
         }
 
-        private fun setIconWithAnimation(icon: ImageView) {
-            icon.visibility = View.VISIBLE
-            icon.alpha = 1.0f
-
-            val animator = ObjectAnimator.ofFloat(icon, View.ALPHA, 1.0f, 0.0f)
-            animator.duration = 1500
-
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    icon.visibility = View.GONE
-                }
-            })
-
-            animator.start()
-        }
 
         private fun setHashtags(hashtags: List<String>) {
             val flow = binding.hashtagFlow

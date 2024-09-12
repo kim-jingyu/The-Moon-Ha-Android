@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.innerpeace.themoonha.R
@@ -98,6 +99,10 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             hideBottomNavigation()
         }
 
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         displayContent()
         val lessonSpinner = binding.lessonSpinner
 
@@ -132,6 +137,8 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
                 if (text.endsWith(" ") || text.endsWith("\n")) {
                     val trimmedText = text.trim()
                     if (trimmedText.startsWith("#")) {
+                        val originalHashTag = trimmedText.removePrefix("#")
+                        hashtags.add(originalHashTag)
                         addHashtag(trimmedText)
                         binding.inputPhrase.text.clear()
                     }
@@ -145,13 +152,9 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
     }
 
     private fun addHashtag(tag: String) {
-        hashtags.add(tag)
-
         val hashtagView = TextView(requireContext()).apply {
             id = View.generateViewId()
             text = tag
-            setBackgroundResource(R.drawable.hashtag_background)
-            setPadding(16, 8, 16, 8)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             layoutParams = ConstraintLayout.LayoutParams (
@@ -211,7 +214,10 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             beforeAfterViewModel.makeBeforeAfterResponse.collect { result ->
                 result?.fold(
                     onSuccess = {
-                        findNavController().navigate(R.id.action_before_after_to_beforeAfterList)
+                        val navOptions = NavOptions.Builder()
+                            .setPopUpTo(R.id.beforeAfterListFragment, true)
+                            .build()
+                        findNavController().navigate(R.id.beforeAfterListFragment, null, navOptions)
                     },
                     onFailure = {
                         Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()

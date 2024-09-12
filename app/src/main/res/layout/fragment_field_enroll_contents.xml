@@ -20,8 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_before"
-            android:background="@drawable/rounded_corner_content"
             android:clipToOutline="true" />
 
         <VideoView
@@ -53,7 +51,7 @@
                 android:layout_marginEnd="20dp"
                 android:singleLine="true"
                 android:text="Before &amp; After"
-                android:textColor="@color/green"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <TextView
@@ -61,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="분야별 한 입"
-                android:textColor="@color/black"
+                android:textColor="@color/green"
                 android:textSize="15dp" />
         </LinearLayout>
 
@@ -73,7 +71,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/ic_arrow_left"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:scaleType="centerInside"
@@ -121,4 +119,17 @@
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/cameraButton"
         app:layout_constraintTop_toTopOf="@+id/contentContainer" />
+
+    <TextView
+        android:id="@+id/fieldText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="분야별 한 입"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="@id/contentContainer"
+        app:layout_constraintStart_toStartOf="@id/contentContainer"
+        app:layout_constraintEnd_toEndOf="@id/contentContainer"
+        app:layout_constraintBottom_toBottomOf="@id/contentContainer"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
