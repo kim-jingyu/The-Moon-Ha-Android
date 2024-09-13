@@ -1,13 +1,19 @@
 package com.innerpeace.themoonha.ui.activity.common
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.FirebaseApp
+import com.google.firebase.messaging.Constants.TAG
+import com.google.firebase.messaging.FirebaseMessaging
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.databinding.ActivityMainBinding
@@ -28,11 +34,12 @@ import com.kakao.sdk.common.KakaoSdk
  * </pre>
  */
 class MainActivity : AppCompatActivity() {
-    lateinit var binding:ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        FirebaseApp.initializeApp(this)
         ApiClient.init(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
