@@ -65,18 +65,6 @@
 
     </HorizontalScrollView>
 
-
-    <ImageView
-        android:id="@+id/backButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_arrow_left"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:scaleType="centerInside"
-        />
-
     <ImageView
         android:id="@+id/cameraButton"
         android:layout_width="50dp"
@@ -107,18 +95,58 @@
         app:layout_constraintTop_toBottomOf="@+id/contentContainer"
         app:layout_constraintVertical_bias="0.483" />
 
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/light_gray_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.082"
+        tools:layout_editor_absoluteX="-1dp" />
+
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="16dp"
+        android:src="@drawable/ic_arrow_left"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="centerInside"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        android:singleLine="true"
+        android:text="분야별 한 입"
+        android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
+        android:layout_marginVertical="0.5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintStart_toEndOf="@+id/backButton"
+        app:layout_constraintTop_toTopOf="@id/backButton" />
+
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="60dp"
+        android:layout_width="70dp"
         android:layout_height="38dp"
-        android:layout_marginTop="578dp"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:text="다음"
-        android:textSize="13dp"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@id/line"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/cameraButton"
-        app:layout_constraintTop_toTopOf="@+id/contentContainer" />
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.50" />
 
     <TextView
         android:id="@+id/fieldText"

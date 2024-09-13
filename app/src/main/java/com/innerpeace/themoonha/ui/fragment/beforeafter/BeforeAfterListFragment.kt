@@ -66,8 +66,8 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupSpinner() {
         val sortOptions = arrayOf("최신순", "제목순")
-        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sortOptions)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         binding.sort.adapter = arrayAdapter
 
         binding.sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -2,7 +2,6 @@ package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
@@ -190,11 +189,25 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         }
 
         val beforeThumbnail = beforeContentUri?.let { uri ->
-            createThumbnailMultiPart(uri, "beforeThumbnail")
+            val contentResolver = requireContext().contentResolver
+            val type = contentResolver.getType(uri)
+
+            if (type?.startsWith("image") == true) {
+                convertUriToMultiPart(uri, "beforeThumbnail")
+            } else {
+                createThumbnailMultiPart(uri, "beforeThumbnail")
+            }
         }
 
         val afterThumbnail = afterContentUri?.let { uri ->
-            createThumbnailMultiPart(uri, "afterThumbnail")
+            val contentResolver = requireContext().contentResolver
+            val type = contentResolver.getType(uri)
+
+            if (type?.startsWith("image") == true) {
+                convertUriToMultiPart(uri, "afterThumbnail")
+            } else {
+                createThumbnailMultiPart(uri, "afterThumbnail")
+            }
         }
 
         if (beforeContent != null && afterContent != null && beforeThumbnail != null && afterThumbnail != null) {
@@ -231,9 +244,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         val contentResolver = requireContext().contentResolver
         val type = contentResolver.getType(uri)
 
-        val thumbnailFile = if (type?.startsWith("image") == true) {
-            createImageThumbnail(uri)
-        } else if (type?.startsWith("video") == true) {
+        val thumbnailFile = if (type?.startsWith("video") == true) {
             createVideoThumbnail(uri)
         } else {
             null
@@ -243,21 +254,6 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             MultipartBody.Part.createFormData(content, file.name, requestBody)
         } ?: throw IllegalStateException("썸네일 생성 실패")
-    }
-
-    private fun createImageThumbnail(uri: Uri): File {
-        val inputStream = requireContext().contentResolver.openInputStream(uri)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-
-        val thumbnail = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
-
-        val tempFile = File.createTempFile("thumbnail", ".jpg", requireContext().cacheDir)
-        val outputStream = FileOutputStream(tempFile)
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 85, outputStream)
-        outputStream.flush()
-        outputStream.close()
-
-        return tempFile
     }
 
     private fun createVideoThumbnail(uri: Uri): File {

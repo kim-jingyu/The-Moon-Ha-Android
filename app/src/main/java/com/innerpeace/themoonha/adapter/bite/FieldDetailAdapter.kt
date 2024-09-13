@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldDetailItemBinding
 
@@ -32,7 +31,6 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
 
                 Glide.with(binding.root.context)
                     .load(content.contentUrl)
-                    .error(R.drawable.ic_play)
                     .into(binding.imageDetail)
             } else {
                 binding.imageDetail.visibility = View.GONE
@@ -113,7 +111,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                 val textView = TextView(binding.root.context).apply {
                     id = View.generateViewId()
                     text = "#$hashtag"
-                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.white))
+                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.black))
                     setPadding(0, 4, 8, 4)
                     textSize = 12f
                 }

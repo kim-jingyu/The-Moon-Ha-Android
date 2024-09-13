@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="김짱구"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,14 +88,14 @@
         android:maxWidth="150dp"
         android:maxLines="1"
         android:text="타이틀"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:textSize="13dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.075"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.917" />
+        app:layout_constraintVertical_bias="0.913" />
 
     <Button
         android:id="@+id/moreButton"
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:text="더보기"
         android:textSize="13dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:background="@android:color/transparent"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="@id/titleDetail"
