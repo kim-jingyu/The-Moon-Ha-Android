@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.innerpeace.themoonha.BuildConfig.BASE_IP_ADDRESS
@@ -16,6 +17,7 @@ import com.innerpeace.themoonha.databinding.FragmentLiveStreamingMainBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LiveViewModel
 import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
+import kotlinx.coroutines.launch
 
 /**
  * 실시간 강좌 - 스트리밍 메인 페이지 프래그먼트
@@ -57,7 +59,7 @@ class LiveStreamingMainFragment : Fragment() {
         val resp: LiveLessonDetailResponse = arguments?.getParcelable("liveLessonDetailResponse")!!
 
         liveId = resp.liveId
-        viewModel.joinLiveLesson(liveId)
+        lifecycleScope.launch { viewModel.joinLiveLesson(liveId) }
         setOnAirPlayer(resp.broadcastUrl)
 
         val mainInfoFragment = LiveStreamingMainInfoFragment().apply {
@@ -80,7 +82,7 @@ class LiveStreamingMainFragment : Fragment() {
     private fun releaseOnAirPlayer() {
         player?.release()
         player = null
-        viewModel.leaveLiveLesson(liveId)
+        lifecycleScope.launch { viewModel.leaveLiveLesson(liveId) }
     }
 
     override fun onPause() {

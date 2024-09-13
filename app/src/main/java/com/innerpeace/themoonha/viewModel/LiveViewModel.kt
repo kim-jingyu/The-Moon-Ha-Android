@@ -7,12 +7,12 @@ import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
 import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
 import com.innerpeace.themoonha.data.model.live.LiveLessonStatusResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import kotlinx.coroutines.withContext
 
 /**
  * 실시간 강좌 API ViewModel
@@ -36,15 +36,10 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
     private val _liveLessonLeaveCount = MutableStateFlow<Int?>(null)
     private val _liveLessonLikeCount = MutableStateFlow<Int?>(null)
     private val _liveLessonShareLink = MutableStateFlow<String>("")
-    private val _makeLiveLesson = MutableStateFlow(Result.success(""))
-    private val _endLiveLesson = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<LiveException?>(null)
 
     val liveLessonListResponse: StateFlow<List<LiveLessonResponse>> get() = _liveLessonList.asStateFlow()
     val liveLessonDetailResponse: StateFlow<LiveLessonDetailResponse?> get() = _liveLessonDetail.asStateFlow()
-    val liveLessonStatusResponse: StateFlow<LiveLessonStatusResponse?> get() = _liveLessonStatus.asStateFlow()
-    val makeLiveLessonResponse: StateFlow<Result<String>> = _makeLiveLesson.asStateFlow()
-    val endLiveLessonResponse: StateFlow<Result<String>> = _endLiveLesson.asStateFlow()
     val liveLessonViewersCountResponse: StateFlow<Int?> get() = _liveLessonViewersCount.asStateFlow()
     val liveLessonLikesCountResponse: StateFlow<Int?> get() = _liveLessonLikesCount.asStateFlow()
     val liveLessonJoinCountResponse: StateFlow<Int?> get() = _liveLessonJoinCount.asStateFlow()
@@ -128,55 +123,6 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
         }
     }
 
-    fun makeLesson(
-        liveLessonRequest: RequestBody,
-        thumbnail: MultipartBody.Part
-    ) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.makeLiveLesson(
-                    liveLessonRequest = liveLessonRequest,
-                    thumbnail = thumbnail
-                )
-                if (response.success) {
-                    _makeLiveLesson.value = Result.success(response.message)
-                } else {
-                    _error.value = LiveMakingException()
-                }
-            } catch (e: Exception) {
-                _error.value = LiveMakingException()
-            }
-        }
-    }
-
-    fun endLiveLesson(liveId: Long) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.endLiveLesson(liveId)
-                if (response.success) {
-                    _endLiveLesson.value = Result.success(response.message)
-                } else {
-                    _error.value = LiveRetrievingException()
-                }
-            } catch (e: Exception) {
-                _error.value = LiveRetrievingException()
-            }
-        }
-    }
-
-    fun getLiveLessonStatus(liveId: Long) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.retrieveLiveLessonStatus(liveId)
-                if (response.isSuccessful) {
-                    _liveLessonStatus.value = response.body()!!
-                }
-            } catch (e: Exception) {
-                _error.value = LiveRetrievingException()
-            }
-        }
-    }
-
     fun getViewersCount(liveId: Long) {
         viewModelScope.launch {
             try {
@@ -207,48 +153,33 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
         }
     }
 
-    fun joinLiveLesson(liveId: Long) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.joinLiveLesson(liveId)
-                if (response.isSuccessful) {
-                    _liveLessonJoinCount.value = response.body()
-                } else {
-                    _error.value = LiveJoinException()
-                }
-            } catch (e: Exception) {
-                _error.value = LiveJoinException()
-            }
+    suspend fun joinLiveLesson(liveId: Long) : Result<Int> {
+        return try {
+            Result.success(withContext(Dispatchers.IO) {
+                datasource.joinLiveLesson(liveId)
+            }.body()!!)
+        } catch (e: Exception) {
+            Result.failure(LiveJoinException())
         }
     }
 
-    fun leaveLiveLesson(liveId: Long) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.leaveLiveLesson(liveId)
-                if (response.isSuccessful) {
-                    _liveLessonLeaveCount.value = response.body()
-                } else {
-                    _error.value = LiveLeaveException()
-                }
-            } catch (e: Exception) {
-                _error.value = LiveLeaveException()
-            }
+    suspend fun leaveLiveLesson(liveId: Long) : Result<Int> {
+        return try {
+            Result.success(withContext(Dispatchers.IO) {
+                datasource.leaveLiveLesson(liveId)
+            }.body()!!)
+        } catch (e: Exception) {
+            Result.failure(LiveLeaveException())
         }
     }
 
-    fun likeLiveLesson(liveId: Long) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.likeLiveLesson(liveId)
-                if (response.isSuccessful) {
-                    _liveLessonLikeCount.value = response.body()
-                } else {
-                    _error.value = LiveLikeException()
-                }
-            } catch (e: Exception) {
-                _error.value = LiveLikeException()
-            }
+    suspend fun likeLiveLesson(liveId: Long) : Result<Int> {
+        return try {
+            Result.success(withContext(Dispatchers.IO) {
+                datasource.likeLiveLesson(liveId)
+            }.body()!!)
+        } catch (e: Exception) {
+            Result.failure(LiveLikeException())
         }
     }
 

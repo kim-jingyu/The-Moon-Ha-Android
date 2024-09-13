@@ -141,6 +141,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setAfterVideoContent(uri: Uri) {
         afterContentUri = uri
+        binding.afterText.visibility = View.GONE
         binding.afterContentImage.visibility = View.GONE
         binding.afterContentVideo.visibility = View.VISIBLE
         binding.afterContentVideo.setVideoURI(uri)
@@ -149,6 +150,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setBeforeVideoContent(uri: Uri) {
         beforeContentUri = uri
+        binding.beforeText.visibility = View.GONE
         binding.beforeContentImage.visibility = View.GONE
         binding.beforeContentVideo.visibility = View.VISIBLE
         binding.beforeContentVideo.setVideoURI(uri)
@@ -157,6 +159,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setAfterImageContent(uri: Uri) {
         afterContentUri = uri
+        binding.afterText.visibility = View.GONE
         binding.afterContentImage.visibility = View.VISIBLE
         binding.afterContentVideo.visibility = View.GONE
         binding.afterContentImage.setImageURI(uri)
@@ -164,6 +167,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setBeforeImageContent(uri: Uri) {
         beforeContentUri = uri
+        binding.beforeText.visibility = View.GONE
         binding.beforeContentImage.visibility = View.VISIBLE
         binding.beforeContentVideo.visibility = View.GONE
         binding.beforeContentImage.setImageURI(uri)

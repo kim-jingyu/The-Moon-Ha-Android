@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.field
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,7 @@ class FieldDetailFragment : Fragment() {
             hideBottomNavigation()
         }
 
+        binding.backButton.setColorFilter(Color.WHITE)
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }

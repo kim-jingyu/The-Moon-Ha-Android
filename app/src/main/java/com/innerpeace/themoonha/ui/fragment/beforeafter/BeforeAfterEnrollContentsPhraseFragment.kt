@@ -35,7 +35,7 @@ import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -210,22 +210,34 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             }
         }
 
-        if (beforeContent != null && afterContent != null && beforeThumbnail != null && afterThumbnail != null) {
-            beforeAfterViewModel.makeBeforeAfter(
-                Gson().toJson(beforeAfterRequest).toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
-                beforeContent,
-                afterContent,
-                beforeThumbnail,
-                afterThumbnail
-            )
-            observeMakeBeforeAfterResult()
-        }
+        makeBeforeAfterContent(
+            beforeContent,
+            afterContent,
+            beforeThumbnail,
+            afterThumbnail,
+            beforeAfterRequest
+        )
     }
 
-    private fun observeMakeBeforeAfterResult() {
-        lifecycleScope.launchWhenStarted {
-            beforeAfterViewModel.makeBeforeAfterResponse.collect { result ->
-                result?.fold(
+    private fun makeBeforeAfterContent(
+        beforeContent: MultipartBody.Part?,
+        afterContent: MultipartBody.Part?,
+        beforeThumbnail: MultipartBody.Part?,
+        afterThumbnail: MultipartBody.Part?,
+        beforeAfterRequest: BeforeAfterRequest
+    ) {
+        if (beforeContent != null && afterContent != null && beforeThumbnail != null && afterThumbnail != null) {
+            lifecycleScope.launch {
+                val result = beforeAfterViewModel.makeBeforeAfter(
+                    Gson().toJson(beforeAfterRequest)
+                        .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                    beforeContent,
+                    afterContent,
+                    beforeThumbnail,
+                    afterThumbnail
+                )
+
+                result.fold(
                     onSuccess = {
                         val navOptions = NavOptions.Builder()
                             .setPopUpTo(R.id.beforeAfterListFragment, true)
@@ -233,7 +245,11 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
                         findNavController().navigate(R.id.beforeAfterListFragment, null, navOptions)
                     },
                     onFailure = {
-                        Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Before&After 생성에 실패했습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 )
             }

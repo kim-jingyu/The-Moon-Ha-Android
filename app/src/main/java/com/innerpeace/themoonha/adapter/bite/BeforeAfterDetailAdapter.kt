@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailItemBinding
@@ -50,6 +51,7 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
                     setMediaItem(MediaItem.fromUri(content.beforeUrl))
                     prepare()
                     playWhenReady = true
+                    repeatMode = Player.REPEAT_MODE_ALL
                 }
                 binding.beforeVideoDetail.player = beforePlayer
                 binding.beforeVideoDetail.useController = false
@@ -80,6 +82,7 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
                     setMediaItem(MediaItem.fromUri(content.afterUrl))
                     prepare()
                     playWhenReady = true
+                    repeatMode = Player.REPEAT_MODE_ALL
                 }
                 binding.afterVideoDetail.player = afterPlayer
                 binding.afterVideoDetail.useController = false

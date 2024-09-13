@@ -52,6 +52,12 @@ class LiveOnAirListAdapter(
             .circleCrop()
             .into(holder.binding.profileImage)
         holder.binding.instructorName.text = onAirContent.instructorName
+        if (onAirContent.minutesAgo >= 60) {
+            var hour = onAirContent.minutesAgo / 60
+            holder.binding.minutesAgo.text = "시작: ${hour}시간 전"
+        } else {
+            holder.binding.minutesAgo.text = "시작: ${onAirContent.minutesAgo}분 전"
+        }
     }
 
     private fun setUpContent(

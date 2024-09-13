@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldDetailItemBinding
 
@@ -39,6 +40,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                     setMediaItem(MediaItem.fromUri(content.contentUrl))
                     prepare()
                     playWhenReady = true
+                    repeatMode = Player.REPEAT_MODE_ALL
                 }
                 binding.videoDetail.player = player
                 binding.videoDetail.useController = false
@@ -87,11 +89,15 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
             player: ExoPlayer?
         ) {
             player?.let {
-                binding.root.setOnClickListener {
+                binding.videoDetail.setOnClickListener {
                     if (player.isPlaying) {
                         player.pause()
+                        binding.pauseIcon.visibility = View.VISIBLE
+                        binding.playIcon.visibility = View.GONE
                     } else {
                         player.play()
+                        binding.playIcon.visibility = View.VISIBLE
+                        binding.pauseIcon.visibility = View.GONE
                     }
                 }
             }

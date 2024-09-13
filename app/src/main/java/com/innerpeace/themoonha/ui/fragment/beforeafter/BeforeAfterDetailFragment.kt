@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +53,8 @@ class BeforeAfterDetailFragment : Fragment() {
             hideToolbar()
             hideBottomNavigation()
         }
+
+        binding.backButton.setColorFilter(Color.WHITE)
 
         val viewPager = binding.viewPager2
         val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
