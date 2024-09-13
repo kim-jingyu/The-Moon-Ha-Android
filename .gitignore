@@ -16,3 +16,4 @@
 local.properties
 /app/src/main/res/xml/network_security_config.xml
 /app/src/main/res/values/strings.xml
+/app/google-services.json
