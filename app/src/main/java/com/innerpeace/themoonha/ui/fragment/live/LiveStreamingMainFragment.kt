@@ -1,7 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.live
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import com.innerpeace.themoonha.databinding.FragmentLiveStreamingMainBinding
+import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LiveViewModel
 import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
 
@@ -50,11 +50,11 @@ class LiveStreamingMainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val resp: LiveLessonDetailResponse = arguments?.getParcelable("liveLessonDetailResponse")!!
-        if (resp == null){
-            Log.e("LiveMainFragment", "No detailResponse received in arguments")
-            return
+        (activity as? MainActivity)?.apply {
+            hideBottomNavigation()
         }
+
+        val resp: LiveLessonDetailResponse = arguments?.getParcelable("liveLessonDetailResponse")!!
 
         liveId = resp.liveId
         viewModel.joinLiveLesson(liveId)

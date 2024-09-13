@@ -1,20 +1,15 @@
 package com.innerpeace.themoonha.adapter.bite
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldDetailItemBinding
 
@@ -36,7 +31,6 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
 
                 Glide.with(binding.root.context)
                     .load(content.contentUrl)
-                    .error(R.drawable.ic_play)
                     .into(binding.imageDetail)
             } else {
                 binding.imageDetail.visibility = View.GONE
@@ -48,7 +42,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                 }
                 binding.videoDetail.player = player
                 binding.videoDetail.useController = false
-                controlVideoPlayer(player, binding.playIcon, binding.pauseIcon)
+                controlVideoPlayer(player)
             }
         }
 
@@ -83,47 +77,26 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                     binding.titleDetail.maxLines = 1
                     binding.titleDetail.ellipsize = TextUtils.TruncateAt.END
                     binding.moreButton.text = "더보기"
+                    binding.moreButton.visibility = View.VISIBLE
                     isTextExpanded = false
                 }
             }
         }
 
         private fun controlVideoPlayer(
-            player: ExoPlayer?,
-            playIcon: ImageView,
-            pauseIcon: ImageView
+            player: ExoPlayer?
         ) {
             player?.let {
-                playIcon.visibility = View.GONE
-                pauseIcon.visibility = View.GONE
-
                 binding.root.setOnClickListener {
                     if (player.isPlaying) {
                         player.pause()
-                        setIconWithAnimation(pauseIcon)
                     } else {
                         player.play()
-                        setIconWithAnimation(playIcon)
                     }
                 }
             }
         }
 
-        private fun setIconWithAnimation(icon: ImageView) {
-            icon.visibility = View.VISIBLE
-            icon.alpha = 1.0f
-
-            val animator = ObjectAnimator.ofFloat(icon, View.ALPHA, 1.0f, 0.0f)
-            animator.duration = 1500
-
-            animator.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    icon.visibility = View.GONE
-                }
-            })
-
-            animator.start()
-        }
 
         private fun setHashtags(hashtags: List<String>) {
             val flow = binding.hashtagFlow
@@ -138,7 +111,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                 val textView = TextView(binding.root.context).apply {
                     id = View.generateViewId()
                     text = "#$hashtag"
-                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.white))
+                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.black))
                     setPadding(0, 4, 8, 4)
                     textSize = 12f
                 }

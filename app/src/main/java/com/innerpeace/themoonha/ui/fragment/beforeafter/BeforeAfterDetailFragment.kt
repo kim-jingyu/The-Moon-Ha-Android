@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.innerpeace.themoonha.adapter.bite.BeforeAfterDetailAdapter
 import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
@@ -55,19 +55,43 @@ class BeforeAfterDetailFragment : Fragment() {
 
         val viewPager = binding.viewPager2
         val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
+        val sortOption = arguments?.getInt("sortOption") ?: 0
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        viewModel.getBeforeAfterDetails(selectedPosition)
+        if (sortOption == 0) {
+            getDetailsByLatest(selectedPosition, viewPager)
+        } else if (sortOption == 1) {
+            getDetailsByTitle(selectedPosition, viewPager)
+        }
+    }
 
+    private fun getDetailsByTitle(
+        selectedPosition: Int,
+        viewPager: ViewPager2
+    ) {
+        viewModel.getBeforeAfterDetailsByTitle(selectedPosition)
         lifecycleScope.launch {
-            viewModel.beforeAfterDetailResponse.collect { details ->
+            viewModel.beforeAfterDetailByTitleResponse.collect { details ->
                 adapter = BeforeAfterDetailAdapter(details)
                 viewPager.adapter = adapter
-                viewPager.setCurrentItem(selectedPosition, false)
+                viewPager.setCurrentItem(0, false)
+            }
+        }
+    }
+
+    private fun getDetailsByLatest(
+        selectedPosition: Int,
+        viewPager: ViewPager2
+    ) {
+        viewModel.getBeforeAfterDetailsByLatest(selectedPosition)
+        lifecycleScope.launch {
+            viewModel.beforeAfterDetailByLatestResponse.collect { details ->
+                adapter = BeforeAfterDetailAdapter(details)
+                viewPager.adapter = adapter
+                viewPager.setCurrentItem(0, false)
             }
         }
     }

@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.innerpeace.themoonha.R
@@ -17,7 +16,6 @@ import com.innerpeace.themoonha.databinding.FragmentBeforeAfterListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
-import kotlinx.coroutines.flow.collect
 
 /**
  * Before&After 프래그먼트
@@ -39,6 +37,8 @@ class BeforeAfterListFragment : Fragment() {
     private val viewModel: BeforeAfterViewModel by viewModels {
         BeforeAfterViewModelFactory(BeforeAfterRepository())
     }
+
+    private var sortOption: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,8 +66,8 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupSpinner() {
         val sortOptions = arrayOf("최신순", "제목순")
-        val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, sortOptions)
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.spinner_selected_item, sortOptions)
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         binding.sort.adapter = arrayAdapter
 
         binding.sort.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -80,9 +80,11 @@ class BeforeAfterListFragment : Fragment() {
                 when (position) {
                     0 -> {
                         viewModel.getBeforeAfterList()
+                        sortOption = 0
                     }
                     1 -> {
                         viewModel.getBeforeAfterListOrderByTitle()
+                        sortOption = 1
                     }
                 }
             }
@@ -95,7 +97,7 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun setupToBite() {
         binding.biteForField.setOnClickListener {
-            findNavController().navigate(R.id.action_before_after_to_field)
+            findNavController().navigate(R.id.fieldListFragment)
         }
     }
 
@@ -143,9 +145,10 @@ class BeforeAfterListFragment : Fragment() {
 
     private fun navigateToBeforeAfterDetail(selectedPosition: Int) {
         findNavController().navigate(
-            R.id.action_before_after_to_detail,
+            R.id.beforeAfterDetailFragment,
             Bundle().apply {
                 putInt("selectedPosition", selectedPosition)
+                putInt("sortOption", sortOption)
             }
         )
     }

@@ -11,11 +11,10 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_before"
-        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/afterImage"
@@ -24,7 +23,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_after"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/beforeImage"
@@ -32,18 +31,18 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="262dp"
-        android:layout_height="22dp"
-        android:text="타이틀"
-        android:textColor="@color/black"
-        android:textSize="13dp"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        app:layout_constraintTop_toBottomOf="@id/afterImage"
+        android:text="타이틀"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/afterImage"
+        app:layout_constraintVertical_bias="0.205" />
 
     <ImageView
         android:id="@+id/profileImage"

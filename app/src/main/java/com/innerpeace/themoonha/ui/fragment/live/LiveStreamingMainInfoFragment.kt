@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.innerpeace.themoonha.adapter.live.LiveLessonMainInfoAdapter
 import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
+import com.innerpeace.themoonha.data.model.live.LiveLessonInfo
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import com.innerpeace.themoonha.databinding.FragmentLiveStreamingMainInfoBinding
 import com.innerpeace.themoonha.viewModel.LiveViewModel
@@ -35,7 +38,7 @@ import com.kakao.sdk.template.model.Link
 class LiveStreamingMainInfoFragment: Fragment() {
     private var _binding: FragmentLiveStreamingMainInfoBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LiveViewModel by viewModels {
+    private val liveViewModel: LiveViewModel by viewModels {
         LiveViewModelFactory(LiveRepository())
     }
 
@@ -43,6 +46,9 @@ class LiveStreamingMainInfoFragment: Fragment() {
     private var title: String = ""
     private var description: String = ""
     private var imageUrl: String = ""
+    private var summary: String = ""
+    private var curriculum: String = ""
+    private var supply: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,43 +63,60 @@ class LiveStreamingMainInfoFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val liveLessonDetail: LiveLessonDetailResponse = it.getParcelable("liveLessonDetailResponse")!!
+            val liveLessonDetail: LiveLessonDetailResponse =
+                it.getParcelable("liveLessonDetailResponse")!!
             liveId = liveLessonDetail.liveId
             title = liveLessonDetail.title
             description = liveLessonDetail.thumbnailUrl
+            summary = liveLessonDetail.summary
+            curriculum = liveLessonDetail.curriculum
+            supply = liveLessonDetail.supply
             updateMainInfoUI(liveLessonDetail)
         }
 
-        viewModel.getViewersCount(liveId)
-        viewModel.getLikesCount(liveId)
+        liveViewModel.getViewersCount(liveId)
+        liveViewModel.getLikesCount(liveId)
 
         binding.likeButton.setOnClickListener {
-            viewModel.likeLiveLesson(liveId)
+            liveViewModel.likeLiveLesson(liveId)
         }
 
         binding.shareButton.setOnClickListener {
-            viewModel.getShareLink(liveId)
+            liveViewModel.getShareLink(liveId)
         }
 
-        viewModel.liveLessonLikesCountResponse.asLiveData().observe(viewLifecycleOwner) { likeCount ->
-            binding.likeCount.text = likeCount?.toString() ?: "0"
-        }
-
-        viewModel.liveLessonViewersCountResponse.asLiveData().observe(viewLifecycleOwner) { viewerCount ->
-            binding.viewerCount.text = "${viewerCount ?: 0}명 시청 "
-        }
-
-        viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            detailResponse?.let {
-                binding.time.text = "시작: ${detailResponse.minutesAgo}분 전"
+        liveViewModel.liveLessonLikesCountResponse.asLiveData()
+            .observe(viewLifecycleOwner) { likeCount ->
+                binding.likeCount.text = likeCount?.toString() ?: "0"
             }
-        }
 
-        viewModel.liveLessonShareLinkResponse.asLiveData().observe(viewLifecycleOwner) { shareLink ->
-            if (shareLink.isNotEmpty()) {
-                shareKakaoLink(shareLink)
+        liveViewModel.liveLessonViewersCountResponse.asLiveData()
+            .observe(viewLifecycleOwner) { viewerCount ->
+                binding.viewerCount.text = "${viewerCount ?: 0}명 시청 "
             }
-        }
+
+        liveViewModel.liveLessonDetailResponse.asLiveData()
+            .observe(viewLifecycleOwner) { detailResponse ->
+                detailResponse?.let {
+                    binding.time.text = "시작: ${detailResponse.minutesAgo}분 전"
+                }
+            }
+
+        liveViewModel.liveLessonShareLinkResponse.asLiveData()
+            .observe(viewLifecycleOwner) { shareLink ->
+                if (shareLink.isNotEmpty()) {
+                    shareKakaoLink(shareLink)
+                }
+            }
+
+        binding.LiveLessonInfoRecylerView.layoutManager = LinearLayoutManager(context)
+        binding.LiveLessonInfoRecylerView.adapter = LiveLessonMainInfoAdapter(
+            listOf(
+                LiveLessonInfo("강좌 소개", summary),
+                LiveLessonInfo("커리큘럼", curriculum),
+                LiveLessonInfo("준비물", supply)
+            )
+        )
     }
 
     private fun shareKakaoLink(shareLink: String) {

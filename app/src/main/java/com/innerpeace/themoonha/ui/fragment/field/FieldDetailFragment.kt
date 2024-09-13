@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,6 +14,7 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * Field Detail 프래그먼트
@@ -52,25 +52,34 @@ class FieldDetailFragment : Fragment() {
             hideBottomNavigation()
         }
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
         val viewPager = binding.viewPager2
         val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
+        val sortOption = arguments?.getInt("sortOption") ?: 0
 
-        viewModel.getFieldDetails(selectedPosition)
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.fieldDetailResponses.collect { details ->
-                if (details.isNotEmpty()) {
+        if (sortOption == 0) {
+            viewModel.getFieldDetailsByLatest(selectedPosition)
+            lifecycleScope.launch {
+                viewModel.fieldDetailByLatestResponses.collect { details ->
                     adapter = FieldDetailAdapter(details)
                     viewPager.adapter = adapter
-                    viewPager.setCurrentItem(selectedPosition, false)
+                    viewPager.setCurrentItem(0, false)
+                }
+            }
+        } else if (sortOption == 1) {
+            viewModel.getFieldDetailsByTitle(selectedPosition)
+            lifecycleScope.launch {
+                viewModel.fieldDetailByTitleResponses.collect { details ->
+                    adapter = FieldDetailAdapter(details)
+                    viewPager.adapter = adapter
+                    viewPager.setCurrentItem(0, false)
                 }
             }
         }
+
     }
 
 
