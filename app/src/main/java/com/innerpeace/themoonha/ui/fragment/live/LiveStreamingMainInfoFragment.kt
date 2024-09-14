@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.adapter.live.LiveLessonMainInfoAdapter
@@ -22,6 +23,9 @@ import com.kakao.sdk.template.model.Button
 import com.kakao.sdk.template.model.Content
 import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 /**
  * 실시간 강좌 - 스트리밍 메인 페이지 정보 프래그먼트
@@ -63,8 +67,7 @@ class LiveStreamingMainInfoFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val liveLessonDetail: LiveLessonDetailResponse =
-                it.getParcelable("liveLessonDetailResponse")!!
+            val liveLessonDetail: LiveLessonDetailResponse = it.getParcelable("liveLessonDetailResponse")!!
             liveId = liveLessonDetail.liveId
             title = liveLessonDetail.title
             description = liveLessonDetail.thumbnailUrl
@@ -74,33 +77,16 @@ class LiveStreamingMainInfoFragment: Fragment() {
             updateMainInfoUI(liveLessonDetail)
         }
 
-        liveViewModel.getViewersCount(liveId)
-        liveViewModel.getLikesCount(liveId)
+        startPolling()
 
         binding.likeButton.setOnClickListener {
-            liveViewModel.likeLiveLesson(liveId)
+            lifecycleScope.launch { liveViewModel.likeLiveLesson(liveId) }
         }
 
-        binding.shareButton.setOnClickListener {
-            liveViewModel.getShareLink(liveId)
-        }
+        binding.shareButton.setOnClickListener { liveViewModel.getShareLink(liveId) }
 
-        liveViewModel.liveLessonLikesCountResponse.asLiveData()
-            .observe(viewLifecycleOwner) { likeCount ->
-                binding.likeCount.text = likeCount?.toString() ?: "0"
-            }
-
-        liveViewModel.liveLessonViewersCountResponse.asLiveData()
-            .observe(viewLifecycleOwner) { viewerCount ->
-                binding.viewerCount.text = "${viewerCount ?: 0}명 시청 "
-            }
-
-        liveViewModel.liveLessonDetailResponse.asLiveData()
-            .observe(viewLifecycleOwner) { detailResponse ->
-                detailResponse?.let {
-                    binding.time.text = "시작: ${detailResponse.minutesAgo}분 전"
-                }
-            }
+        updateLikeCounts()
+        updateViewCounts()
 
         liveViewModel.liveLessonShareLinkResponse.asLiveData()
             .observe(viewLifecycleOwner) { shareLink ->
@@ -109,6 +95,10 @@ class LiveStreamingMainInfoFragment: Fragment() {
                 }
             }
 
+        setInfo()
+    }
+
+    private fun setInfo() {
         binding.LiveLessonInfoRecylerView.layoutManager = LinearLayoutManager(context)
         binding.LiveLessonInfoRecylerView.adapter = LiveLessonMainInfoAdapter(
             listOf(
@@ -117,6 +107,32 @@ class LiveStreamingMainInfoFragment: Fragment() {
                 LiveLessonInfo("준비물", supply)
             )
         )
+    }
+
+    private fun updateViewCounts() {
+        lifecycleScope.launchWhenStarted {
+            liveViewModel.liveLessonViewersCountResponse.collect { viewerCount ->
+                binding.viewerCount.text = "${viewerCount ?: 0}명 시청 "
+            }
+        }
+    }
+
+    private fun updateLikeCounts() {
+        lifecycleScope.launchWhenStarted {
+            liveViewModel.liveLessonLikesCountResponse.collect { likeCount ->
+                binding.likeCount.text = likeCount?.toString() ?: "0"
+            }
+        }
+    }
+
+    private fun startPolling() {
+        lifecycleScope.launch {
+            while (true) {
+                liveViewModel.getViewersCount(liveId)
+                liveViewModel.getLikesCount(liveId)
+                delay(5000L)
+            }
+        }
     }
 
     private fun shareKakaoLink(shareLink: String) {
@@ -165,7 +181,12 @@ class LiveStreamingMainInfoFragment: Fragment() {
     private fun updateMainInfoUI(resp: LiveLessonDetailResponse) {
         binding.liveStreamTitle.text = resp.title
         binding.viewerCount.text = "0명 시청 중"
-        binding.time.text = "시작: ${resp.minutesAgo}분 전"
+        if (resp.minutesAgo >= 60) {
+            var hour = resp.minutesAgo / 60
+            binding.time.text = "시작: ${hour}시간 전"
+        } else {
+            binding.time.text = "시작: ${resp.minutesAgo}분 전"
+        }
         binding.profileName.text = "${resp.instructorName} 강사님"
 
         Glide.with(this)

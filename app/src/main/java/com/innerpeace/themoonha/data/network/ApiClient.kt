@@ -23,15 +23,10 @@ object ApiClient {
     }
 
     private fun createClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-
         return OkHttpClient.Builder()
             .cookieJar(JavaNetCookieJar(CookieManager()))
             .addInterceptor(CookieInterceptor(sharedPreferencesManager))
             .addInterceptor(RequestInterceptor(sharedPreferencesManager))
-            .addInterceptor(loggingInterceptor)
             .build()
     }
 

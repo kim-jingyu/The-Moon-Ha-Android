@@ -34,7 +34,7 @@ import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -192,20 +192,24 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             }
         }
 
-        if (content != null && thumbnail != null) {
-            fieldViewModel.makeField(
-                Gson().toJson(fieldRequest).toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
-                content,
-                thumbnail
-            )
-            observeMakeFieldResult()
-        }
+        makeFieldContent(content, thumbnail, fieldRequest)
     }
 
-    private fun observeMakeFieldResult() {
-        lifecycleScope.launchWhenStarted {
-            fieldViewModel.makeFieldResponse.collect { result ->
-                result?.fold(
+    private fun makeFieldContent(
+        content: MultipartBody.Part?,
+        thumbnail: MultipartBody.Part?,
+        fieldRequest: FieldRequest
+    ) {
+        if (content != null && thumbnail != null) {
+            lifecycleScope.launch {
+                val result = fieldViewModel.makeField(
+                    Gson().toJson(fieldRequest)
+                        .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                    content,
+                    thumbnail
+                )
+
+                result.fold(
                     onSuccess = {
                         val navOptions = NavOptions.Builder()
                             .setPopUpTo(R.id.fieldListFragment, true)
@@ -213,7 +217,11 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
                         findNavController().navigate(R.id.fieldListFragment, null, navOptions)
                     },
                     onFailure = {
-                        Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "필드 생성에 실패했습니다. 다시 시도해 주세요.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 )
             }

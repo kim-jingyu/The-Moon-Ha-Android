@@ -9,10 +9,12 @@ import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.data.model.field.FieldSearchResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -112,28 +114,20 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun makeField(
+    suspend fun makeField(
         fieldRequest: RequestBody,
         thumbnail: MultipartBody.Part,
         content: MultipartBody.Part
-    ) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.makeField(
-                    fieldRequest,
-                    thumbnail,
-                    content
-                )
-                if (response.success) {
-                    _makeFieldResponse.value = Result.success(response.message)
-                } else {
-                    _makeFieldResponse.value = Result.failure(FieldMakingException())
-                }
-            } catch (e: Exception) {
-                _makeFieldResponse.value = Result.failure(FieldMakingException())
-            }
+    ) : Result<String> {
+        return try {
+            Result.success(withContext(Dispatchers.IO) {
+                datasource.makeField(fieldRequest, thumbnail, content)
+            }.message)
+        } catch (e: Exception) {
+            Result.failure(FieldMakingException())
         }
     }
+
 
     fun searchFieldByTitle(keyword: String) {
         viewModelScope.launch {

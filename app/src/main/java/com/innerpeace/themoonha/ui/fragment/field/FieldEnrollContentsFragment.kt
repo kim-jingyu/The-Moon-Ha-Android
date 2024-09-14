@@ -127,6 +127,7 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private fun setVideoContent(uri: Uri) {
         contentUri = uri
+        binding.fieldText.visibility = View.GONE
         binding.contentImage.visibility = View.GONE
         binding.contentVideo.visibility = View.VISIBLE
         binding.contentVideo.setVideoURI(uri)
@@ -135,6 +136,7 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private fun setImageContent(uri: Uri) {
         contentUri = uri
+        binding.fieldText.visibility = View.GONE
         binding.contentImage.visibility = View.VISIBLE
         binding.contentVideo.visibility = View.GONE
         binding.contentImage.setImageURI(uri)
