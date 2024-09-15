@@ -472,9 +472,24 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerReviews"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="150dp" />
+                android:layout_height="match_parent" />
+
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="@color/black"
+                app:dotsStrokeColor="@color/light_gray_1"
+                app:dotsCornerRadius="4dp"
+                app:dotsSize="8dp"
+                app:dotsSpacing="6dp"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerReviews"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="100dp"/>
         </LinearLayout>
     </ScrollView>
 

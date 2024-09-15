@@ -27,6 +27,7 @@ import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.LessonDetailReviewAdapter
 import com.innerpeace.themoonha.data.model.lesson.CartRequest
+import com.innerpeace.themoonha.data.model.lesson.LessonReview
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
@@ -34,6 +35,8 @@ import com.innerpeace.themoonha.databinding.FragmentLessonDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 class LessonDetailFragment : Fragment() {
     private var _binding: FragmentLessonDetailBinding? = null
@@ -47,29 +50,30 @@ class LessonDetailFragment : Fragment() {
     private var isVideoPaused = false
 
     private lateinit var viewPager: ViewPager2
+    private lateinit var dotsIndicator: SpringDotsIndicator
     private val handler2 = Handler(Looper.getMainLooper())
     private val slideDelay: Long = 3000 // 3초
 
     private val slideRunnable = object : Runnable {
         override fun run() {
             val currentItem = viewPager.currentItem
-            val nextItem = if (currentItem == reviewImages.size - 1) 0 else currentItem + 1
+            val nextItem = if (currentItem == reviews.size - 1) 0 else currentItem + 1
             viewPager.setCurrentItem(nextItem, true)
             handler2.postDelayed(this, slideDelay)
         }
     }
     private lateinit var pagerAdapter: LessonDetailReviewAdapter
 
-    private val reviewImages = listOf(
-        R.drawable.prologue_already_liked,
-        R.drawable.ic_before,
-        R.drawable.ic_after
+    private val reviews = listOf(
+        LessonReview(R.drawable.prologue_already_liked, "홍길동", "좋은 강의였습니다!"),
+        LessonReview(R.drawable.ic_before, "김철수", "내용이 알차고 강사님이 친절했어요."),
+        LessonReview(R.drawable.ic_after, "이영희", "가격 대비 강의 내용이 부족하네요.")
     )
 
     private val slideRunnable2 = object : Runnable {
         override fun run() {
             val currentItem = viewPager.currentItem
-            val nextItem = if (currentItem == reviewImages.size - 1) 0 else currentItem + 1
+            val nextItem = if (currentItem == reviews.size - 1) 0 else currentItem + 1
             viewPager.setCurrentItem(nextItem, true)
             handler.postDelayed(this, slideDelay)
         }
@@ -87,8 +91,11 @@ class LessonDetailFragment : Fragment() {
         (activity as? MainActivity)?.setToolbarTitle("강좌 상세")
 
         viewPager = view.findViewById(R.id.viewPagerReviews)
-        pagerAdapter = LessonDetailReviewAdapter(requireContext(), reviewImages)
+        pagerAdapter = LessonDetailReviewAdapter(requireContext(), reviews)
         viewPager.adapter = pagerAdapter
+
+        binding.dotsIndicator.setViewPager2(viewPager)
+
         handler2.postDelayed(slideRunnable2, slideDelay)
 
         return view
