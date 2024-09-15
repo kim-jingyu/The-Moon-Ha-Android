@@ -12,9 +12,8 @@
         android:id="@+id/dialogMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="강좌 신청이 완료되었습니다."
+        android:text="강좌 신청이 완료되었습니다"
         android:textColor="@color/black"
-        android:fontFamily="@font/happiness_sans_regular"
         android:textSize="14sp"
         android:layout_gravity="center"
         android:paddingBottom="16dp"/>
@@ -23,11 +22,12 @@
         android:id="@+id/positiveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textSize="12sp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/branch_button_background"
+        android:layout_gravity="center"
         android:text="확인"
-        android:textColor="@android:color/black" />
+        android:background="@drawable/lesson_detail_dialog_button_background"
+        android:textColor="@color/white"
+        android:enabled="false"
+        android:textSize="12sp"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>
