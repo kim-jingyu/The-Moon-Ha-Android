@@ -20,11 +20,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.adapter.LessonDetailReviewAdapter
 import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
@@ -45,6 +46,35 @@ class LessonDetailFragment : Fragment() {
     private var isVideoPlaying = false
     private var isVideoPaused = false
 
+    private lateinit var viewPager: ViewPager2
+    private val handler2 = Handler(Looper.getMainLooper())
+    private val slideDelay: Long = 3000 // 3초
+
+    private val slideRunnable = object : Runnable {
+        override fun run() {
+            val currentItem = viewPager.currentItem
+            val nextItem = if (currentItem == reviewImages.size - 1) 0 else currentItem + 1
+            viewPager.setCurrentItem(nextItem, true)
+            handler2.postDelayed(this, slideDelay)
+        }
+    }
+    private lateinit var pagerAdapter: LessonDetailReviewAdapter
+
+    private val reviewImages = listOf(
+        R.drawable.prologue_already_liked,
+        R.drawable.ic_before,
+        R.drawable.ic_after
+    )
+
+    private val slideRunnable2 = object : Runnable {
+        override fun run() {
+            val currentItem = viewPager.currentItem
+            val nextItem = if (currentItem == reviewImages.size - 1) 0 else currentItem + 1
+            viewPager.setCurrentItem(nextItem, true)
+            handler.postDelayed(this, slideDelay)
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,6 +85,11 @@ class LessonDetailFragment : Fragment() {
         (activity as? MainActivity)?.hideNavigationBar()
         activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.VISIBLE
         (activity as? MainActivity)?.setToolbarTitle("강좌 상세")
+
+        viewPager = view.findViewById(R.id.viewPagerReviews)
+        pagerAdapter = LessonDetailReviewAdapter(requireContext(), reviewImages)
+        viewPager.adapter = pagerAdapter
+        handler2.postDelayed(slideRunnable2, slideDelay)
 
         return view
     }
@@ -93,11 +128,15 @@ class LessonDetailFragment : Fragment() {
                     .load(it.thumbnailUrl)
                     .into(binding.imageViewThumbnail)
 
-                Glide.with(this)
-                    .load(it.tutorProfileImgUrl)
-                    .into(binding.imageViewTutorProfile)
+                if (!it.tutorProfileImgUrl.isNullOrEmpty()) {
+                    Glide.with(this)
+                        .load(it.tutorProfileImgUrl)
+                        .into(binding.imageViewTutorProfile)
+                }
 
-                setupVideo(it.previewVideoUrl)
+                if (it.previewVideoUrl != null) {
+                    setupVideo(it.previewVideoUrl)
+                }
             }
         })
 
@@ -126,7 +165,7 @@ class LessonDetailFragment : Fragment() {
                     1 -> scrollToSection(binding.textViewCurriculum)
                     2 -> scrollToSection(binding.textViewSupply)
                     3 -> scrollToSection(binding.textViewTutor)
-                    4 -> scrollToSection(binding.textViewReviewDetails)
+                    4 -> scrollToSection(binding.viewPagerReviews)
                 }
             }
 
@@ -148,7 +187,9 @@ class LessonDetailFragment : Fragment() {
         if (!isVideoPlaying && viewModel.lessonDetail.value?.previewVideoUrl != null) {
             binding.imageViewThumbnail.visibility = View.GONE
             binding.videoView.visibility = View.VISIBLE
-            setupVideo(viewModel.lessonDetail.value?.previewVideoUrl!!)
+            if (viewModel.lessonDetail.value?.previewVideoUrl != null) {
+                setupVideo(viewModel.lessonDetail.value?.previewVideoUrl!!)
+            }
             isVideoPlaying = true
         }
     }
@@ -160,7 +201,6 @@ class LessonDetailFragment : Fragment() {
         shortFormDetailFragment?.let {
             val viewPager = it.binding.viewPager2
             val currentPage = viewModel.currentPage
-            Log.i("currentPage : ", viewModel.currentPage.toString())
             viewPager.setCurrentItem(currentPage, false)
         }
     }
@@ -177,7 +217,9 @@ class LessonDetailFragment : Fragment() {
     }
 
     private fun setupVideo(videoUrl: String) {
-        binding.videoView.setVideoPath(videoUrl)
+        if (videoUrl != null) {
+            binding.videoView.setVideoPath(videoUrl)
+        }
 
         binding.videoView.setOnPreparedListener { mediaPlayer ->
             binding.videoView.start()
@@ -273,7 +315,7 @@ class LessonDetailFragment : Fragment() {
 
             viewModel.addLessonCart(cartRequest).observe(viewLifecycleOwner, Observer { success ->
                 if (success) {
-                    findNavController().navigate(R.id.action_lessonDetailFragment_to_fragment_cart)
+                    findNavController().navigate(R.id.action_lessonDetailFragment_to_cartContentFragment)
                     bottomSheetDialog.dismiss()
                 } else {
                     Log.e("LessonDetailFragment", "장바구니 추가 실패")

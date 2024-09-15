@@ -2,11 +2,14 @@ package com.innerpeace.themoonha.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.data.model.craft.PrologueDTO
 import com.innerpeace.themoonha.data.model.craft.PrologueThemeDTO
 import com.innerpeace.themoonha.databinding.FragmentPrologueThemeBinding
+import com.innerpeace.themoonha.ui.fragment.craft.PrologueSpacingItemDecoration
 import com.innerpeace.themoonha.viewModel.CraftViewModel
 
 class PrologueThemeAdapter(
@@ -36,6 +39,7 @@ class PrologueThemeAdapter(
         init {
             binding.prologueRecyclerView.layoutManager =
                 GridLayoutManager(binding.root.context, 2, GridLayoutManager.VERTICAL, false)
+            binding.prologueRecyclerView.addItemDecoration(PrologueSpacingItemDecoration(2, 30, true))
             binding.prologueRecyclerView.adapter = prologueAdapter
         }
 
@@ -45,4 +49,6 @@ class PrologueThemeAdapter(
             prologueAdapter.updatePrologueList(theme.prologueList)
         }
     }
+
+
 }

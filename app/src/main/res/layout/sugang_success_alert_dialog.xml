@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_dialog_background"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:clipToOutline="true"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/dialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="강좌 신청이 완료되었습니다."
+        android:textColor="@color/black"
+        android:fontFamily="@font/happiness_sans_regular"
+        android:textSize="14sp"
+        android:layout_gravity="center"
+        android:paddingBottom="16dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/positiveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="12sp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/branch_button_background"
+        android:text="확인"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

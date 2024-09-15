@@ -45,6 +45,8 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
     var currentPage: Int = 0
 
+    private val loadedShortFormIds = mutableSetOf<Long>()
+
     fun getLessonList(lessonListQueryMap: Map<String, String>) {
         viewModelScope.launch {
             val response = lessonRepository.fetchLessonList(lessonListQueryMap)
@@ -123,6 +125,10 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
 
 
     fun getShortFormDetail(shortFormId: Long) {
+        if (loadedShortFormIds.contains(shortFormId)) return
+
+        loadedShortFormIds.add(shortFormId)
+
         viewModelScope.launch {
             lessonRepository.fetchShortFormDetail(shortFormId)
         }

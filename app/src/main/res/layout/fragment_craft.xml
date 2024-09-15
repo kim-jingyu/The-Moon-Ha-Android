@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,15 +36,15 @@
                     android:text="듣고싶은 강좌를 골라주세요!\n여러분의 선택으로 새로운 강좌가 시작됩니다!\n원하는 강좌를 ‘좋아요💗’로 응원하세요."
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/emojiImageView"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/ic_jellbbo"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -77,7 +78,7 @@
                 android:id="@+id/grayLine2"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,11 +88,11 @@
                 android:id="@+id/wishLessonTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:text="듣고싶은 강좌 주제 대결하기"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/grayLine2" />
@@ -100,19 +101,20 @@
                 android:id="@+id/wishLessonDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="5dp"
                 android:text="여러분이 선택한 주제로 강좌가 열립니다!"
                 android:textColor="@android:color/darker_gray"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/wishLessonTitle" />
 
             <LinearLayout
                 android:id="@+id/firstWishLessonContainer"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:gravity="center"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -121,10 +123,11 @@
 
             <LinearLayout
                 android:id="@+id/secondWishLessonContainer"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
+                android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +138,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -142,16 +146,16 @@
                 app:layout_constraintTop_toBottomOf="@id/firstWishLessonContainer">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/percentageTextViewFirst_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
                         android:paddingLeft="30dp"
                         android:textColor="#01A76B"
+                        android:text="12%"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="@id/progressBarFirst"
                         app:layout_constraintStart_toStartOf="parent"
@@ -191,6 +195,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal"
                 android:gravity="center"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -198,16 +203,16 @@
                 app:layout_constraintTop_toBottomOf="@id/secondWishLessonContainer">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="350dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/percentageTextViewSecond_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="4dp"
                         android:textColor="#01A76B"
                         android:paddingLeft="30dp"
+                        android:text="12%"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toStartOf="@id/progressBarSecond"
                         app:layout_constraintStart_toStartOf="parent"
@@ -254,22 +259,21 @@
                 android:id="@+id/suggestionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="30dp"
                 android:text="제안합니다! 🙌"
                 android:textColor="@android:color/black"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/grayLine3" />
 
             <LinearLayout
                 android:id="@+id/commentInputLayout"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginHorizontal="20dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="@drawable/suggestion_input_background"
@@ -307,8 +311,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

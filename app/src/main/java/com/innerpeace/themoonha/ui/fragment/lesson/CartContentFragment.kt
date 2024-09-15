@@ -1,3 +1,5 @@
+package com.innerpeace.themoonha.ui.fragment.lesson
+
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.Color
@@ -17,6 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.CartItemAdapter
 import com.innerpeace.themoonha.data.model.lesson.CartResponse
@@ -67,6 +70,7 @@ class CartContentFragment : Fragment() {
     ): View? {
         _binding = FragmentCartContentBinding.inflate(inflater, container, false)
         (activity as? MainActivity)?.hideNavigationBar()
+        (activity as? MainActivity)?.setToolbarTitle("장바구니")
         return binding.root
     }
 
@@ -97,7 +101,7 @@ class CartContentFragment : Fragment() {
         viewModel.paymentStatus.observe(viewLifecycleOwner, Observer { result ->
             if (result) {
                 showSuccessAlert()
-                findNavController().navigate(R.id.action_fragment_cart_to_fragment_lesson)
+                findNavController().navigate(R.id.action_cartContentFragment_to_fragment_lesson)
             } else {
                 showFailureAlert()
             }
@@ -106,13 +110,21 @@ class CartContentFragment : Fragment() {
 
 
     private fun showSuccessAlert() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("성공")
-            .setMessage("강좌 신청이 완료되었습니다.")
-            .setPositiveButton("확인") { dialog, _ -> dialog.dismiss() }
-            .show()
-    }
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.sugang_success_alert_dialog, null)
 
+        builder.setView(dialogView)
+
+        val alertDialog = builder.create()
+
+        val positiveButton = dialogView.findViewById<Button>(R.id.positiveButton)
+        positiveButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
+    }
     private fun showFailureAlert() {
         AlertDialog.Builder(requireContext())
             .setTitle("실패")
@@ -133,6 +145,16 @@ class CartContentFragment : Fragment() {
     private fun setupCalendar() {
         val calendarView = binding.calendarView
         updateMonthHeader(currentMonth)
+
+        calendarView.addOnItemTouchListener(object : RecyclerView.SimpleOnItemTouchListener() {
+            override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+                return if (e.action == MotionEvent.ACTION_MOVE) {
+                    true
+                } else {
+                    super.onInterceptTouchEvent(rv, e)
+                }
+            }
+        })
 
         calendarView.apply {
             val firstMonth = YearMonth.now().minusMonths(240)
@@ -439,7 +461,7 @@ class CartContentFragment : Fragment() {
                 }
                 MotionEvent.ACTION_UP -> {
                     val currentHeight = cartRecyclerView.height
-                    val fixedHeights = listOf(dpToPx(100) ,dpToPx(250), dpToPx(400), dpToPx(565))
+                    val fixedHeights = listOf(dpToPx(100) ,dpToPx(250), dpToPx(400), dpToPx(500))
                     val closestHeight = fixedHeights.minByOrNull { Math.abs(it - currentHeight) } ?: dpToPx(300)
                     val params = cartRecyclerView.layoutParams
                     params.height = closestHeight

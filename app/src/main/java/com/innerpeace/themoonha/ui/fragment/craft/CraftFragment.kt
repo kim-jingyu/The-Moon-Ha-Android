@@ -1,14 +1,19 @@
 package com.innerpeace.themoonha.ui.fragment.craft
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -62,7 +67,6 @@ class CraftFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
         observeViewModel()
         setupCommentInput()
@@ -70,6 +74,10 @@ class CraftFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.prologueRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val spanCount = 1
+        val spacing = 5
+        val includeEdge = true
+        binding.prologueRecyclerView.addItemDecoration(PrologueSpacingItemDecoration(spanCount, spacing, includeEdge))
     }
 
     private fun observeViewModel() {
@@ -78,7 +86,6 @@ class CraftFragment : Fragment() {
                 val themeList = convertToPrologueThemeDTOList(it.prologueList)
                 val adapter = PrologueThemeAdapter(themeList) { selectedPrologue ->
                     craftViewModel.setCurrentPrologueDetail(selectedPrologue)
-                    Log.i("selectedPrologue : ", selectedPrologue.toString())
                     findNavController().navigate(R.id.action_fragment_craft_to_prologueDetailFragment)
                 }
                 binding.prologueRecyclerView.adapter = adapter
@@ -89,7 +96,6 @@ class CraftFragment : Fragment() {
                 )
 
                 val suggestionAdapter = SuggestionAdapter(it.suggestionList)
-                Log.i("size : ", it.suggestionList.size.toString())
                 binding.suggestionRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 binding.suggestionRecyclerView.adapter = suggestionAdapter
 
@@ -108,7 +114,6 @@ class CraftFragment : Fragment() {
 
         craftViewModel.suggestionResponse.observe(viewLifecycleOwner, Observer { response ->
             response?.let {
-                Log.i("test : ", it.suggestionList.get(0).content)
                 val suggestionAdapter = SuggestionAdapter(it.suggestionList)
                 binding.suggestionRecyclerView.layoutManager = LinearLayoutManager(requireContext())
                 binding.suggestionRecyclerView.adapter = suggestionAdapter
@@ -151,6 +156,12 @@ class CraftFragment : Fragment() {
                 binding.firstWishLessonContainer,
                 false
             ) as ViewGroup
+
+            val layoutParams = lessonView.layoutParams as LinearLayout.LayoutParams
+            layoutParams.width = 0
+            layoutParams.weight = 1F
+            lessonView.layoutParams = layoutParams
+
             val lessonTitleTextView: TextView = lessonView.findViewById(R.id.wishLessonTitle)
             lessonTitleTextView.text = lesson.title
 
@@ -190,6 +201,11 @@ class CraftFragment : Fragment() {
                 binding.secondWishLessonContainer,
                 false
             ) as ViewGroup
+
+            val layoutParams = lessonView.layoutParams as LinearLayout.LayoutParams
+            layoutParams.width = 0
+            layoutParams.weight = 1F
+            lessonView.layoutParams = layoutParams
             val lessonTitleTextView: TextView = lessonView.findViewById(R.id.wishLessonTitle)
             lessonTitleTextView.text = lesson.title
 
