@@ -51,7 +51,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="16dp"
+                    android:layout_margin="20dp"
                     android:alpha="1.0"
                     android:contentDescription="pause Icon"
                     android:src="@drawable/ic_pause"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="16dp"
+                    android:layout_margin="20dp"
                     android:alpha="1.0"
                     android:contentDescription="play Icon"
                     android:src="@drawable/ic_play"
@@ -337,10 +337,10 @@
                 android:id="@+id/textViewSummaryTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="20dp"
                 android:text="강좌 소개"
                 android:textColor="#00807A"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -348,7 +348,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"
                 android:text="실제 강좌 소개" />
 
@@ -363,17 +363,17 @@
                 android:id="@+id/textViewCurriculumTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="20dp"
                 android:text="커리큘럼"
                 android:textColor="#00807A"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewCurriculum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"
                 android:textSize="12sp"
                 android:text="실제 커리큘럼" />
@@ -389,17 +389,17 @@
                 android:id="@+id/textViewSupplyTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="20dp"
                 android:text="준비물"
                 android:textColor="#00807A"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewSupply"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"
                 android:textSize="12sp"
                 android:text="실제 준비물" />
@@ -415,16 +415,16 @@
                 android:id="@+id/textViewTutor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="20dp"
                 android:text="강사정보"
                 android:textColor="#00807A"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal">
 
@@ -459,25 +459,22 @@
                 android:layout_marginBottom="14dp"
                 android:background="#D3D3D3" />
 
-            <!-- 후기 -->
             <TextView
                 android:id="@+id/textViewReviewsTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="후기"
+                android:layout_margin="20dp"
+                android:text="문화 한입 후기"
                 android:textColor="#00807A"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewReviewDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginBottom="110dp"
-                android:textSize="12sp"
-                android:text="후기 내용이 여기에 표시됩니다." />
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerReviews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="150dp" />
         </LinearLayout>
     </ScrollView>
 

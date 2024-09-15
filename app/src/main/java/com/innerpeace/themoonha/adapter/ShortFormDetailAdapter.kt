@@ -3,19 +3,32 @@ package com.innerpeace.themoonha.adapter
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
+import com.innerpeace.themoonha.data.network.ApiClient
+import com.innerpeace.themoonha.data.network.LessonService
+import com.innerpeace.themoonha.data.repository.LessonRepository
+import com.innerpeace.themoonha.viewModel.LessonViewModel
+import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 
-class ShortFormDetailAdapter(private var shortForms: List<ShortFormDTO>) :
-    RecyclerView.Adapter<ShortFormDetailAdapter.ShortFormDetailViewHolder>() {
+class ShortFormDetailAdapter(
+    private var shortForms: List<ShortFormDTO>,
+    private val viewModel: LessonViewModel
+) : RecyclerView.Adapter<ShortFormDetailAdapter.ShortFormDetailViewHolder>() {
 
     fun getShortFormAt(position: Int): ShortFormDTO? {
         return if (position in shortForms.indices) shortForms[position] else null
@@ -33,6 +46,12 @@ class ShortFormDetailAdapter(private var shortForms: List<ShortFormDTO>) :
     override fun onBindViewHolder(holder: ShortFormDetailViewHolder, position: Int) {
         val shortForm = shortForms[position]
         holder.bind(shortForm)
+
+        holder.showDetailButton.setOnClickListener {
+            viewModel.currentPage = position
+            val bundle = bundleOf("lessonId" to shortForm.lessonId)
+            holder.itemView.findNavController().navigate(R.id.action_shortFormDetailFragment_to_lessonDetailFragment, bundle)
+        }
     }
 
     override fun getItemCount(): Int = shortForms.size
@@ -42,6 +61,7 @@ class ShortFormDetailAdapter(private var shortForms: List<ShortFormDTO>) :
         private val tutorLessonTitle: TextView = itemView.findViewById(R.id.tutorLessonTitle)
         private val playIcon: ImageView = itemView.findViewById(R.id.playIcon)
         private val pauseIcon: ImageView = itemView.findViewById(R.id.pauseIcon)
+        val showDetailButton: Button = itemView.findViewById(R.id.showDetailButton) // 클릭 이벤트 설정할 버튼
 
         fun bind(shortFormDTO: ShortFormDTO) {
             videoView.setVideoPath(shortFormDTO.videoUrl)

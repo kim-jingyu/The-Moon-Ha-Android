@@ -1,6 +1,6 @@
 package com.innerpeace.themoonha.adapter
 
-import CartContentFragment
+import com.innerpeace.themoonha.ui.fragment.lesson.CartContentFragment
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.innerpeace.themoonha.ui.fragment.lesson.LessonFragment

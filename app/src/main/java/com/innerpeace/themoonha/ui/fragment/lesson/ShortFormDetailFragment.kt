@@ -1,22 +1,17 @@
 package com.innerpeace.themoonha.ui.fragment.lesson
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.ShortFormAdapter
 import com.innerpeace.themoonha.adapter.ShortFormDetailAdapter
-import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
@@ -50,42 +45,34 @@ class ShortFormDetailFragment : Fragment() {
         viewModel.currentShortFormId.value?.let { viewModel.getShortFormDetail(it) }
 
         viewModel.shortFormList.observe(viewLifecycleOwner) { shortForms ->
-            adapter = ShortFormDetailAdapter(shortForms)
+            adapter = ShortFormDetailAdapter(shortForms, viewModel)
             binding.viewPager2.adapter = adapter
 
-            val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
+            val selectedPosition = viewModel.currentPage // 여기서 현재 페이지를 가져옴
             viewPager.setCurrentItem(selectedPosition, false)
+
+            binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+
+                    val shortForm = adapter.getShortFormAt(position)
+                    shortForm?.let {
+                        viewModel.getShortFormDetail(it.shortFormId)
+                    }
+                }
+            })
 
             binding.leftArrow.setOnClickListener {
                 findNavController().navigateUp()
             }
-
-            binding.hamburgerMenu.setOnClickListener {
-                val popupMenu = PopupMenu(requireContext(), it)
-                popupMenu.inflate(R.menu.short_form_menu)
-
-                popupMenu.setOnMenuItemClickListener {
-                    val currentShortFormId = viewModel.currentShortFormId.value
-                    val bundle = bundleOf("lessonId" to currentShortFormId)
-                    findNavController().navigate(R.id.action_shortFormDetailFragment_to_lessonDetailFragment, bundle)
-                    true
-                }
-                popupMenu.show()
-            }
-
         }
+    }
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                viewModel.currentPage = position
-                Log.i("position : ", position.toString())
-                val selectedShortForm = adapter.getShortFormAt(position)
-                selectedShortForm?.lessonId?.let { lessonId ->
-                    viewModel.setCurrentShortFormId(lessonId)
-                }
-            }
-        })
+    override fun onResume() {
+        super.onResume()
+
+        val currentPage = viewModel.currentPage
+        binding.viewPager2.setCurrentItem(currentPage, false)
     }
 
     override fun onDestroyView() {

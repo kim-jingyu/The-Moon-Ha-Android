@@ -12,9 +12,6 @@
                 android:id="@+id/action_fragment_lesson_to_craftFragment"
                 app:destination="@id/fragment_craft" />
         <action
-                android:id="@+id/action_fragment_lesson_to_cartFragment"
-                app:destination="@id/fragment_cart" />
-        <action
                 android:id="@+id/action_fragment_lesson_to_liveFragment"
                 app:destination="@id/fragment_onAir" />
         <action
@@ -29,6 +26,9 @@
         <action
             android:id="@+id/action_fragment_lesson_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_fragment_lesson_to_cartContentFragment2"
+            app:destination="@id/cartContentFragment" />
     </fragment>
     <fragment
             android:id="@+id/fragment_schedule"
@@ -41,14 +41,6 @@
         <action
                 android:id="@+id/action_fragment_lounge_to_loungeHomeFragment"
                 app:destination="@id/loungeHomeFragment" />
-    </fragment>
-    <fragment
-            android:id="@+id/fragment_cart"
-            android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartFragment"
-            android:label="CartFragment" >
-        <action
-            android:id="@+id/action_fragment_cart_to_fragment_lesson"
-            app:destination="@id/fragment_lesson" />
     </fragment>
     <fragment
             android:id="@+id/fragment_craft"
@@ -175,8 +167,8 @@
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.LessonDetailFragment"
             android:label="LessonDetailFragment">
         <action
-                android:id="@+id/action_lessonDetailFragment_to_fragment_cart"
-                app:destination="@id/fragment_cart"/>
+            android:id="@+id/action_lessonDetailFragment_to_cartContentFragment"
+            app:destination="@id/cartContentFragment" />
     </fragment>
     <fragment
         android:id="@+id/prologueDetailFragment"
@@ -193,7 +185,11 @@
     <fragment
         android:id="@+id/cartContentFragment"
         android:name="com.innerpeace.themoonha.ui.fragment.lesson.CartContentFragment"
-        android:label="CartContentFragment" />
+        android:label="CartContentFragment" >
+        <action
+            android:id="@+id/action_cartContentFragment_to_fragment_lesson"
+            app:destination="@id/fragment_lesson" />
+    </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.innerpeace.themoonha.ui.fragment.auth.SignInFragment"

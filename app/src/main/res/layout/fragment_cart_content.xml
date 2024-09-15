@@ -19,8 +19,9 @@
 
         <ImageButton
             android:id="@+id/previousMonthButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_arrow_left" />
@@ -30,15 +31,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:gravity="center"
+            android:layout_gravity="center_vertical"
             android:text="Month Year"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageButton
             android:id="@+id/nextMonthButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_arrow_right" />
@@ -63,7 +65,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="월"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/monday"
@@ -72,7 +74,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="화"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tuesday"
@@ -81,7 +83,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="수"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/wednesday"
@@ -90,7 +92,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="목"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/thursday"
@@ -99,7 +101,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="금"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/friday"
@@ -108,7 +110,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="토"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/saturday"
@@ -117,7 +119,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="일"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -150,7 +152,7 @@
     <ImageView
         android:id="@+id/dragHandle"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:paddingTop="8dp"
         android:scaleType="center"
@@ -163,7 +165,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="#F4F4F3"
         android:layout_marginBottom="60dp"

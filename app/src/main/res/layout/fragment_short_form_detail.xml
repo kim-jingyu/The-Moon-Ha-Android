@@ -25,15 +25,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/short_form_left_arrow"/>
 
-    <ImageView
-            android:id="@+id/hamburgerMenu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="Menu"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/short_form_hamburger"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

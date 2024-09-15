@@ -5,8 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="120dp"
     android:layout_gravity="center_horizontal"
-    android:layout_marginHorizontal="10dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="6dp"
     android:padding="16dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
@@ -21,6 +21,7 @@
             android:layout_width="29dp"
             android:layout_height="38dp"
             android:layout_marginRight="10dp"
+            android:layout_marginTop="6dp"
             android:buttonTint="@color/light_green"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +38,9 @@
             android:id="@+id/onlineYn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
             android:background="@drawable/rounded_green_background"
             android:textSize="10sp"
             android:layout_marginLeft="10dp"
@@ -54,8 +56,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:padding="4dp"
+            android:layout_marginTop="15dp"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
             android:background="@drawable/rounded_black_background"
             android:textSize="10sp"
             android:gravity="center"
@@ -69,13 +72,14 @@
             android:id="@+id/cartItemTitle"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:paddingHorizontal="10dp"
             android:maxLines="1"
             android:ellipsize="end"
             android:text="강좌 제목"
             android:textColor="@android:color/black"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/infoLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cartItemCheckBox"
@@ -99,7 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2024.08.10~2024.11.27"
-                android:textSize="12sp"
+                android:textSize="10sp"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="4dp"/>
 
@@ -108,7 +113,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="| 2024-08-24(수) 14:00~15:00"
-                android:textSize="12sp"
+                android:textSize="10sp"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="16dp"/>
         </LinearLayout>
@@ -132,6 +138,7 @@
                 android:layout_height="wrap_content"
                 android:text="조디강"
                 android:textSize="12sp"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="4dp"/>
 
@@ -141,11 +148,10 @@
                 android:layout_height="wrap_content"
                 android:text="| 150,000원"
                 android:textSize="12sp"
+                android:fontFamily="@font/happiness_sans_regular"
                 android:textColor="@android:color/darker_gray"
                 android:layout_marginEnd="16dp"/>
         </LinearLayout>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.activity.common
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -15,6 +16,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.Constants.TAG
 import com.google.firebase.messaging.FirebaseMessaging
 import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.SharedPreferencesManager
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.databinding.ActivityMainBinding
 import com.kakao.sdk.common.KakaoSdk
@@ -58,6 +60,17 @@ class MainActivity : AppCompatActivity() {
         // 하단 네비게이션바 설정
         val navController = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        val sharedPreferencesManager = SharedPreferencesManager(this)
+        val isLoggedIn = sharedPreferencesManager.getIsLogin()
+
+        Log.i("메인 액티비티: 로그인 상태", isLoggedIn.toString())
+
+        if (!isLoggedIn) {
+            navController.navigate(R.id.signInFragment)
+            hideBottomNavigation() // 로그인 페이지에서는 네비게이션 바 숨기기
+            hideToolbar() // 필요에 따라 툴바도 숨기기
+        }
     }
 
     // 툴바 제목 설정
