@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +43,7 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private var currentRequestCode: Int = REQUEST_CAMERA_PHOTO
     private var photoUri: Uri? = null
+    private var videoUri: Uri? = null
 
     private var contentUri: Uri? = null
 
@@ -63,12 +63,10 @@ class FieldEnrollContentsFragment : Fragment() {
             hideBottomNavigation()
         }
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.cameraButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.cameraButton.setOnClickListener {
             if (hasCameraPermission()) {
                 selectCameraMode()
@@ -107,15 +105,13 @@ class FieldEnrollContentsFragment : Fragment() {
             val contentUri = when (requestCode) {
                 REQUEST_GALLERY -> data?.data
                 REQUEST_CAMERA_PHOTO -> photoUri
-                REQUEST_CAMERA_VIDEO -> data?.data
+                REQUEST_CAMERA_VIDEO -> videoUri
                 else -> null
             }
 
             contentUri?.let { uri ->
                 val contentResolver = requireContext().contentResolver
                 val mimeType = contentResolver.getType(uri)
-
-                Log.d("mimeType", "mimeType=${mimeType}")
 
                 when {
                     mimeType?.startsWith("image") == true -> {
@@ -131,6 +127,7 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private fun setVideoContent(uri: Uri) {
         contentUri = uri
+        binding.fieldText.visibility = View.GONE
         binding.contentImage.visibility = View.GONE
         binding.contentVideo.visibility = View.VISIBLE
         binding.contentVideo.setVideoURI(uri)
@@ -139,6 +136,7 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private fun setImageContent(uri: Uri) {
         contentUri = uri
+        binding.fieldText.visibility = View.GONE
         binding.contentImage.visibility = View.VISIBLE
         binding.contentVideo.visibility = View.GONE
         binding.contentImage.setImageURI(uri)
@@ -205,13 +203,30 @@ class FieldEnrollContentsFragment : Fragment() {
 
     private fun openCameraForVideo() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        videoUri = createVideoFileUri()
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(intent, currentRequestCode)
+    }
+
+    private fun createVideoFileUri(): Uri? {
+        val videoFile = File.createTempFile(
+            "VID_${System.currentTimeMillis()}",
+            ".mp4",
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES)
+        )
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            videoFile
+        )
     }
 
     private fun openCameraForPhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         photoUri = createImageFileUri()
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(intent, currentRequestCode)
     }
 

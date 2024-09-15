@@ -11,7 +11,7 @@ import com.innerpeace.themoonha.databinding.FragmentFieldContentBinding
 
 class FieldContentAdapter(
     private val fieldList: List<FieldListResponse>,
-    private val itemClickListener: (FieldListResponse) -> Unit
+    private val itemClickListener: (Int) -> Unit
     ) : RecyclerView.Adapter<FieldContentAdapter.FieldContentViewHolder>() {
     inner class FieldContentViewHolder(val binding: FragmentFieldContentBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -40,7 +40,7 @@ class FieldContentAdapter(
             .into(holder.binding.profileImage)
 
         holder.binding.root.setOnClickListener {
-            itemClickListener(fieldItem)
+            itemClickListener(position)
         }
     }
 

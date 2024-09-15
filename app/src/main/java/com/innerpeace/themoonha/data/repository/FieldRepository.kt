@@ -37,6 +37,14 @@ class FieldRepository: FieldService {
         return api.retrieveFieldContent(fieldId)
     }
 
+    override suspend fun retrieveFieldContentsByLatest(): Response<List<FieldDetailResponse>> {
+        return api.retrieveFieldContentsByLatest()
+    }
+
+    override suspend fun retrieveFieldContentsByTitle(): Response<List<FieldDetailResponse>> {
+        return api.retrieveFieldContentsByTitle()
+    }
+
     override suspend fun makeField(
         fieldRequest: RequestBody,
         thumbnail: MultipartBody.Part,

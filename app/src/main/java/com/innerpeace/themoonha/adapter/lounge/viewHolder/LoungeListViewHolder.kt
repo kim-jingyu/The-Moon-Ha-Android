@@ -32,10 +32,12 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
         binding.tvLoungeTitle.text = item.title
 
-        val formattedTime = getFormattedPostedTime(item.latestPostTime)
+        item.latestPostTime?.let { latestPostTime ->
+            val formattedTime = getFormattedPostedTime(latestPostTime)
 
-        binding.ivNewIcon.visibility = if (formattedTime == item.latestPostTime) View.VISIBLE else View.GONE
-        binding.tvLatestPostTime.text = formattedTime
+            binding.ivNewIcon.visibility = if (formattedTime == latestPostTime) View.VISIBLE else View.GONE
+            binding.tvLatestPostTime.text = formattedTime
+        }
 
         // 클릭 리스너 설정
         binding.root.setOnClickListener {
@@ -53,8 +55,8 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
     fun getFormattedPostedTime(latestPostTime: String): String {
         return try {
-            val inputFormat = SimpleDateFormat("yyyy년 MM월 dd일 a hh시 mm분", Locale.KOREAN)
-            val outputFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.KOREAN)
+            val inputFormat = SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.KOREAN)
+            val outputFormat = SimpleDateFormat("yyyy.MM.dd.", Locale.KOREAN)
             val date = inputFormat.parse(latestPostTime)
             if (date != null) {
                 outputFormat.format(date)

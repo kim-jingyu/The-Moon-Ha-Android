@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.exception.FieldException
@@ -10,10 +9,12 @@ import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.data.model.field.FieldSearchResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -31,13 +32,15 @@ import okhttp3.RequestBody
  */
 class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
     private val _fieldListContents = MutableStateFlow<List<FieldListResponse>>(emptyList())
-    private val _fieldDetailContent = MutableStateFlow<FieldDetailResponse?>(null)
+    private val _fieldDetailByLatestContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
+    private val _fieldDetailByTitleContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
     private val _fieldSearchContents = MutableStateFlow<List<FieldSearchResponse>>(emptyList())
     private val _makeFieldResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<FieldException?>(null)
 
     val fieldListResponse: StateFlow<List<FieldListResponse>> get() = _fieldListContents.asStateFlow()
-    val fieldDetailResponse: StateFlow<FieldDetailResponse?> get() = _fieldDetailContent.asStateFlow()
+    val fieldDetailByLatestResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailByLatestContents.asStateFlow()
+    val fieldDetailByTitleResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailByTitleContents.asStateFlow()
     val fieldSearchResponse: StateFlow<List<FieldSearchResponse>> get() = _fieldSearchContents.asStateFlow()
     val makeFieldResponse: StateFlow<Result<String>> = _makeFieldResponse.asStateFlow()
     val error: StateFlow<FieldException?> get() = _error.asStateFlow()
@@ -72,13 +75,17 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun getFieldDetail(fieldId: Long) {
+    fun getFieldDetailsByLatest(selectedPosition: Int) {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveFieldContent(fieldId)
-                Log.d("response", "getFieldDetail -> ${response.body()}")
+                val response = datasource.retrieveFieldContentsByLatest()
                 if (response.isSuccessful && response.body() != null) {
-                    _fieldDetailContent.value = response.body()!!
+                    val fieldDetails = response.body()!!
+
+                    _fieldDetailByLatestContents.value =
+                        mutableListOf(fieldDetails[selectedPosition]).apply {
+                            addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
+                        }
                 } else {
                     _error.value = FieldRetrievingException()
                 }
@@ -88,28 +95,39 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun makeField(
-        fieldRequest: RequestBody,
-        thumbnail: MultipartBody.Part,
-        content: MultipartBody.Part
-    ) {
+    fun getFieldDetailsByTitle(selectedPosition: Int) {
         viewModelScope.launch {
             try {
-                val response = datasource.makeField(
-                    fieldRequest,
-                    thumbnail,
-                    content
-                )
-                if (response.success) {
-                    _makeFieldResponse.value = Result.success(response.message)
+                val response = datasource.retrieveFieldContentsByTitle()
+                if (response.isSuccessful && response.body() != null) {
+                    val fieldDetails = response.body()!!
+                    _fieldDetailByTitleContents.value =
+                        mutableListOf(fieldDetails[selectedPosition]).apply {
+                        addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
+                    }
                 } else {
-                    _makeFieldResponse.value = Result.failure(FieldMakingException())
+                    _error.value = FieldRetrievingException()
                 }
             } catch (e: Exception) {
-                _makeFieldResponse.value = Result.failure(FieldMakingException())
+                _error.value = FieldRetrievingException()
             }
         }
     }
+
+    suspend fun makeField(
+        fieldRequest: RequestBody,
+        thumbnail: MultipartBody.Part,
+        content: MultipartBody.Part
+    ) : Result<String> {
+        return try {
+            Result.success(withContext(Dispatchers.IO) {
+                datasource.makeField(fieldRequest, thumbnail, content)
+            }.message)
+        } catch (e: Exception) {
+            Result.failure(FieldMakingException())
+        }
+    }
+
 
     fun searchFieldByTitle(keyword: String) {
         viewModelScope.launch {

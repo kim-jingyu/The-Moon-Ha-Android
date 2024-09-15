@@ -16,6 +16,9 @@ data class LiveLessonDetailResponse(
     val status: LiveStatus,
     val createdAt: Long,
     val minutesAgo: Long,
-    val isEnrolled: Boolean
+    val isEnrolled: Boolean,
+    val summary: String,
+    val curriculum: String,
+    val supply: String
 ) : Parcelable
 

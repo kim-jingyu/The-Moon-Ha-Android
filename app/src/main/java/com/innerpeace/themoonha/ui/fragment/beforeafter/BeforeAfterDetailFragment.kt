@@ -1,30 +1,22 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
+import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.helper.widget.Flow
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterDetailResponse
+import androidx.viewpager2.widget.ViewPager2
+import com.innerpeace.themoonha.adapter.bite.BeforeAfterDetailAdapter
+import com.innerpeace.themoonha.data.repository.BeforeAfterRepository
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import kotlinx.coroutines.Dispatchers
+import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
+import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
  * Before&After Detail 프래그먼트
@@ -41,11 +33,10 @@ import kotlinx.coroutines.withContext
 class BeforeAfterDetailFragment : Fragment() {
     private var _binding: FragmentBeforeAfterDetailBinding? = null
     private val binding get() = _binding!!
-
-    private var isTextExpanded = false
-
-    private var beforePlayer: ExoPlayer? = null
-    private var afterPlayer: ExoPlayer? = null
+    private lateinit var adapter: BeforeAfterDetailAdapter
+    private val viewModel: BeforeAfterViewModel by activityViewModels {
+        BeforeAfterViewModelFactory(BeforeAfterRepository())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,172 +54,53 @@ class BeforeAfterDetailFragment : Fragment() {
             hideBottomNavigation()
         }
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
+        binding.backButton.setColorFilter(Color.WHITE)
+
+        val viewPager = binding.viewPager2
+        val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
+        val sortOption = arguments?.getInt("sortOption") ?: 0
+
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        arguments?.getParcelable<BeforeAfterDetailResponse>("beforeAfterDetailResponse")?.let {
-            lifecycleScope.launch {
-                setupBeforeContent(it)
-                setupAfterContent(it)
-                setupTextContent(it)
-                setupHashtags(it.hashtags)
+        if (sortOption == 0) {
+            getDetailsByLatest(selectedPosition, viewPager)
+        } else if (sortOption == 1) {
+            getDetailsByTitle(selectedPosition, viewPager)
+        }
+    }
+
+    private fun getDetailsByTitle(
+        selectedPosition: Int,
+        viewPager: ViewPager2
+    ) {
+        viewModel.getBeforeAfterDetailsByTitle(selectedPosition)
+        lifecycleScope.launch {
+            viewModel.beforeAfterDetailByTitleResponse.collect { details ->
+                adapter = BeforeAfterDetailAdapter(details)
+                viewPager.adapter = adapter
+                viewPager.setCurrentItem(0, false)
             }
         }
     }
 
-    private fun setupHashtags(hashtags: List<String>) {
-        if (hashtags == null || hashtags.isEmpty()) return
-        val flow = binding.root.findViewById<Flow>(R.id.hashtagFlow)
-        val idList = mutableListOf<Int>()
-
-        for (hashtag in hashtags) {
-            val textView = TextView(requireContext()).apply {
-                id = View.generateViewId()
-                text = "#$hashtag"
-                setTextColor(ContextCompat.getColor(context, android.R.color.white))
-                setPadding(0, 4, 8, 4)
-                textSize = 12f
-                layoutParams = ConstraintLayout.LayoutParams(
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                    ConstraintLayout.LayoutParams.WRAP_CONTENT
-                )
-            }
-
-            binding.root.addView(textView)
-            idList.add(textView.id)
-        }
-
-        flow.referencedIds = idList.toIntArray()
-    }
-
-    private suspend fun setupTextContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
-        Glide.with(this@BeforeAfterDetailFragment)
-            .load(content.profileImgUrl)
-            .circleCrop()
-            .error(R.drawable.ic_zzang9)
-            .into(binding.profileImageDetail)
-        binding.memberNameDetail.text = content.memberName
-        binding.titleDetail.text = content.title
-
-        binding.titleDetail.post {
-            if (binding.titleDetail.layout.getEllipsisCount(0) > 0) {
-                binding.moreButton.visibility = View.VISIBLE
-            } else {
-                binding.moreButton.visibility = View.GONE
+    private fun getDetailsByLatest(
+        selectedPosition: Int,
+        viewPager: ViewPager2
+    ) {
+        viewModel.getBeforeAfterDetailsByLatest(selectedPosition)
+        lifecycleScope.launch {
+            viewModel.beforeAfterDetailByLatestResponse.collect { details ->
+                adapter = BeforeAfterDetailAdapter(details)
+                viewPager.adapter = adapter
+                viewPager.setCurrentItem(0, false)
             }
         }
-
-        binding.moreButton.setOnClickListener {
-            binding.titleDetail.maxLines = Int.MAX_VALUE
-            binding.titleDetail.ellipsize = null
-            binding.moreButton.visibility = View.GONE
-            isTextExpanded = !isTextExpanded
-        }
-
-        binding.titleDetail.setOnClickListener {
-            if (isTextExpanded) {
-                binding.titleDetail.maxLines = 1
-                binding.titleDetail.ellipsize = TextUtils.TruncateAt.END
-                binding.moreButton.text = "더보기"
-                binding.moreButton.visibility = View.VISIBLE
-                isTextExpanded = false
-            }
-        }
-    }
-
-    private suspend fun setupAfterContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
-        val afterImageParams = binding.afterImageDetail.layoutParams as ConstraintLayout.LayoutParams
-        val afterVideoParams = binding.afterVideoDetail.layoutParams as ConstraintLayout.LayoutParams
-
-        if (content.afterIsImage == 1) {
-            binding.afterImageDetail.visibility = View.VISIBLE
-            binding.afterVideoDetail.visibility = View.GONE
-            Glide.with(this@BeforeAfterDetailFragment)
-                .load(content.afterUrl)
-                .into(binding.afterImageDetail)
-
-            afterImageParams.height = 0
-            afterImageParams.matchConstraintPercentHeight = 0.5f
-        } else {
-            binding.afterImageDetail.visibility = View.GONE
-            binding.afterVideoDetail.visibility = View.VISIBLE
-
-            afterPlayer = ExoPlayer.Builder(requireContext())
-                .setRenderersFactory(DefaultRenderersFactory(requireContext()).setExtensionRendererMode(
-                    EXTENSION_RENDERER_MODE_OFF
-                ))
-                .build().apply {
-                setMediaItem(MediaItem.fromUri(content.afterUrl))
-                prepare()
-                playWhenReady = true
-                repeatMode = ExoPlayer.REPEAT_MODE_ONE
-            }
-            binding.afterVideoDetail.player = afterPlayer
-            binding.afterVideoDetail.useController = false
-
-            afterVideoParams.height = 0
-            afterVideoParams.matchConstraintPercentHeight = 0.5f
-        }
-
-        binding.afterImageDetail.layoutParams = afterImageParams
-        binding.afterVideoDetail.layoutParams = afterVideoParams
-    }
-
-    private suspend fun setupBeforeContent(content: BeforeAfterDetailResponse) = withContext(Dispatchers.Main) {
-        val beforeImageParams = binding.beforeImageDetail.layoutParams as ConstraintLayout.LayoutParams
-        val beforeVideoParams = binding.beforeVideoDetail.layoutParams as ConstraintLayout.LayoutParams
-        val afterImageParams = binding.afterImageDetail.layoutParams as ConstraintLayout.LayoutParams
-        val afterVideoParams = binding.afterVideoDetail.layoutParams as ConstraintLayout.LayoutParams
-
-        if (content.beforeIsImage == 1) {
-            binding.beforeImageDetail.visibility = View.VISIBLE
-            binding.beforeVideoDetail.visibility = View.GONE
-            Glide.with(this@BeforeAfterDetailFragment)
-                .load(content.beforeUrl)
-                .into(binding.beforeImageDetail)
-
-            beforeImageParams.height = 0
-            beforeImageParams.matchConstraintPercentHeight = 0.5f
-
-            afterImageParams.topToBottom = binding.beforeImageDetail.id
-            afterVideoParams.topToBottom = binding.beforeImageDetail.id
-        } else {
-            binding.beforeImageDetail.visibility = View.GONE
-            binding.beforeVideoDetail.visibility = View.VISIBLE
-
-            beforePlayer = ExoPlayer.Builder(requireContext())
-                .setRenderersFactory(DefaultRenderersFactory(requireContext()).setExtensionRendererMode(EXTENSION_RENDERER_MODE_OFF))
-                .build().apply {
-                    setMediaItem(MediaItem.fromUri(content.beforeUrl))
-                    prepare()
-                    playWhenReady = true
-                    repeatMode = ExoPlayer.REPEAT_MODE_ONE
-                }
-            binding.beforeVideoDetail.player = beforePlayer
-            binding.afterVideoDetail.useController = false
-
-            beforeVideoParams.height = 0
-            beforeVideoParams.matchConstraintPercentHeight = 0.5f
-
-            afterImageParams.topToBottom = binding.beforeVideoDetail.id
-            afterVideoParams.topToBottom = binding.beforeVideoDetail.id
-        }
-
-        binding.beforeImageDetail.layoutParams = beforeImageParams
-        binding.beforeVideoDetail.layoutParams = beforeVideoParams
-        binding.afterImageDetail.layoutParams = afterImageParams
-        binding.afterVideoDetail.layoutParams = afterVideoParams
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        beforePlayer?.release()
-        afterPlayer?.release()
-
-        activity?.findViewById<Toolbar>(R.id.toolbar)?.visibility = View.VISIBLE
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_navigation_view)?.visibility = View.VISIBLE
         _binding = null
     }
 }

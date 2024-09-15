@@ -1,5 +1,7 @@
 package com.innerpeace.themoonha.data.network
 
+import com.innerpeace.themoonha.data.model.schedule.ScheduleMonthlyResponse
+import com.innerpeace.themoonha.data.model.schedule.ScheduleNextResponse
 import com.innerpeace.themoonha.data.model.schedule.ScheduleWeeklyResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -15,10 +17,18 @@ import retrofit2.http.Query
  * ----------  --------    ---------------------------
  * 2024.09.07  	조희정       최초 생성
  * 2024.09.07  	조희정       주간 스케줄 불러오기 구현
+ * 2024.09.08  	조희정       월간 스케줄 불러오기 구현
+ * 2024.09.09  	조희정       다음 스케줄 불러오기 구현
  * </pre>
  */
 interface ScheduleService {
 
     @GET("schedule/weekly")
     suspend fun getScheduleWeekly(@Query("standardDates") standardDates: List<String>): List<List<ScheduleWeeklyResponse>>
+
+    @GET("schedule/monthly")
+    suspend fun getScheduleMonthly(@Query("yearMonth") yearMonth: String): List<ScheduleMonthlyResponse>
+
+    @GET("schedule/next")
+    suspend fun getScheduleNext(): ScheduleNextResponse
 }

@@ -55,22 +55,66 @@
         android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
         android:label="BeforeAfter">
         <action
-            android:id="@+id/action_before_after_to_field"
-            app:destination="@id/fragment_field" />
+            android:id="@+id/action_before_after_to_beforeAfterListFragment"
+            app:destination="@id/beforeAfterListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beforeAfterListFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterListFragment"
+        android:label="BeforeAfterListFragment" >
         <action
-            android:id="@+id/action_before_after_to_beforeAfterList"
-            app:destination="@id/fragment_before_after" />
+            android:id="@+id/action_beforeAfterListFragment_to_beforeAfterEnrollFragment"
+            app:destination="@id/beforeAfterEnrollFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beforeAfterDetailFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterDetailFragment"
+        android:label="BeforeAfterDetailFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/beforeAfterEnrollFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterEnrollContentsFragment"
+        android:label="BeforeAfterEnrollFragment" />
+    <fragment
+        android:id="@+id/beforeAfterEnrollPhraseFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.beforeafter.BeforeAfterEnrollContentsPhraseFragment"
+        android:label="BeforeAfterEnrollContentsPhraseFragment" >
+        <action
+            android:id="@+id/action_beforeAfterEnrollPhraseFragment_to_beforeAfterListFragment"
+            app:destination="@id/beforeAfterListFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_field"
         android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
         android:label="Field">
         <action
-            android:id="@+id/action_field_to_beforeAfterList"
-            app:destination="@id/fragment_before_after" />
+            android:id="@+id/action_field_to_fieldListFragment"
+            app:destination="@id/fieldListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldListFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldListFragment"
+        android:label="FieldListFragment" >
         <action
-            android:id="@+id/action_field_to_field"
-            app:destination="@id/fragment_field" />
+            android:id="@+id/action_fieldListFragment_to_fieldDetailFragment"
+            app:destination="@id/beforeAfterEnrollFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fieldDetailFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldDetailFragment"
+        android:label="FieldDetailFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/fieldEnrollFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldEnrollContentsFragment"
+        android:label="FieldEnrollContentsFragment" />
+    <fragment
+        android:id="@+id/fieldEnrollPhraseFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.field.FieldEnrollContentsPhraseFragment"
+        android:label="FieldEnrollContentsPhraseFragment" >
+        <action
+            android:id="@+id/action_fieldEnrollPhraseFragment_to_fieldListFragment"
+            app:destination="@id/fieldListFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_onAir"

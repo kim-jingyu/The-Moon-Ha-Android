@@ -47,6 +47,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private var currentRequestCode: Int = REQUEST_CAMERA_BEFORE_PHOTO
     private var photoUri: Uri? = null
+    private var videoUri: Uri? = null
 
     private var beforeContentUri: Uri? = null
     private var afterContentUri: Uri? = null
@@ -67,12 +68,10 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
             hideBottomNavigation()
         }
 
-        binding.backButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.backButton.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.cameraButton.setColorFilter(ContextCompat.getColor(requireContext(), android.R.color.white))
         binding.cameraButton.setOnClickListener {
             if (hasCameraPermission()) {
                 selectCameraMode()
@@ -111,11 +110,12 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
             val contentUri = when (requestCode) {
                 REQUEST_GALLERY_BEFORE, REQUEST_GALLERY_AFTER -> data?.data
                 REQUEST_CAMERA_BEFORE_PHOTO, REQUEST_CAMERA_AFTER_PHOTO -> photoUri
-                REQUEST_CAMERA_BEFORE_VIDEO, REQUEST_CAMERA_AFTER_VIDEO -> data?.data
+                REQUEST_CAMERA_BEFORE_VIDEO, REQUEST_CAMERA_AFTER_VIDEO -> videoUri
                 else -> null
             }
 
             contentUri?.let { uri ->
+                requireActivity().grantUriPermission(requireActivity().packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val contentResolver = requireContext().contentResolver
                 val mimeType = contentResolver.getType(uri)
 
@@ -141,6 +141,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setAfterVideoContent(uri: Uri) {
         afterContentUri = uri
+        binding.afterText.visibility = View.GONE
         binding.afterContentImage.visibility = View.GONE
         binding.afterContentVideo.visibility = View.VISIBLE
         binding.afterContentVideo.setVideoURI(uri)
@@ -149,6 +150,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setBeforeVideoContent(uri: Uri) {
         beforeContentUri = uri
+        binding.beforeText.visibility = View.GONE
         binding.beforeContentImage.visibility = View.GONE
         binding.beforeContentVideo.visibility = View.VISIBLE
         binding.beforeContentVideo.setVideoURI(uri)
@@ -157,6 +159,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setAfterImageContent(uri: Uri) {
         afterContentUri = uri
+        binding.afterText.visibility = View.GONE
         binding.afterContentImage.visibility = View.VISIBLE
         binding.afterContentVideo.visibility = View.GONE
         binding.afterContentImage.setImageURI(uri)
@@ -164,6 +167,7 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun setBeforeImageContent(uri: Uri) {
         beforeContentUri = uri
+        binding.beforeText.visibility = View.GONE
         binding.beforeContentImage.visibility = View.VISIBLE
         binding.beforeContentVideo.visibility = View.GONE
         binding.beforeContentImage.setImageURI(uri)
@@ -198,9 +202,11 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
     }
 
     private fun openGalleryForContent() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "*/*"
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*"))
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*"))
+        }
         startActivityForResult(intent, currentRequestCode)
     }
 
@@ -249,6 +255,9 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
 
     private fun openCameraForVideo() {
         val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        videoUri = createVideoFileUri()
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(intent, currentRequestCode)
     }
 
@@ -256,7 +265,21 @@ class BeforeAfterEnrollContentsFragment : Fragment() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         photoUri = createImageFileUri()
         intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         startActivityForResult(intent, currentRequestCode)
+    }
+
+    private fun createVideoFileUri(): Uri {
+        val videoFile = File.createTempFile(
+            "VID_${System.currentTimeMillis()}",
+            ".mp4",
+            requireContext().getExternalFilesDir(Environment.DIRECTORY_MOVIES)
+        )
+        return FileProvider.getUriForFile(
+            requireContext(),
+            "${requireContext().packageName}.fileprovider",
+            videoFile
+        )
     }
 
     private fun createImageFileUri(): Uri {

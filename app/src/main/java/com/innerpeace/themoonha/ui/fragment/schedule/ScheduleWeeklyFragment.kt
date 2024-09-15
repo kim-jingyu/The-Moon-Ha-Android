@@ -84,7 +84,8 @@ class ScheduleWeeklyFragment : Fragment() {
             standardDates?.let {
                 viewModel.fetchScheduleWeeklyList(it)
             }
-            binding.tvYearMonth.text = standardDates[1].substring(0, 7)
+            val yearMonth = standardDates[1]
+            binding.tvYearMonth.text = "${yearMonth.substring(0, 4)}년 ${yearMonth.substring(5, 7)}월"
         })
 
         // 주간 스케줄 목록 변경

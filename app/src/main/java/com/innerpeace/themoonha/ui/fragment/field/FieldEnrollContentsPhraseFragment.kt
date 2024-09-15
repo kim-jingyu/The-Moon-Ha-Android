@@ -1,13 +1,11 @@
 package com.innerpeace.themoonha.ui.fragment.field
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -21,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.innerpeace.themoonha.R
@@ -35,7 +34,7 @@ import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -77,12 +76,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             contentUri = it.getParcelable("contentUri")
         }
 
-        val memberId = getCurrentMemberId()
-        lessonViewModel.getLessonEnroll()
-    }
-
-    private fun getCurrentMemberId(): Long? {
-        return null
+        lessonViewModel.getLessonFieldEnroll()
     }
 
     override fun onCreateView(
@@ -101,10 +95,14 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             hideBottomNavigation()
         }
 
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
+
         displayContent()
         val lessonSpinner = binding.lessonSpinner
 
-        lessonViewModel.lessonEnroll.observe(viewLifecycleOwner, { lessons ->
+        lessonViewModel.lessonFieldEnroll.observe(viewLifecycleOwner, { lessons ->
             val lessonTitles = lessons.map { it.title }
             val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, lessonTitles)
             arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -135,6 +133,8 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
                 if (text.endsWith(" ") || text.endsWith("\n")) {
                     val trimmedText = text.trim()
                     if (trimmedText.startsWith("#")) {
+                        val originalHashTag = trimmedText.removePrefix("#")
+                        hashtags.add(originalHashTag)
                         addHashtag(trimmedText)
                         binding.inputPhrase.text.clear()
                     }
@@ -148,13 +148,9 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
     }
 
     private fun addHashtag(tag: String) {
-        hashtags.add(tag)
-
         val hashtagView = TextView(requireContext()).apply {
             id = View.generateViewId()
             text = tag
-            setBackgroundResource(R.drawable.hashtag_background)
-            setPadding(16, 8, 16, 8)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
             layoutParams = ConstraintLayout.LayoutParams (
@@ -186,36 +182,46 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         }
 
         val thumbnail = contentUri?.let { uri ->
-            createThumbnailMultiPart(uri, "thumbnail")
+            val contentResolver = requireContext().contentResolver
+            val type = contentResolver.getType(uri)
+
+            if (type?.startsWith("image") == true) {
+                convertUriToMultiPart(uri, "thumbnail")
+            } else {
+                createThumbnailMultiPart(uri, "thumbnail")
+            }
         }
 
-        if (content != null && thumbnail != null) {
-            fieldViewModel.makeField(
-                Gson().toJson(fieldRequest).toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
-                content,
-                thumbnail
-            )
-            observeMakeFieldResult()
-        }
+        makeFieldContent(content, thumbnail, fieldRequest)
     }
 
-    private fun observeMakeFieldResult() {
-        lifecycleScope.launchWhenStarted {
-            fieldViewModel.makeFieldResponse.collect { result ->
-                result?.fold(
+    private fun makeFieldContent(
+        content: MultipartBody.Part?,
+        thumbnail: MultipartBody.Part?,
+        fieldRequest: FieldRequest
+    ) {
+        if (content != null && thumbnail != null) {
+            lifecycleScope.launch {
+                val result = fieldViewModel.makeField(
+                    Gson().toJson(fieldRequest)
+                        .toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull()),
+                    content,
+                    thumbnail
+                )
+
+                result.fold(
                     onSuccess = {
-                        Log.d("FieldListFragment", "Navigating to field fragment")
-                        try {
-                            findNavController().navigate(R.id.action_field_to_field)
-                            Log.d("FieldListFragment", "Navigation success!")
-                        } catch (e: IllegalArgumentException) {
-                            Log.e("FieldListFragment", "Navigation failed: ${e.message}")
-                        } catch (e: Exception) {
-                            Log.e("FieldListFragment", "Unexpected error during navigation: ${e.message}")
-                        }
+                        val navOptions = NavOptions.Builder()
+                            .setPopUpTo(R.id.fieldListFragment, true)
+                            .build()
+                        findNavController().navigate(R.id.fieldListFragment, null, navOptions)
                     },
                     onFailure = {
-                        Toast.makeText(requireContext(), "페이지 전환에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "필드 생성에 실패했습니다. 다시 시도해 주세요.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 )
             }
@@ -226,9 +232,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         val contentResolver = requireContext().contentResolver
         val type = contentResolver.getType(uri)
 
-        val thumbnailFile = if (type?.startsWith("image") == true) {
-            createImageThumbnail(uri)
-        } else if (type?.startsWith("video") == true) {
+        val thumbnailFile = if (type?.startsWith("video") == true) {
             createVideoThumbnail(uri)
         } else {
             null
@@ -238,21 +242,6 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             val requestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
             MultipartBody.Part.createFormData(content, file.name, requestBody)
         } ?: throw IllegalStateException("썸네일 생성 실패")
-    }
-
-    private fun createImageThumbnail(uri: Uri): File {
-        val inputStream = requireContext().contentResolver.openInputStream(uri)
-        val bitmap = BitmapFactory.decodeStream(inputStream)
-
-        val thumbnail = Bitmap.createScaledBitmap(bitmap, 150, 150, true)
-
-        val tempFile = File.createTempFile("thumbnail", ".jpg", requireContext().cacheDir)
-        val outputStream = FileOutputStream(tempFile)
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 85, outputStream)
-        outputStream.flush()
-        outputStream.close()
-
-        return tempFile
     }
 
     private fun createVideoThumbnail(uri: Uri): File {
