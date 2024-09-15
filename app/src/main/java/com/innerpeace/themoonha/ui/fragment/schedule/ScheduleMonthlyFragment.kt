@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.ui.fragment.schedule
 
-import DayViewContainer
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +21,7 @@ import com.innerpeace.themoonha.data.network.ScheduleService
 import com.innerpeace.themoonha.data.repository.ScheduleRepository
 import com.innerpeace.themoonha.databinding.DialogLessonInfoBinding
 import com.innerpeace.themoonha.databinding.FragmentScheduleMonthlyBinding
+import com.innerpeace.themoonha.ui.fragment.lesson.DayViewContainer
 import com.innerpeace.themoonha.viewModel.ScheduleViewModel
 import com.innerpeace.themoonha.viewModel.factory.ScheduleViewModelFactory
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -280,6 +280,7 @@ class ScheduleMonthlyFragment : Fragment() {
     }
 
     // 강좌 상세정보 다이얼로그
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showLessonModal(eventsForDay: List<ScheduleMonthlyResponse>, day: CalendarDay) {
 
         val bottomSheetDialog = BottomSheetDialog(requireContext())
