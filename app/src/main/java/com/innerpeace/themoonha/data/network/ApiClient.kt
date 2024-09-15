@@ -1,16 +1,20 @@
 package com.innerpeace.themoonha.data.network
 
 import android.content.Context
+import android.util.Log
 import com.innerpeace.themoonha.Constants.url
 import com.innerpeace.themoonha.SharedPreferencesManager
 import okhttp3.Interceptor
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.Response
+import okhttp3.ResponseBody
+import retrofit2.Converter
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import java.lang.reflect.Type
 import java.net.CookieManager
 
 object ApiClient {
@@ -34,9 +38,26 @@ object ApiClient {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(createClient())
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(nullOnEmptyConverterFactory)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    private val nullOnEmptyConverterFactory = object : Converter.Factory() {
+        fun converterFactory() = this
+        override fun responseBodyConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit) = object : Converter<ResponseBody, Any?> {
+            val nextResponseBodyConverter = retrofit.nextResponseBodyConverter<Any?>(converterFactory(), type, annotations)
+            override fun convert(value: ResponseBody) = if (value.contentLength() != 0L) {
+                try{
+                    nextResponseBodyConverter.convert(value)
+                }catch (e:Exception){
+                    e.printStackTrace()
+                    null
+                }
+            } else{
+                null
+            }
+        }
     }
 }
 

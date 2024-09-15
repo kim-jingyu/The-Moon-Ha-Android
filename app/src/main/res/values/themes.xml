@@ -19,6 +19,11 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
 
+    <style name="Theme.Design.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <!-- 커스텀 텍스트 스타일 정의 -->
     <style name="BottomNavigationTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">13dp</item>

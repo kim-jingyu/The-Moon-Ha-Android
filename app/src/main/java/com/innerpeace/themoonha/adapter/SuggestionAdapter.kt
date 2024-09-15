@@ -36,9 +36,11 @@ class SuggestionAdapter(private val suggestions: List<SuggestionDTO>) :
             memberNameTextView.text = suggestion.memberName
             contentTextView.text = suggestion.content
             createdAtTextView.text = suggestion.createdAt
-            Glide.with(itemView.context)
-                .load(suggestion.memberProfileImgUrl)
-                .into(memberProfileImageView)
+            if (!suggestion.memberProfileImgUrl.isNullOrEmpty()) {
+                Glide.with(itemView.context)
+                    .load(suggestion.memberProfileImgUrl)
+                    .into(memberProfileImageView)
+            }
         }
     }
 }

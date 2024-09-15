@@ -1,468 +1,524 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!-- 강의 제목 및 썸네일 -->
             <TextView
-                    android:id="@+id/textViewTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="강의 제목"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"/>
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="강의 제목"
+                android:textColor="@color/black"
+                android:layout_marginHorizontal="20dp"
+                android:textSize="16sp" />
 
             <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="15dp">
+                android:layout_marginTop="19dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="14dp">
 
                 <VideoView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/videoView"
-                        android:layout_gravity="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        android:visibility="gone"/>
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                        android:id="@+id/pauseIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:src="@drawable/ic_pause"
-                        android:visibility="gone"
-                        android:contentDescription="pause Icon"
-                        android:layout_gravity="center"
-                        android:alpha="1.0"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                    android:id="@+id/pauseIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:alpha="1.0"
+                    android:contentDescription="pause Icon"
+                    android:src="@drawable/ic_pause"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                        android:id="@+id/playIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:visibility="gone"
-                        android:alpha="1.0"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_play"
-                        android:contentDescription="play Icon"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                    android:id="@+id/playIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="20dp"
+                    android:alpha="1.0"
+                    android:contentDescription="play Icon"
+                    android:src="@drawable/ic_play"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                        android:id="@+id/imageViewThumbnail"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:layout_marginBottom="15dp"/>
+                    android:id="@+id/imageViewThumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="14dp"
+                    android:scaleType="centerCrop" />
             </FrameLayout>
 
             <!-- 지점명 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewBranchNameLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:layout_weight="1"
+                    android:text="지점명"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewBranchNameLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="지점명"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewBranchName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 지점명"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewBranchName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 지점명"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 강의 기간 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewPeriodLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="강의 기간"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewPeriodLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강의 기간"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewPeriod"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 강의 기간"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewPeriod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 강의 기간"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 강의 일시 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewLessonTimeLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="강의 일시"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewLessonTimeLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강의 일시"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewLessonTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 강의 일시"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewLessonTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 강의 일시"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 강의 횟수 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewCntLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="강의 횟수"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewCntLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강의 횟수"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewCnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 강의 횟수"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewCnt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 강의 횟수"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 강의 장소 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewPlaceLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="강의 장소"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewPlaceLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강의 장소"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewPlace"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 강의 장소"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 강의 장소"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 강사명 -->
             <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewTutorNameLabel"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="강사명"
+                    android:textColor="#808080" />
 
                 <TextView
-                        android:id="@+id/textViewTutorNameLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강사명"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewTutorName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 강사명"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
+                    android:id="@+id/textViewTutorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="실제 강사명"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <!-- 수강료 -->
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="16dp">
-
-                <TextView
-                        android:id="@+id/textViewCostLabel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="수강료"
-                        android:textColor="#808080"
-                        android:layout_weight="1"/>
-
-                <TextView
-                        android:id="@+id/textViewCost"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="실제 수강료"
-                        android:textColor="#000000"
-                        android:layout_gravity="end"/>
-            </LinearLayout>
-
-            <LinearLayout
+                android:layout_marginHorizontal="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="16dp">
+                android:layout_marginBottom="7dp">
+
+                <TextView
+                    android:id="@+id/textViewCostLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
+                    android:text="수강료"
+                    android:textColor="#808080" />
+
+                <TextView
+                    android:id="@+id/textViewCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
+                    android:text="실제 수강료"
+                    android:textColor="#000000" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp">
 
                 <TextView
                     android:id="@+id/textViewOnlineCostLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="11sp"
+                    android:fontFamily="@font/happiness_sans_regular"
                     android:text="온라인 수강료"
-                    android:textColor="#808080"
-                    android:layout_weight="1"/>
+                    android:textColor="#808080" />
 
                 <TextView
                     android:id="@+id/textViewOnlineCost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textSize="11sp"
                     android:text="온라인 수강료"
-                    android:textColor="#000000"
-                    android:layout_gravity="end"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <View
-                    android:id="@+id/viewGrayLine"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginBottom="8dp"/>
+                android:id="@+id/viewGrayLine"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginBottom="8dp"
+                android:background="#D3D3D3" />
 
             <!-- TabLayout -->
             <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabMode="fixed"
-                    app:tabTextAppearance="@style/tab_text"
-                    app:tabGravity="fill"
-                    app:tabSelectedTextColor="#00805A"
-                    android:layout_marginBottom="20dp"/>
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="#00807A"
+                app:tabTextAppearance="@style/tab_text" />
 
             <!-- 강좌 소개 -->
             <TextView
-                    android:id="@+id/textViewSummaryTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강좌 소개"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#00805A"
-                    android:layout_margin="16dp"/>
+                android:id="@+id/textViewSummaryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="강좌 소개"
+                android:textColor="#00807A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
-                    android:id="@+id/textViewSummary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="실제 강좌 소개"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp"/>
+                android:id="@+id/textViewSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:text="실제 강좌 소개" />
+
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginBottom="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="14dp"
+                android:background="#D3D3D3" />
 
             <!-- 커리큘럼 -->
             <TextView
-                    android:id="@+id/textViewCurriculumTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="커리큘럼"
-                    android:textColor="#00805A"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"/>
+                android:id="@+id/textViewCurriculumTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="커리큘럼"
+                android:textColor="#00807A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
-                    android:id="@+id/textViewCurriculum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="실제 커리큘럼"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp"/>
+                android:id="@+id/textViewCurriculum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="12sp"
+                android:text="실제 커리큘럼" />
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginBottom="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="14dp"
+                android:background="#D3D3D3" />
 
             <!-- 준비물 -->
             <TextView
-                    android:id="@+id/textViewSupplyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="준비물"
-                    android:textSize="15sp"
-                    android:textColor="#00805A"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"/>
+                android:id="@+id/textViewSupplyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="준비물"
+                android:textColor="#00807A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <TextView
-                    android:id="@+id/textViewSupply"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="실제 준비물"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp"/>
+                android:id="@+id/textViewSupply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:textSize="12sp"
+                android:text="실제 준비물" />
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginBottom="15dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="14dp"
+                android:background="#D3D3D3" />
 
 
             <TextView
-                    android:id="@+id/textViewTutor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="강사정보"
-                    android:textSize="15sp"
-                    android:textColor="#00805A"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"/>
+                android:id="@+id/textViewTutor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="강사정보"
+                android:textColor="#00807A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="16dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imageViewTutorProfile"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/basic_profile"
-                        app:civ_border_color="#DFE1E7"
-                        app:civ_border_width="1dp"
-                        android:layout_marginRight="10dp"
-                        />
+                    android:id="@+id/imageViewTutorProfile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="11dp"
+                    android:src="@drawable/basic_profile"
+                    app:civ_border_color="#DFE1E7"
+                    app:civ_border_width="1dp" />
 
                 <TextView
-                        android:id="@+id/textViewTutorName2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="강사 이름"
-                        android:textColor="@android:color/black"
-                        android:textSize="16sp"
-                        android:layout_marginBottom="8dp"
-                        app:layout_constraintStart_toEndOf="@id/imageViewTutorProfile"
-                        app:layout_constraintTop_toTopOf="@id/imageViewTutorProfile"
-                        app:layout_constraintBottom_toBottomOf="@id/imageViewTutorProfile"
-                        android:layout_gravity="center_vertical"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                    android:id="@+id/textViewTutorName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="4dp"
+                    android:text="강사 이름"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/imageViewTutorProfile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/imageViewTutorProfile"
+                    app:layout_constraintTop_toTopOf="@id/imageViewTutorProfile" />
             </LinearLayout>
 
             <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#D3D3D3"
-                    android:layout_marginBottom="15dp"/>
-
-            <!-- 후기 -->
-            <TextView
-                    android:id="@+id/textViewReviewsTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="후기"
-                    android:textSize="15sp"
-                    android:textColor="#00805A"
-                    android:textStyle="bold"
-                    android:layout_margin="16dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="14dp"
+                android:background="#D3D3D3" />
 
             <TextView
-                    android:id="@+id/textViewReviewDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="후기 내용이 여기에 표시됩니다."
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginBottom="100dp"/>
+                android:id="@+id/textViewReviewsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="문화 한입 후기"
+                android:textColor="#00807A"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPagerReviews"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                android:id="@+id/dotsIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="@color/black"
+                app:dotsStrokeColor="@color/light_gray_1"
+                app:dotsCornerRadius="4dp"
+                app:dotsSize="8dp"
+                app:dotsSpacing="6dp"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerReviews"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="100dp"/>
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
-            android:id="@+id/buttonContainer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:gravity="center"
-            android:paddingBottom="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+        android:id="@+id/buttonContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/addToCartButton"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:text="장바구니"
-                android:textColor="@android:color/black"
-                android:background="@drawable/button_border_black"
-                android:layout_marginEnd="15dp"/>
+            android:id="@+id/addToCartButton"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/button_border_black"
+            android:text="장바구니"
+            android:textColor="@android:color/black" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/applyButton"
-                android:layout_width="160dp"
-                android:layout_height="40dp"
-                android:text="신청하기"
-                android:background="@drawable/button_border_black"/>
+            android:id="@+id/applyButton"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:background="@drawable/button_border_black"
+            android:text="신청하기" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

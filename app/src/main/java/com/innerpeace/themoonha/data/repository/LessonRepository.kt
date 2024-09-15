@@ -61,6 +61,14 @@ class LessonRepository(private val lessonService: LessonService) {
         }
     }
 
+    suspend fun fetchShortFormDetail(shortFormId: Long) {
+        try {
+            lessonService.getShortFormDetail(shortFormId)
+        } catch (e: Exception) {
+            Log.e("숏폼 조회 응답 실패", "${e.message}", e)
+        }
+    }
+
     suspend fun fetchLessonFieldEnroll(): List<LessonEnrollResponse>? {
         return try {
             lessonService.getLessonFieldListByMember()

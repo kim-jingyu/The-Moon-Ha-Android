@@ -1,214 +1,230 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@drawable/dialog_background"
-                                                   android:padding="16dp"
-                                                   app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_background"
+    android:padding="16dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
-            android:id="@+id/headerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지점을 선택해 주세요."
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="지점을 선택해 주세요."
+        android:textColor="@android:color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- CH 1985 Section -->
     <TextView
-            android:id="@+id/textCH1985"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CH 1985"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/headerText"
-            app:layout_constraintStart_toStartOf="parent" />
+        android:id="@+id/textCH1985"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="CH 1985"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerText" />
 
     <GridLayout
-            android:id="@+id/gridCH1985"
+        android:id="@+id/gridCH1985"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:columnCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textCH1985">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/branchHyundaiSeoul"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/textCH1985"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:background="@drawable/branch_button_background"
+            android:text="더현대 서울"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchHyundaiSeoul"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="더현대 서울"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchJungdong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/branch_button_background"
+            android:text="중동점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchJungdong"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="중동점"
-                android:textSize="13sp"
-                android:textColor="@color/branch_button_color"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchApgujeong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:background="@drawable/branch_button_background"
+            android:text="압구정본점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchApgujeong"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="압구정본점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
-
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchHyundaiDaegu"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="더현대 대구"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchHyundaiDaegu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:background="@drawable/branch_button_background"
+            android:text="더현대 대구"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
     </GridLayout>
 
     <!-- 문화센터 Section -->
     <TextView
-            android:id="@+id/textCultureCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="문화센터"
-            android:textColor="@android:color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/gridCH1985"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" />
+        android:id="@+id/textCultureCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="문화센터"
+        android:textColor="@android:color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridCH1985" />
 
     <GridLayout
-            android:id="@+id/gridCultureCenter"
+        android:id="@+id/gridCultureCenter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:columnCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textCultureCenter">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/branchTradeCenter"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/textCultureCenter"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/branch_button_background"
+            android:text="무역센터점"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchTradeCenter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="무역센터점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchCheonho"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:background="@drawable/branch_button_background"
+            android:text="천호점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchCheonho"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="천호점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchSinchon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/branch_button_background"
+            android:text="신촌점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchSinchon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="신촌점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchMia"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/branch_button_background"
+            android:text="미아점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchMia"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="미아점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchMokdong"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="7dp"
+            android:background="@drawable/branch_button_background"
+            android:text="목동점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchMokdong"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="목동점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchKintex"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/branch_button_background"
+            android:text="킨텍스점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchKintex"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="킨텍스점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchDcubeCity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_columnWeight="1"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/branch_button_background"
+            android:text="디큐브시티"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchDcubeCity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="디큐브시티"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
-
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/branchPangyo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="판교점"
-                android:textColor="@color/branch_button_color"
-                android:textSize="13sp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:background="@drawable/branch_button_background" />
+            android:id="@+id/branchPangyo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/happiness_sans_regular"
+            android:layout_columnWeight="1"
+            android:layout_marginStart="4dp"
+            android:background="@drawable/branch_button_background"
+            android:text="판교점"
+            android:textColor="@color/branch_button_color"
+            android:textSize="12sp" />
     </GridLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnCompleteSelection"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="선택 완료"
-            android:background="@drawable/branch_button_background"
-            android:textColor="@color/branch_button_color"
-            app:layout_constraintTop_toBottomOf="@id/gridCultureCenter"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="16dp" />
+        android:id="@+id/btnCompleteSelection"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/lesson_detail_dialog_button_background"
+        android:text="선택 완료"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridCultureCenter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

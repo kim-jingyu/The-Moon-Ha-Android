@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.lesson
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.LessonAdapter
@@ -65,7 +68,7 @@ class LessonFragment : Fragment() {
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("문화센터")
 
-        binding.branchName.setOnClickListener {
+        binding.linearLayout1.setOnClickListener {
             showBranchSelectionDialog()
         }
 
@@ -86,7 +89,7 @@ class LessonFragment : Fragment() {
 
             viewModel.addLessonCart(cartRequest).observe(viewLifecycleOwner, Observer { success ->
                 if (success) {
-                    findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+                    findNavController().navigate(R.id.action_fragment_lesson_to_cartContentFragment)
                 } else {
                     Log.e("LessonFragment", "장바구니에 상품 추가 실패")
                 }
@@ -96,7 +99,7 @@ class LessonFragment : Fragment() {
 
         shortFormAdapter = ShortFormAdapter(emptyList()) { shortForm, position ->
             val bundle = bundleOf("selectedPosition" to position)
-            viewModel.setCurrentShortFormId(shortForm.lessonId)
+            viewModel.currentPage = position
             findNavController().navigate(R.id.action_fragment_lesson_to_shortFormDetailFragment, bundle)
         }
 
@@ -112,7 +115,7 @@ class LessonFragment : Fragment() {
         binding.recyclerViewShortForm.adapter = shortFormAdapter
 
         binding.myCultureCenter.setOnClickListener {
-            findNavController().navigate(R.id.action_fragment_lesson_to_cartFragment)
+            findNavController().navigate(R.id.action_fragment_lesson_to_cartContentFragment)
         }
 
         // ViewModel의 데이터 관찰
@@ -138,6 +141,11 @@ class LessonFragment : Fragment() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.branch_selection_dialog, null)
         bottomSheetDialog.setContentView(dialogView)
 
+        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        BottomSheetBehavior.from(bottomSheet!!).skipCollapsed = false
+        BottomSheetBehavior.from(bottomSheet).state = BottomSheetBehavior.STATE_EXPANDED
+
         val branchButtonsMap = mapOf(
             Branch.TRADE_CENTER to dialogView.findViewById<Button>(R.id.branchTradeCenter),
             Branch.CHEONHO to dialogView.findViewById<Button>(R.id.branchCheonho),
@@ -153,15 +161,31 @@ class LessonFragment : Fragment() {
             Branch.HYUNDAI_DAEGU to dialogView.findViewById<Button>(R.id.branchHyundaiDaegu)
         )
 
+        val btnCompleteSelection = dialogView.findViewById<Button>(R.id.btnCompleteSelection)
+        btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.gray))
+        btnCompleteSelection.isEnabled = false
+
         branchButtonsMap.forEach { (branch, button) ->
             button?.setOnClickListener {
-                branchButtonsMap.values.forEach { it.isSelected = false }
+                // 다른 버튼은 선택 해제 및 기본 서체로 변경
+                branchButtonsMap.values.forEach {
+                    it.setTypeface(null, Typeface.NORMAL)
+                    it.isSelected = false
+                }
+
+                // 선택된 버튼을 굵게 표시하고 선택된 상태로 설정
                 button.isSelected = true
+                button.setTypeface(null, Typeface.BOLD)
+
                 selectedBranch = branch
+
+                // 제출 버튼 활성화 및 색상 변경
+                btnCompleteSelection.isEnabled = true
+                btnCompleteSelection.setBackgroundColor(resources.getColor(R.color.black))
             }
         }
 
-        dialogView.findViewById<Button>(R.id.btnCompleteSelection).setOnClickListener {
+        btnCompleteSelection.setOnClickListener {
             selectedBranch?.let {
                 val newQueryMap = LessonListRequest(
                     branchId = it.branchId.toString(),
@@ -173,11 +197,14 @@ class LessonFragment : Fragment() {
                     cnt = null,
                     lessonTime = null
                 ).toQueryMap()
+
                 viewModel.getLessonList(newQueryMap)
                 viewModel.updateBranchName(it.branchName)
                 bottomSheetDialog.dismiss()
             }
         }
+
+        // 바텀 시트 다이얼로그 표시
         bottomSheetDialog.show()
     }
 
