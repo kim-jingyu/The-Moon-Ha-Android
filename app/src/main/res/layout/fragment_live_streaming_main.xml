@@ -14,16 +14,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.exoplayer2.ui.PlayerView
+    <FrameLayout
         android:id="@+id/onAirPlayer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:resize_mode="fill"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/top_bar_container"
-        app:layout_constraintDimensionRatio="16:9"
-        />
+        app:layout_constraintDimensionRatio="16:9">
+        <SeekBar
+            android:id="@+id/videoSeekBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/onAirTextview"

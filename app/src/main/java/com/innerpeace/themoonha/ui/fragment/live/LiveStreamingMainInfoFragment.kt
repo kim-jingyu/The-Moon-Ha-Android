@@ -79,11 +79,11 @@ class LiveStreamingMainInfoFragment: Fragment() {
 
         startPolling()
 
-        binding.likeButton.setOnClickListener {
+        binding.likeButtonLayout.setOnClickListener {
             lifecycleScope.launch { liveViewModel.likeLiveLesson(liveId) }
         }
 
-        binding.shareButton.setOnClickListener { liveViewModel.getShareLink(liveId) }
+        binding.shareButtonLayout.setOnClickListener { liveViewModel.getShareLink(liveId) }
 
         updateLikeCounts()
         updateViewCounts()

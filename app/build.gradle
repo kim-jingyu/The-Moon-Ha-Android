@@ -17,6 +17,7 @@ android {
         }
 
         buildConfigField "String", "BASE_IP_ADDRESS", "\"${localProperties['base_ip_address']}\""
+        buildConfigField "String", "STREAM_ID", "\"${localProperties['stream_id']}\""
         applicationId "com.innerpeace.themoonha"
         minSdk 21
         targetSdk 31
@@ -91,7 +92,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging'
-
+    implementation 'io.agora.rtc:full-sdk:3.5.2'
 }
 
 apply plugin: 'com.google.gms.google-services'
