@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
+import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -218,11 +219,12 @@ class CartContentFragment : Fragment() {
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 10 // 막대 높이
                             ).apply {
-                                setMargins(0, 3, 0, 0)
+                                setMargins(0, 2, 0, 2)
                             }
+                            setPadding(0, 5, 0, 0)  // 여백 대신 padding을 사용
                             setBackgroundColor(eventInfo.color)
                         }
-                        container.colorBarContainer.addView(colorBar)
+                            container.colorBarContainer.addView(colorBar)
                         container.eventIds.add(eventInfo.id)
                     }
                     container.colorBarContainer.visibility = View.VISIBLE
