@@ -314,6 +314,7 @@ class CraftFragment : Fragment() {
         val startPage = pageDTO.startPage
         val endPage = pageDTO.endPage
 
+        // 이전 페이지 버튼 설정
         binding.prevPageButton.isEnabled = pageDTO.prev
         binding.prevPageButton.setColorFilter(
             if (pageDTO.prev) ContextCompat.getColor(requireContext(), R.color.light_green)
@@ -327,26 +328,27 @@ class CraftFragment : Fragment() {
             }
         }
 
+        // 페이지 번호 설정
         for (i in startPage..endPage) {
             val pageButton = TextView(requireContext()).apply {
                 text = i.toString()
                 setPadding(8.dpToPx(), 8.dpToPx(), 8.dpToPx(), 8.dpToPx())
-                setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                setTextColor(
+                    if (i == currentPage)
+                        ContextCompat.getColor(requireContext(), R.color.light_green)  // 현재 페이지 텍스트 색상 green
+                    else
+                        ContextCompat.getColor(requireContext(), R.color.black)  // 다른 페이지 텍스트 색상 black
+                )
                 setOnClickListener {
                     currentPage = i
                     craftViewModel.getSuggestionList(currentPage)
                 }
             }
 
-            if (i == currentPage) {
-                pageButton.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_green))
-                pageButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-            }
-
             binding.pageNumberContainer.addView(pageButton)
         }
 
-        // Add next button
+        // 다음 페이지 버튼 설정
         binding.nextPageButton.isEnabled = pageDTO.next
         binding.nextPageButton.setColorFilter(
             if (pageDTO.next) ContextCompat.getColor(requireContext(), R.color.light_green)
