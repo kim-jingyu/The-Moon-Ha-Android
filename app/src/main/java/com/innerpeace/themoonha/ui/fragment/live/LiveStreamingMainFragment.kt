@@ -53,7 +53,6 @@ class LiveStreamingMainFragment : Fragment() {
     private var liveId: Long = 0
     private lateinit var mRtcEngine: RtcEngine
     private val appId = STREAM_ID
-    private val channelName = "test"
     private val token: String? = null
     private var elapsedTime: Long = 0L
     private var updateHandler: Handler? = null
@@ -191,6 +190,6 @@ class LiveStreamingMainFragment : Fragment() {
     }
 
     private fun joinChannel() {
-        mRtcEngine.joinChannel(token, channelName, "", 0)
+        mRtcEngine.joinChannel(token, liveId.toString(), "", 0)
     }
 }
