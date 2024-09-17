@@ -56,6 +56,21 @@ class CartContentFragment : Fragment() {
         )
     }
 
+    private val fixedColors = listOf(
+        Color.rgb(244, 67, 54),    // Red
+        Color.rgb(33, 150, 243),   // Blue
+        Color.rgb(76, 175, 80),    // Green
+        Color.rgb(255, 235, 59),   // Yellow
+        Color.rgb(156, 39, 176),   // Purple
+        Color.rgb(121, 85, 72),    // Brown
+        Color.rgb(0, 150, 136),    // Teal
+        Color.rgb(63, 81, 181),    // Indigo
+        Color.rgb(255, 87, 34),    // Orange
+        Color.rgb(139, 195, 74)    // Light Green
+    )
+
+    private val usedColors = mutableSetOf<Int>()
+
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentMonth: YearMonth = YearMonth.now()
     private val selectedEvents = mutableMapOf<LocalDate, MutableList<EventInfo>>()
@@ -392,7 +407,7 @@ class CartContentFragment : Fragment() {
         val dateRange = cartItem.period.split("~")
         val startDate = LocalDate.parse(dateRange[0], dateFormat)
         val endDate = LocalDate.parse(dateRange[1], dateFormat)
-        val color = generateRandomColor() // 랜덤 색상 생성
+        val color = generateAvailableColor()
         val eventId = cartItem.cartId
 
         var currentDate = startDate
@@ -403,9 +418,15 @@ class CartContentFragment : Fragment() {
         }
     }
 
-    private fun generateRandomColor(): Int {
-        val random = Random(System.currentTimeMillis())
-        return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256))
+    private fun generateAvailableColor(): Int {
+        val availableColors = fixedColors.filter { it !in usedColors }
+        if (availableColors.isNotEmpty()) {
+            val selectedColor = availableColors.first()
+            usedColors.add(selectedColor)
+            return selectedColor
+        } else {
+            return fixedColors.random()
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -419,7 +440,14 @@ class CartContentFragment : Fragment() {
         var currentDate = startDate
         while (!currentDate.isAfter(endDate)) {
             selectedEvents[currentDate]?.let {
-                it.removeIf { eventInfo -> eventInfo.id == eventId }
+                it.removeIf { eventInfo ->
+                    if (eventInfo.id == eventId) {
+                        usedColors.remove(eventInfo.color)
+                        true
+                    } else {
+                        false
+                    }
+                }
                 if (it.isEmpty()) {
                     selectedEvents.remove(currentDate)
                 }
