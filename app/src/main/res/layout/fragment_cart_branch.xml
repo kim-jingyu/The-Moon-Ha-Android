@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/light_green"
         android:textStyle="bold"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
