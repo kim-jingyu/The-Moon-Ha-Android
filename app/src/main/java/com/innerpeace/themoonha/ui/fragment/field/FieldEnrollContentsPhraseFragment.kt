@@ -143,6 +143,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         })
 
         binding.nextButton.setOnClickListener {
+            binding.nextButton.isEnabled = false
             submitFieldContent()
         }
     }

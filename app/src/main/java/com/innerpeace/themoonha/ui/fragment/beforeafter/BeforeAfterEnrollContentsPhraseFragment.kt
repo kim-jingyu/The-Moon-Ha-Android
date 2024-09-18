@@ -123,6 +123,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
             }
 
             binding.nextButton.setOnClickListener {
+                binding.nextButton.isEnabled = false
                 submitBeforeAfterContent()
             }
         })

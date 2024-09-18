@@ -3,14 +3,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="8dp">
+    android:layout_marginLeft="4dp"
+    android:layout_marginRight="4dp"
+    >
 
     <ImageView
         android:id="@+id/content"
         android:layout_width="140dp"
         android:layout_height="140dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_after"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"

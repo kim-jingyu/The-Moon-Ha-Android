@@ -1,11 +1,16 @@
 package com.innerpeace.themoonha.adapter.bite
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.request.RequestOptions
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterListResponse
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterContentBinding
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
  * Before&After 어댑터
@@ -72,6 +77,18 @@ class BeforeAfterAdapter(
     ) {
         Glide.with(holder.binding.root.context)
             .load(content.beforeThumbnailUrl)
+            .apply(
+                RequestOptions.bitmapTransform(
+                    MultiTransformation(
+                        CenterCrop(),
+                        RoundedCornersTransformation(
+                            20,
+                            0,
+                            RoundedCornersTransformation.CornerType.TOP
+                        )
+                    )
+                )
+            )
             .into(holder.binding.beforeImage)
     }
 
@@ -81,9 +98,22 @@ class BeforeAfterAdapter(
     ){
         Glide.with(holder.binding.root.context)
             .load(content.afterThumbnailUrl)
+            .apply(
+                RequestOptions.bitmapTransform(
+                    MultiTransformation(
+                        CenterCrop(),
+                        RoundedCornersTransformation(
+                            20,
+                            0,
+                            RoundedCornersTransformation.CornerType.BOTTOM
+                        )
+                    )
+                )
+            )
             .into(holder.binding.afterImage)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateContents(newContents: List<BeforeAfterListResponse>) {
         contents = newContents
         notifyDataSetChanged()
