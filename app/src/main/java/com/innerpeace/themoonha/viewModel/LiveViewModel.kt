@@ -2,10 +2,14 @@ package com.innerpeace.themoonha.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.innerpeace.themoonha.data.exception.*
+import com.innerpeace.themoonha.data.exception.LiveException
+import com.innerpeace.themoonha.data.exception.LiveJoinException
+import com.innerpeace.themoonha.data.exception.LiveLeaveException
+import com.innerpeace.themoonha.data.exception.LiveLikeException
+import com.innerpeace.themoonha.data.exception.LiveRetrievingException
+import com.innerpeace.themoonha.data.exception.LiveSharedException
 import com.innerpeace.themoonha.data.model.live.LiveLessonDetailResponse
 import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
-import com.innerpeace.themoonha.data.model.live.LiveLessonStatusResponse
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,12 +33,8 @@ import kotlinx.coroutines.withContext
 class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
     private val _liveLessonList = MutableStateFlow<List<LiveLessonResponse>>(emptyList())
     private val _liveLessonDetail = MutableStateFlow<LiveLessonDetailResponse?>(null)
-    private val _liveLessonStatus = MutableStateFlow<LiveLessonStatusResponse?>(null)
     private val _liveLessonViewersCount = MutableStateFlow<Int?>(null)
     private val _liveLessonLikesCount = MutableStateFlow<Int?>(null)
-    private val _liveLessonJoinCount = MutableStateFlow<Int?>(null)
-    private val _liveLessonLeaveCount = MutableStateFlow<Int?>(null)
-    private val _liveLessonLikeCount = MutableStateFlow<Int?>(null)
     private val _liveLessonShareLink = MutableStateFlow<String>("")
     private val _error = MutableStateFlow<LiveException?>(null)
 
@@ -42,9 +42,6 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
     val liveLessonDetailResponse: StateFlow<LiveLessonDetailResponse?> get() = _liveLessonDetail.asStateFlow()
     val liveLessonViewersCountResponse: StateFlow<Int?> get() = _liveLessonViewersCount.asStateFlow()
     val liveLessonLikesCountResponse: StateFlow<Int?> get() = _liveLessonLikesCount.asStateFlow()
-    val liveLessonJoinCountResponse: StateFlow<Int?> get() = _liveLessonJoinCount.asStateFlow()
-    val liveLessonLeaveCountResponse: StateFlow<Int?> get() = _liveLessonLeaveCount.asStateFlow()
-    val liveLessonCountResponse: StateFlow<Int?> get() = _liveLessonLikeCount.asStateFlow()
     val liveLessonShareLinkResponse: StateFlow<String> get() = _liveLessonShareLink.asStateFlow()
     val error: StateFlow<LiveException?> get() = _error.asStateFlow()
 
@@ -153,21 +150,23 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
         }
     }
 
-    suspend fun joinLiveLesson(liveId: Long) : Result<Int> {
+    suspend fun joinLiveLesson(liveId: Long): Result<Int> {
         return try {
-            Result.success(withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 datasource.joinLiveLesson(liveId)
-            }.body()!!)
+            }
+            Result.success(1)
         } catch (e: Exception) {
             Result.failure(LiveJoinException())
         }
     }
 
-    suspend fun leaveLiveLesson(liveId: Long) : Result<Int> {
+    suspend fun leaveLiveLesson(liveId: Long): Result<Int> {
         return try {
-            Result.success(withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 datasource.leaveLiveLesson(liveId)
-            }.body()!!)
+            }
+            Result.success(1)
         } catch (e: Exception) {
             Result.failure(LiveLeaveException())
         }
@@ -175,9 +174,10 @@ class LiveViewModel(private val datasource: LiveRepository) : ViewModel() {
 
     suspend fun likeLiveLesson(liveId: Long) : Result<Int> {
         return try {
-            Result.success(withContext(Dispatchers.IO) {
+            withContext(Dispatchers.IO) {
                 datasource.likeLiveLesson(liveId)
-            }.body()!!)
+            }
+            Result.success(1)
         } catch (e: Exception) {
             Result.failure(LiveLikeException())
         }

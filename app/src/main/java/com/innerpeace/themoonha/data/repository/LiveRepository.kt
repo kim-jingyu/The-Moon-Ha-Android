@@ -59,11 +59,11 @@ class LiveRepository: LiveService {
         return api.getLLikesCount(liveId)
     }
 
-    override suspend fun joinLiveLesson(liveId: Long): Response<Int> {
+    override suspend fun joinLiveLesson(liveId: Long): Response<Void> {
         return api.joinLiveLesson(liveId)
     }
 
-    override suspend fun leaveLiveLesson(liveId: Long): Response<Int> {
+    override suspend fun leaveLiveLesson(liveId: Long): Response<Void> {
         return api.leaveLiveLesson(liveId)
     }
 
