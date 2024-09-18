@@ -34,4 +34,7 @@ interface LessonService {
 
     @GET("lesson/shortform/{shortFormId}")
     suspend fun getShortFormDetail(@Path("shortFormId") shortFormId: Long)
+
+    @GET("lesson/field/enroll")
+    suspend fun getLessonFieldListByMember(): List<LessonEnrollResponse>
 }
