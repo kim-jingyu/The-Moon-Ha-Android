@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
@@ -19,10 +18,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.AttendanceViewAdapter
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeMemberViewAdapter
-import com.innerpeace.themoonha.data.model.lounge.Attendance
 import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
@@ -31,7 +28,7 @@ import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.DialogAttendanceBinding
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeInfoTabBinding
-import com.innerpeace.themoonha.ui.ConditionalScrollLayoutManager
+import com.innerpeace.themoonha.ui.util.ConditionalScrollLayoutManager
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 import java.text.SimpleDateFormat
@@ -87,21 +84,6 @@ class LoungeHomeInfoTabFragment : Fragment() {
         sharedViewModel.isScrollEnabled.observe(viewLifecycleOwner, { isEnabled ->
             layoutManager.setScrollEnabled(isEnabled)
         })
-
-        // 출석 토글
-        binding.llToggleAttendance.setOnClickListener {
-            toggleVisibility(binding.tableAttendance, binding.ivAttendanceArrow)
-        }
-
-        // 강좌 계획서 토글
-        binding.llTogglePlan.setOnClickListener {
-            toggleVisibility(binding.tvPlanDetail, binding.ivPlanArrow)
-        }
-
-        // 참여자 목록 토글
-        binding.llToggleMember.setOnClickListener {
-            toggleVisibility(binding.rvMemberList, binding.ivMemberArrow)
-        }
 
         // 출석 시작 버튼
         binding.btnAttendanceStart.setOnClickListener {
@@ -167,17 +149,6 @@ class LoungeHomeInfoTabFragment : Fragment() {
         }
     }
 
-
-    // 토글 기능
-    private fun toggleVisibility(view: View, arrow: ImageView) {
-        if (view.visibility == View.VISIBLE) {
-            view.visibility = View.GONE
-            arrow.setImageResource(R.drawable.ic_arrow_down)
-        } else {
-            view.visibility = View.VISIBLE
-            arrow.setImageResource(R.drawable.ic_arrow_up)
-        }
-    }
 
     // 출석 정보
     private fun setupAttendance(item: AttendanceMembersResponse) {

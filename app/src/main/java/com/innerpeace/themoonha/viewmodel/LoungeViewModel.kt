@@ -39,6 +39,10 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
     private val _loungeHome = MutableLiveData<LoungeHomeResponse?>()
     val loungeHome: LiveData<LoungeHomeResponse?> get() = _loungeHome
 
+    // 라운지 게시물 목록
+    private val _loungePostList = MutableLiveData<List<LoungePostListResponse>?>()
+    val loungePostList: LiveData<List<LoungePostListResponse>?> get() = _loungePostList
+
     // 게시물
     private val _postDetail = MutableLiveData<LoungePostResponse?>()
     val postDetail: LiveData<LoungePostResponse?> get() = _postDetail
@@ -67,6 +71,11 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
     private val _commentResponse = MutableLiveData<CommonResponse?>()
     val commentResponse: LiveData<CommonResponse?> get() = _commentResponse
 
+    // 게시글 페이징
+    private var currentPage = 1
+    private var isLastPage = false
+    private var isLoading = false
+
     fun setSelectedLoungeId(loungeId: Long) {
         _selectedLoungeId.value = loungeId
     }
@@ -91,6 +100,44 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
             val response = loungeRepository.fetchLoungeHome(loungeId)
             _loungeHome.postValue(response)
         }
+    }
+
+//    fun fetchLoungePostList(loungeId: Long, page: Int, size: Int) {
+//        viewModelScope.launch {
+//            val response = loungeRepository.fetchLoungePostList(loungeId, page, size)
+//            _loungePostList.postValue(response)
+//        }
+//    }
+
+
+    fun hasMoreData(): Boolean {
+        return !isLastPage && !isLoading
+    }
+
+    fun fetchLoungePostList(loungeId: Long, size: Int) {
+        if (isLastPage || isLoading) return
+
+        isLoading = true
+        viewModelScope.launch {
+            val response = loungeRepository.fetchLoungePostList(loungeId, currentPage, size)
+
+            if (response != null && response.isNotEmpty()) {
+                val currentList = _loungePostList.value.orEmpty().toMutableList()
+                currentList.addAll(response)
+                _loungePostList.postValue(currentList)
+                currentPage++  // 페이지 증가
+            } else {
+                isLastPage = true  // 마지막 페이지 설정
+            }
+
+            isLoading = false  // 로딩 종료
+        }
+    }
+
+    fun resetPagination() {
+        currentPage = 1
+        isLastPage = false
+        _loungePostList.value = emptyList()  // 기존 데이터 초기화
     }
 
     fun fetchPostDetail(loungeId: Long, postId: Long) {

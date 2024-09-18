@@ -20,8 +20,8 @@
 
     <ImageButton
             android:id="@+id/btn_gallery_add"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/btn_image_add"
             android:scaleType="centerCrop"

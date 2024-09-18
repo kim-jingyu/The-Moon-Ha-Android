@@ -8,52 +8,51 @@
     <ImageView
             android:id="@+id/iv_profile_image"
             android:background="@drawable/circle"
-            android:layout_margin="16dp"
+            android:layout_margin="20dp"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
             android:id="@+id/tv_name"
             android:text=""
-            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:textSize="13sp"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/iv_profile_image"
-            app:layout_constraintTop_toTopOf="@+id/iv_profile_image"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image" />
+            app:layout_constraintTop_toTopOf="@+id/iv_profile_image" />
 
     <TextView
             android:id="@+id/tv_date"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="9sp"
+            android:textSize="10sp"
             android:textColor="@color/dark_gray"
             android:fontFamily="@font/happiness_sans_regular"
-            app:layout_constraintStart_toEndOf="@+id/tv_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_name"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintStart_toStartOf="@+id/tv_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image" />
 
     <TextView
             android:id="@+id/tv_content"
             android:text=""
-            android:textSize="10sp"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginVertical="8dp"
+            android:textSize="12sp"
             android:textColor="@color/black"
             android:fontFamily="@font/happiness_sans_regular"
             android:lineSpacingMultiplier="1.2"
-            android:layout_marginVertical="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name"
-            app:layout_constraintStart_toStartOf="@+id/tv_name" />
+            android:maxLines="5"
+            android:ellipsize="end"
+            app:layout_constraintStart_toStartOf="@+id/tv_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

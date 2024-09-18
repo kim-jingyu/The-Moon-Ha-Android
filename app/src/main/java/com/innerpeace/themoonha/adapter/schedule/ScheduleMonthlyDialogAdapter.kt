@@ -1,15 +1,21 @@
 package com.innerpeace.themoonha.adapter.schedule
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.schedule.ScheduleMonthlyResponse
-import com.innerpeace.themoonha.databinding.ItemDialogLessonInfoBinding
 import com.innerpeace.themoonha.databinding.ItemNextLessonBinding
+import com.innerpeace.themoonha.viewModel.LoungeViewModel
 
-class ScheduleDialogAdapter(
-    private val lessons: List<ScheduleMonthlyResponse>
-) : RecyclerView.Adapter<ScheduleDialogAdapter.LessonViewHolder>() {
+class ScheduleMonthlyDialogAdapter(
+    private val lessons: List<ScheduleMonthlyResponse>,
+    private val fragment: Fragment,
+    private val viewModel: LoungeViewModel
+) : RecyclerView.Adapter<ScheduleMonthlyDialogAdapter.LessonViewHolder>() {
 
     inner class LessonViewHolder(val binding: ItemNextLessonBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,7 +31,21 @@ class ScheduleDialogAdapter(
         holder.binding.tvCnt.text = "${lesson.cnt}회"
         holder.binding.tvTutorName.text = lesson.tutorName
         holder.binding.tvLessonTime.text = lesson.lessonTime
+
+        if (lesson.loungeId == null || lesson.loungeId == 0L) {
+            holder.binding.btnApplyBtn.visibility = View.INVISIBLE
+        } else {
+            holder.binding.btnApplyBtn.visibility = View.VISIBLE
+            holder.binding.btnApplyBtn.setOnClickListener {
+                navigateToDetailFragment(lesson)
+            }
+        }
     }
 
     override fun getItemCount(): Int = lessons.size
+
+    private fun navigateToDetailFragment(item: ScheduleMonthlyResponse) {
+        viewModel.setSelectedLoungeId(item.loungeId)
+        fragment.findNavController().navigate(R.id.action_fragment_schedule_to_loungeHomeFragment)
+    }
 }

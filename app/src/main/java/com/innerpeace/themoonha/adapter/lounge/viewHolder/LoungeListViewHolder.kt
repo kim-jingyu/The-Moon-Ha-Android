@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.databinding.ItemLoungeBinding
 import java.text.SimpleDateFormat
@@ -28,15 +30,20 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
     fun onBind(item: LoungeListResponse, clickListener: (LoungeListResponse) -> Unit) {
         Glide.with(binding.ivLoungeImage.context)
             .load(item.loungeImgUrl)
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(80)))
             .into(binding.ivLoungeImage)
 
         binding.tvLoungeTitle.text = item.title
 
+//        item.latestPostTime?.let { latestPostTime ->
+//            val formattedTime = getFormattedPostedTime(latestPostTime)
+//
+//            binding.ivNewIcon.visibility = if (formattedTime == latestPostTime) View.VISIBLE else View.GONE
+//            binding.tvLatestPostTime.text = formattedTime
+//        }
         item.latestPostTime?.let { latestPostTime ->
-            val formattedTime = getFormattedPostedTime(latestPostTime)
-
-            binding.ivNewIcon.visibility = if (formattedTime == latestPostTime) View.VISIBLE else View.GONE
-            binding.tvLatestPostTime.text = formattedTime
+            binding.ivNewIcon.visibility = if (latestPostTime.contains("전")) View.VISIBLE else View.GONE
+            binding.tvLatestPostTime.text = latestPostTime
         }
 
         // 클릭 리스너 설정
@@ -55,8 +62,8 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
     fun getFormattedPostedTime(latestPostTime: String): String {
         return try {
-            val inputFormat = SimpleDateFormat("yyyy.MM.dd. HH:mm", Locale.KOREAN)
-            val outputFormat = SimpleDateFormat("yyyy.MM.dd.", Locale.KOREAN)
+            val inputFormat = SimpleDateFormat("MM.dd. HH:mm", Locale.KOREAN)
+            val outputFormat = SimpleDateFormat("MM.dd.", Locale.KOREAN)
             val date = inputFormat.parse(latestPostTime)
             if (date != null) {
                 outputFormat.format(date)

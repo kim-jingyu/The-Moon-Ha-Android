@@ -30,6 +30,7 @@ import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.databinding.FragmentCartContentBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.ui.util.Colors
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import com.kizitonwose.calendarview.model.CalendarDay
@@ -56,19 +57,6 @@ class CartContentFragment : Fragment() {
             LessonRepository(ApiClient.getClient().create(LessonService::class.java))
         )
     }
-
-    private val fixedColors = listOf(
-        Color.rgb(244, 67, 54),    // Red
-        Color.rgb(33, 150, 243),   // Blue
-        Color.rgb(76, 175, 80),    // Green
-        Color.rgb(255, 235, 59),   // Yellow
-        Color.rgb(156, 39, 176),   // Purple
-        Color.rgb(121, 85, 72),    // Brown
-        Color.rgb(0, 150, 136),    // Teal
-        Color.rgb(63, 81, 181),    // Indigo
-        Color.rgb(255, 87, 34),    // Orange
-        Color.rgb(139, 195, 74)    // Light Green
-    )
 
     private val usedColors = mutableSetOf<Int>()
 
@@ -224,7 +212,7 @@ class CartContentFragment : Fragment() {
                             setPadding(0, 5, 0, 0)  // 여백 대신 padding을 사용
                             setBackgroundColor(eventInfo.color)
                         }
-                            container.colorBarContainer.addView(colorBar)
+                        container.colorBarContainer.addView(colorBar)
                         container.eventIds.add(eventInfo.id)
                     }
                     container.colorBarContainer.visibility = View.VISIBLE
@@ -421,13 +409,13 @@ class CartContentFragment : Fragment() {
     }
 
     private fun generateAvailableColor(): Int {
-        val availableColors = fixedColors.filter { it !in usedColors }
+        val availableColors = Colors.fixedColors.filter { it !in usedColors }
         if (availableColors.isNotEmpty()) {
             val selectedColor = availableColors.first()
             usedColors.add(selectedColor)
             return selectedColor
         } else {
-            return fixedColors.random()
+            return Colors.fixedColors.random()
         }
     }
 

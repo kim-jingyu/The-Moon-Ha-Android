@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
+import com.innerpeace.themoonha.databinding.ItemLoadingBinding
 import com.innerpeace.themoonha.databinding.ItemPostBinding
 
 /**
@@ -27,7 +29,7 @@ import com.innerpeace.themoonha.databinding.ItemPostBinding
 class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(item: LoungeHomeResponse.LoungePost, clickListener: (LoungeHomeResponse.LoungePost) -> Unit) {
+    fun onBind(item: LoungePostListResponse, clickListener: (LoungePostListResponse) -> Unit) {
         // 프로필 이미지
         Glide.with(binding.ivProfileImage.context)
             .load(item.loungeMember.profileImgUrl)
@@ -60,7 +62,8 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
         }
 
         val context = gridLayout.context
-        val marginSize = 4.dpToPx()
+        val marginSize = 0.dpToPx()
+        val specialMargin = 5.dpToPx()
 
         when (imageUrls.size) {
             1 -> {
@@ -82,7 +85,15 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
                         .load(imageUrls[i])
                         .transform(CenterCrop(), RoundedCorners(20))
                         .into(imageView)
-                    gridLayout.addView(imageView, createGridLayoutParams(i % 2, 0, 1, 1, marginSize))
+
+                    // 첫 번째 이미지는 오른쪽 마진에 5dp, 두 번째 이미지는 왼쪽 마진에 5dp 적용
+                    val params = createGridLayoutParams(i % 2, 0, 1, 1, marginSize)
+                    if (i == 0) {
+                        params.setMargins(marginSize, marginSize, specialMargin, marginSize) // 오른쪽 마진 5dp
+                    } else if (i == 1) {
+                        params.setMargins(specialMargin, marginSize, marginSize, marginSize) // 왼쪽 마진 5dp
+                    }
+                    gridLayout.addView(imageView, params)
                 }
             }
             3 -> {

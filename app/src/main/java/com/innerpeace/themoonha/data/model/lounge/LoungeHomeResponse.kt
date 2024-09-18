@@ -14,9 +14,8 @@ package com.innerpeace.themoonha.data.model.lounge
  */
 data class LoungeHomeResponse(
     val loungeInfo: LoungeInfo,
-    val loungeNoticePostList: List<LoungeNoticePost>,
-    val loungePostList: List<LoungePost>,
     val attendanceList: AttendanceMembersResponse,
+    val loungeNoticeList: List<LoungeNoticePost>,
     val loungeMemberList: List<LoungeMember>
 ) {
     data class LoungeInfo(
@@ -33,19 +32,6 @@ data class LoungeHomeResponse(
     data class LoungeNoticePost(
         val loungePostId: Long,
         val content: String,
-        val noticeYn: Boolean,
-        val loungePostImgList: List<String>,
-        val createdAt: String,
-        val loungeMember: LoungeMember
-    )
-
-    data class LoungePost(
-        val loungePostId: Long,
-        val content: String,
-        val noticeYn: Boolean,
-        val loungePostImgList: List<String>,
-        val createdAt: String,
-        val loungeMember: LoungeMember,
         val permissionYn: Boolean
     )
 
