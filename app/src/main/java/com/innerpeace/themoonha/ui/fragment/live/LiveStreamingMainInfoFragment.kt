@@ -191,8 +191,8 @@ class LiveStreamingMainInfoFragment: Fragment() {
 
         Glide.with(this)
             .load(resp.profileImgUrl)
+            .circleCrop()
             .into(binding.profileImageMain)
-
     }
 
     override fun onDestroyView() {
