@@ -66,15 +66,6 @@ class LessonRepository(private val lessonService: LessonService) {
         }
     }
 
-    suspend fun fetchLessonEnroll(): List<LessonEnrollResponse>? {
-        return try {
-            lessonService.getLessonListByMember()
-        } catch (e: Exception) {
-            Log.e("회원별 강좌 목록 조회 응답 실패", "${e.message}", e)
-            null
-        }
-    }
-
     suspend fun fetchShortFormDetail(shortFormId: Long) {
         try {
             lessonService.getShortFormDetail(shortFormId)
