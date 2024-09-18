@@ -84,15 +84,15 @@ class ScheduleFragment : Fragment() {
                 binding.itemNextInfo.tvTutorName.text = schedule.tutorName
                 binding.itemNextInfo.tvLessonTime.text = schedule.lessonTime
 
-                // loungeId가 있을 때 버튼을 보여주고, 없으면 숨김
-//                if (schedule.loungeId == null || schedule.loungeId == 0L) {
-//                    binding.itemNextInfo.btnApplyBtn.visibility = View.INVISIBLE
-//                } else {
-//                    binding.itemNextInfo.btnApplyBtn.visibility = View.VISIBLE
-//                    binding.itemNextInfo.btnApplyBtn.setOnClickListener {
-//                        navigateToLounge(schedule.loungeId)
-//                    }
-//                }
+                 //loungeId가 있을 때 버튼을 보여주고, 없으면 숨김
+                if (schedule.loungeId == null || schedule.loungeId == 0L) {
+                    binding.itemNextInfo.btnApplyBtn.visibility = View.INVISIBLE
+                } else {
+                    binding.itemNextInfo.btnApplyBtn.visibility = View.VISIBLE
+                    binding.itemNextInfo.btnApplyBtn.setOnClickListener {
+                        navigateToLounge(schedule.loungeId)
+                    }
+                }
             } else {
                 binding.itemNextInfo.cardNextLesson.visibility = View.GONE
                 binding.itemNextInfo.tvNoLessonToday.visibility = View.VISIBLE
