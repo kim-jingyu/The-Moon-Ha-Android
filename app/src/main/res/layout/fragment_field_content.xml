@@ -28,7 +28,7 @@
         android:maxLines="1"
         android:text="타이틀"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,8 +37,8 @@
 
     <ImageView
         android:id="@+id/profileImage"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_zzang9"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,13 +50,13 @@
         android:id="@+id/memberName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="김짱구"
         android:textColor="@color/black"
-        android:textSize="13dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.020"
-        app:layout_constraintStart_toEndOf="@+id/profileImage"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@id/profileImage"
+        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/profileImage"
+        app:layout_constraintTop_toTopOf="@id/profileImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
