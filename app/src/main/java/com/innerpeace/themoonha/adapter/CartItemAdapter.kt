@@ -14,8 +14,10 @@ import com.innerpeace.themoonha.data.model.lesson.TargetType
 import com.innerpeace.themoonha.databinding.FragmentCartItemBinding
 import com.innerpeace.themoonha.databinding.FragmentCartBranchBinding
 
-class CartItemAdapter(private val onCheckedChange: (CartResponse, Boolean) -> Unit) :
-    ListAdapter<CartItemAdapter.ListItem, RecyclerView.ViewHolder>(CartDiffCallback()) {
+class CartItemAdapter(
+    private val onCheckedChange: (CartResponse, Boolean) -> Unit,
+    private val onRemoveItem: (CartResponse) -> Unit
+) : ListAdapter<CartItemAdapter.ListItem, RecyclerView.ViewHolder>(CartDiffCallback()) {
 
     private val itemColors = mutableMapOf<String, Int>()
 
@@ -90,6 +92,10 @@ class CartItemAdapter(private val onCheckedChange: (CartResponse, Boolean) -> Un
 
             binding.cartItemBox.setOnClickListener {
                 binding.cartItemCheckBox.performClick()
+            }
+
+            binding.removeItemButton.setOnClickListener {
+                onRemoveItem(cartItem)
             }
         }
     }

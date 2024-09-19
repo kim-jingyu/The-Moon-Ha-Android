@@ -8,6 +8,7 @@ import com.innerpeace.themoonha.data.model.lesson.LessonEnrollResponse
 import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -25,6 +26,9 @@ interface LessonService {
 
     @POST("lesson/cart")
     suspend fun addLessonCart(@Body cartRequest: CartRequest): CommonResponse
+
+    @DELETE("lesson/cart/{cartId}")
+    suspend fun removeCart(@Path("cartId") cartId: Long): CommonResponse
 
     @POST("lesson/pay")
     suspend fun payLesson(@Body sugangRequest: SugangRequest): CommonResponse

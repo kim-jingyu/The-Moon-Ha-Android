@@ -138,4 +138,12 @@ class LessonViewModel(private val lessonRepository: LessonRepository) : ViewMode
             lessonRepository.fetchShortFormDetail(shortFormId)
         }
     }
+
+    fun removeCartItem(cartId: Long) {
+        viewModelScope.launch {
+            lessonRepository.fetchDeleteCart(cartId)
+            val updatedCartList = _lessonCart.value?.filter { it.cartId.toLong() != cartId } ?: emptyList()
+            _lessonCart.value = updatedCartList
+        }
+    }
 }
