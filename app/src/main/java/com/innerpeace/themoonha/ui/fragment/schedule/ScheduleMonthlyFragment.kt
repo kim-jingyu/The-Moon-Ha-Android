@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,16 +14,23 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.innerpeace.themoonha.adapter.schedule.ScheduleDialogAdapter
+import com.innerpeace.themoonha.adapter.schedule.ScheduleMonthlyDialogAdapter
 import com.innerpeace.themoonha.data.model.schedule.ScheduleMonthlyResponse
 import com.innerpeace.themoonha.data.network.ApiClient
+import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.network.ScheduleService
+import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.data.repository.ScheduleRepository
 import com.innerpeace.themoonha.databinding.DialogLessonInfoBinding
 import com.innerpeace.themoonha.databinding.FragmentScheduleMonthlyBinding
 import com.innerpeace.themoonha.ui.fragment.lesson.DayViewContainer
+import com.innerpeace.themoonha.ui.util.Colors
+import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.ScheduleViewModel
+import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.ScheduleViewModelFactory
 import com.kizitonwose.calendarview.model.CalendarDay
 import com.kizitonwose.calendarview.model.DayOwner
@@ -64,7 +72,9 @@ class ScheduleMonthlyFragment : Fragment() {
         )
     }
 
-    private val random = Random(System.currentTimeMillis())
+    private val loungeViewModel: LoungeViewModel by activityViewModels {
+        LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentMonth: YearMonth = YearMonth.now()
@@ -91,7 +101,6 @@ class ScheduleMonthlyFragment : Fragment() {
 
         viewModel.fetchScheduleMonthlyList(currentMonth.toString())
 
-
         viewModel.scheduleMonthlyList.observe(viewLifecycleOwner) { responseList ->
             if (responseList != null) {
                 scheduleMonthlyResponseList = responseList
@@ -106,6 +115,13 @@ class ScheduleMonthlyFragment : Fragment() {
     private fun setupCalendar() {
         val calendarView = binding.calendarView
         updateMonthHeader(currentMonth)
+
+        calendarView.setOnTouchListener { _, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_MOVE -> true // 드래그 방지
+                else -> false // 다른 터치 동작은 기본 동작 유지
+            }
+        }
 
         calendarView.apply {
             val firstMonth = YearMonth.now().minusMonths(240)
@@ -156,7 +172,7 @@ class ScheduleMonthlyFragment : Fragment() {
 
                         // 수업이 있으면 다이얼로그
                         if (eventsForDay.isNotEmpty()) {
-                            showLessonModal(eventsForDay, day)
+                            showLessonDialog(eventsForDay, day)
                         }
                     }
                 }
@@ -187,19 +203,23 @@ class ScheduleMonthlyFragment : Fragment() {
                     }
                 }
 
+
+                // 수업이 있는 경우 색상 할당 및 색상 막대 추가
                 if (eventsForDay.isNotEmpty()) {
                     container.colorBarContainer.removeAllViews()
                     container.eventIds.clear()
 
                     eventsForDay.forEach { event ->
-                        val color = lessonColors[event.lessonId] ?: generateRandomColor()
+                        val color = lessonColors[event.lessonId] ?: Colors.fixedColors.random()
+
                         val colorBar = View(container.colorBarContainer.context).apply {
                             layoutParams = LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT,
                                 10
                             ).apply {
-                                setMargins(0, 3, 0, 0)
+                                setMargins(0, 2, 0, 2)
                             }
+                            setPadding(0, 5, 0, 0)
                             setBackgroundColor(color)
                         }
                         container.colorBarContainer.addView(colorBar)
@@ -253,24 +273,24 @@ class ScheduleMonthlyFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun assignColorsToLessons(responseList: List<ScheduleMonthlyResponse>?): Map<Long, Int> {
         val lessonColors = mutableMapOf<Long, Int>()
+
         responseList?.forEach { response ->
             if (!lessonColors.containsKey(response.lessonId)) {
-                val color = generateRandomColor()
+                // 수업에 사용할 색상 생성
+                val color = generateAvailableColor(response.lessonId)
                 lessonColors[response.lessonId] = color
             }
         }
-        Log.d("sss", lessonColors.toString())
+
         return lessonColors
     }
 
-    // 랜덤 색상
-    private fun generateRandomColor(): Int {
-        val hue = random.nextFloat() * 360
-        val saturation = 0.5f + random.nextFloat() * 0.5f
-        val value = 0.5f + random.nextFloat() * 0.5f
-
-        return Color.HSVToColor(floatArrayOf(hue, saturation, value))
+    // 색상 설정
+    private fun generateAvailableColor(lessonId: Long): Int {
+        val colorIndex = (lessonId % Colors.fixedColors.size).toInt()
+        return Colors.fixedColors[colorIndex]
     }
+
 
     // 달력 날짜 헤더
     @RequiresApi(Build.VERSION_CODES.O)
@@ -281,20 +301,29 @@ class ScheduleMonthlyFragment : Fragment() {
 
     // 강좌 상세정보 다이얼로그
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showLessonModal(eventsForDay: List<ScheduleMonthlyResponse>, day: CalendarDay) {
+    private fun showLessonDialog(eventsForDay: List<ScheduleMonthlyResponse>, day: CalendarDay) {
 
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         val dialogBinding = DialogLessonInfoBinding.inflate(layoutInflater)
-        val dialogAdapter = ScheduleDialogAdapter(eventsForDay)
+        val dialogAdapter = ScheduleMonthlyDialogAdapter(eventsForDay, this, loungeViewModel)
         dialogBinding.vpLessonOfDay.adapter = dialogAdapter
         val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일", Locale.getDefault())
-        dialogBinding.tvSelectedDate.text = "${day.date.format(formatter)}일의 강좌"
+        dialogBinding.tvSelectedDate.text = "${day.date.format(formatter)}의 강좌"
 
         // 인디케이터 연결
         dialogBinding.vpScheduleDotsIndicator.setViewPager2(dialogBinding.vpLessonOfDay)
 
         // BottomSheetDialog에 View 설정
         bottomSheetDialog.setContentView(dialogBinding.root)
+
+        // 네비게이션 변경 시 다이얼로그 닫기
+        val navController = this.findNavController()
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            if (bottomSheetDialog.isShowing) {
+                bottomSheetDialog.dismiss()
+            }
+        }
+
         bottomSheetDialog.show()
     }
 

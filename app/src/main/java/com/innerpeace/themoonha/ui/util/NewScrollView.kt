@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.ui
+package com.innerpeace.themoonha.ui.util
 
 import android.content.Context
 import android.util.AttributeSet

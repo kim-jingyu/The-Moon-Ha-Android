@@ -33,7 +33,11 @@
     <fragment
             android:id="@+id/fragment_schedule"
             android:name="com.innerpeace.themoonha.ui.fragment.schedule.ScheduleFragment"
-            android:label="ScheduleFragment" />
+            android:label="ScheduleFragment" >
+        <action
+                android:id="@+id/action_fragment_schedule_to_loungeHomeFragment"
+                app:destination="@id/loungeHomeFragment" />
+    </fragment>
     <fragment
             android:id="@+id/fragment_lounge"
             android:name="com.innerpeace.themoonha.ui.fragment.lounge.LoungeFragment"

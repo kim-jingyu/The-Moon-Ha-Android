@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
@@ -11,11 +12,15 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.innerpeace.themoonha.adapter.schedule.ScheduleWeeklyAdapter
 import com.innerpeace.themoonha.data.network.ApiClient
+import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.network.ScheduleService
+import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.data.repository.ScheduleRepository
 import com.innerpeace.themoonha.databinding.FragmentScheduleWeeklyBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.ScheduleViewModel
+import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.ScheduleViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -52,6 +57,9 @@ class ScheduleWeeklyFragment : Fragment() {
             )
         )
     }
+    private val loungeViewModel: LoungeViewModel by activityViewModels {
+        LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +80,14 @@ class ScheduleWeeklyFragment : Fragment() {
 
         viewPager = binding.vpWeeklyTable
 
+        // 드래그 이동 막기
+        viewPager.getChildAt(0).setOnTouchListener { _, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_MOVE -> true // Prevent swiping
+                else -> false
+            }
+        }
+
         // 최초 데이터 로드 (오늘 날짜 기준으로 일요일 계산)
         val today = Calendar.getInstance()
 
@@ -91,7 +107,7 @@ class ScheduleWeeklyFragment : Fragment() {
         // 주간 스케줄 목록 변경
         viewModel.scheduleWeeklyList.observe(viewLifecycleOwner, Observer { scheduleList ->
             scheduleList?.let {
-                adapter = ScheduleWeeklyAdapter(it, initialSundayDates)
+                adapter = ScheduleWeeklyAdapter(it, initialSundayDates, this, loungeViewModel)
                 viewPager.adapter = adapter
                 viewPager.setCurrentItem(1, false)
             }
@@ -126,6 +142,23 @@ class ScheduleWeeklyFragment : Fragment() {
                 }
             }
         })
+
+        // 전주, 다음주 이동
+        binding.previousWeekButton.setOnClickListener {
+            // 이전 페이지로 이동
+            val currentItem = viewPager.currentItem
+            if (currentItem > 0) {
+                viewPager.setCurrentItem(currentItem - 1, true)
+            }
+        }
+
+        binding.nextWeekButton.setOnClickListener {
+            // 다음 페이지로 이동
+            val currentItem = viewPager.currentItem
+            if (currentItem < adapter.itemCount - 1) {
+                viewPager.setCurrentItem(currentItem + 1, true)
+            }
+        }
     }
 
     // 일요일 날짜 리스트

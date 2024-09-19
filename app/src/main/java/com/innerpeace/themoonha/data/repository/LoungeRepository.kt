@@ -10,6 +10,7 @@ import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import com.innerpeace.themoonha.data.network.LoungeService
@@ -56,6 +57,16 @@ class LoungeRepository(private val loungeService: LoungeService) {
             loungeService.getLoungeHome(loungeId)
         } catch (e: Exception) {
             Log.e("라운지 홈 조회 응답 실패", "${e.message}", e)
+            null
+        }
+    }
+
+    // 라운지 게시글 목록 가져오기
+    suspend fun fetchLoungePostList(loungeId: Long, page: Int, size: Int): List<LoungePostListResponse>? {
+        return try {
+            loungeService.getLoungePostList(loungeId, page, size)
+        } catch (e: Exception) {
+            Log.e("라운지 게시물 목록 조회 응답 실패", "${e.message}", e)
             null
         }
     }

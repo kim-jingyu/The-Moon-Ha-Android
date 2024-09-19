@@ -26,6 +26,16 @@ class LoungeListViewAdapter(
     }
 
     override fun onBindViewHolder(holder: LoungeListViewHolder, position: Int) {
+        val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
+
+        // 짝수 번째 아이템일 때 오른쪽에만 마진 15dp 설정
+        if (position % 2 == 0) {
+            layoutParams.setMargins(0, 0, 20, 0) // 오른쪽 마진 15
+        } else {
+            layoutParams.setMargins(20, 0, 0, 0) // 마진 없음
+        }
+
+        holder.itemView.layoutParams = layoutParams
         holder.onBind(loungeList[position], clickListener)
     }
 

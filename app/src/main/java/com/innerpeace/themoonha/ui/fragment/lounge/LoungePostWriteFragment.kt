@@ -79,6 +79,14 @@ class LoungePostWriteFragment : Fragment() {
            startActivityForResult(intent, 200)
         }
 
+        viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
+            if (home != null) {
+                if (!home.loungeInfo.permissionYn) {
+                    binding.cbNoticeYn.visibility = View.GONE
+                }
+            }
+        })
+
         // 추가된 이미지 Recycler View
         adapter = LoungePostImageAddAdapter(images, requireContext())
         binding.rvImages.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)

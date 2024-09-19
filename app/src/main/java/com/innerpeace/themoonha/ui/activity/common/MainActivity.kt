@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.ui.activity.common
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -8,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
         // 하단 네비게이션바 설정
         val navController = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment).navController
         binding.bottomNavigationView.setupWithNavController(navController)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val sharedPreferencesManager = SharedPreferencesManager(this)
         val isLoggedIn = sharedPreferencesManager.getIsLogin()

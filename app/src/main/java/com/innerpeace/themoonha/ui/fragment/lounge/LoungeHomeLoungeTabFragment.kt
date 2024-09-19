@@ -9,15 +9,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomePostViewAdapter
 import com.innerpeace.themoonha.viewModel.SharedViewModel
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeLoungeTabBinding
-import com.innerpeace.themoonha.ui.ConditionalScrollLayoutManager
+import com.innerpeace.themoonha.ui.util.ConditionalScrollLayoutManager
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 
@@ -46,6 +48,8 @@ class LoungeHomeLoungeTabFragment : Fragment() {
         LoungeViewModelFactory(LoungeRepository(ApiClient.getClient().create(LoungeService::class.java)))
     }
 
+    private var loungeId: Long? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,38 +64,70 @@ class LoungeHomeLoungeTabFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+
         // 스크롤 control
         layoutManager = ConditionalScrollLayoutManager(context)
         binding.rvPostList.layoutManager = layoutManager
 
-        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
-
-        sharedViewModel.isScrollEnabled.observe(viewLifecycleOwner, { isEnabled ->
+        sharedViewModel.isScrollEnabled.observe(viewLifecycleOwner, Observer { isEnabled ->
             layoutManager.setScrollEnabled(isEnabled)
         })
 
-        // 데이터 불러오기
-        viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
-            if (home != null) {
-                setupPostRecyclerView(home.loungePostList)
-            }
-        })
-    }
-
-    // 게시물 목록
-    private fun setupPostRecyclerView(item: List<LoungeHomeResponse.LoungePost>) {
+        // 어댑터 초기화
         adapter = LoungeHomePostViewAdapter { loungeItem ->
             navigateToDetailFragment(loungeItem)
         }
         binding.rvPostList.adapter = adapter
 
-        adapter.setItems(item)
+        loungeId = viewModel.selectedLoungeId.value
+        if (loungeId != null) {
+            viewModel.resetPagination()  // 페이지 초기화
+            viewModel.fetchLoungePostList(loungeId!!, 10)
+        }
+
+        // 데이터 변경
+        viewModel.loungePostList.observe(viewLifecycleOwner, Observer { post ->
+            if (post != null) {
+                adapter.setItems(post)  // 페이지 데이터 덮어쓰기
+            }
+        })
+
+        // 무한 스크롤
+        binding.rvPostList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+                val totalItemCount = layoutManager.itemCount
+
+                if (lastVisibleItemPosition + 1 >= totalItemCount && viewModel.hasMoreData()) {
+                    loungeId?.let {
+                        viewModel.fetchLoungePostList(it, 10)
+                    }
+                }
+            }
+        })
+
+
     }
 
     // 페이지 이동
-    private fun navigateToDetailFragment(item: LoungeHomeResponse.LoungePost) {
+    private fun navigateToDetailFragment(item: LoungePostListResponse) {
         viewModel.setSelectedLoungePostId(item.loungePostId)
         findNavController().navigate(R.id.action_loungeHomeFragment_to_loungePostFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        loungeId = viewModel.selectedLoungeId.value
+        if (loungeId != null) {
+            viewModel.resetPagination()
+            adapter.setItems(emptyList())
+            viewModel.fetchLoungePostList(loungeId!!, 10)
+        }
     }
 
     override fun onDestroyView() {

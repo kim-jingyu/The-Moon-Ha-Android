@@ -92,7 +92,7 @@ class LoungeHomeFragment : Fragment() {
         viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
             if (home != null) {
                 setupMainImages(home.loungeInfo)
-                setupNoticeRecyclerView(home.loungeNoticePostList)
+                setupNoticeRecyclerView(home.loungeNoticeList)
             }
         })
     }
@@ -174,6 +174,12 @@ class LoungeHomeFragment : Fragment() {
     private fun navigateToDetailFragment(item: LoungeHomeResponse.LoungeNoticePost) {
         viewModel.setSelectedLoungePostId(item.loungePostId)
         findNavController().navigate(R.id.action_loungeHomeFragment_to_loungePostFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        replaceFragment(LoungeHomeLoungeTabFragment())
     }
 
     override fun onDestroyView() {

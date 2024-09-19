@@ -6,6 +6,7 @@ import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -35,6 +36,11 @@ interface LoungeService {
 
     @GET("lounge/{loungeId}/home")
     suspend fun getLoungeHome(@Path("loungeId") loungeId: Long): LoungeHomeResponse
+
+    @GET("/lounge/{loungeId}/posts")
+    suspend fun getLoungePostList(@Path("loungeId") loungeId: Long,
+                                  @Query("page") page: Int,
+                                  @Query("size") size: Int): List<LoungePostListResponse>
 
     @GET("lounge/{loungeId}/post/{loungePostId}")
     suspend fun getPostDetail(@Path("loungeId") loungeId: Long, @Path("loungePostId") loungePostId: Long): LoungePostResponse

@@ -21,5 +21,6 @@ data class ScheduleMonthlyResponse (
     val lessonTime: String,
     val tutorName: String,
     val target: String,
-    val onlineYn: Boolean
+    val onlineYn: Boolean,
+    val loungeId: Long
 )
