@@ -171,7 +171,7 @@ class CraftFragment : Fragment() {
             }
 
             lessonView.setOnClickListener {
-                if (!lesson.alreadyVoted) {
+                if (!hasVotedFirstLessons) {
                     hasVotedFirstLessons = true
                     craftViewModel.voteWishLesson(lesson.wishLessonId)
                     lesson.alreadyVoted = true
@@ -215,7 +215,7 @@ class CraftFragment : Fragment() {
             }
 
             lessonView.setOnClickListener {
-                if (!lesson.alreadyVoted) {
+                if (!hasVotedSecondLessons) {
                     hasVotedSecondLessons = true
                     craftViewModel.voteWishLesson(lesson.wishLessonId)
                     lesson.alreadyVoted = true
