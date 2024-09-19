@@ -248,28 +248,37 @@ class CartContentFragment : Fragment() {
     private fun setupLessonCart() {
         val cartRecyclerView = binding.cartRecyclerView
         cartRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = CartItemAdapter { cartItem, isChecked ->
-            if (isChecked) {
-                if (isLessonTimeConflicting(cartItem)) {
-                    showConflictAlert()
-                    adapter.uncheckItem(cartItem)
+        adapter = CartItemAdapter(
+            { cartItem, isChecked ->
+                if (isChecked) {
+                    if (isLessonTimeConflicting(cartItem)) {
+                        showConflictAlert()
+                        adapter.uncheckItem(cartItem)
+                    } else {
+                        addEventToCalendar(cartItem)
+                        updateCartItemColors()
+                        checkedCartIds.add(cartItem.cartId)
+                        binding.calendarView.post {
+                            binding.calendarView.notifyCalendarChanged()
+                        }
+                    }
                 } else {
-                    addEventToCalendar(cartItem)
+                    removeEventFromCalendar(cartItem)
                     updateCartItemColors()
-                    checkedCartIds.add(cartItem.cartId)
+                    checkedCartIds.remove(cartItem.cartId)
                     binding.calendarView.post {
                         binding.calendarView.notifyCalendarChanged()
                     }
                 }
-            } else {
+            },
+            { cartItem ->
                 removeEventFromCalendar(cartItem)
-                updateCartItemColors()
-                checkedCartIds.remove(cartItem.cartId)
                 binding.calendarView.post {
                     binding.calendarView.notifyCalendarChanged()
                 }
+                viewModel.removeCartItem(cartItem.cartId.toLong())
             }
-        }
+        )
         cartRecyclerView.adapter = adapter
 
         viewModel.lessonCart.observe(viewLifecycleOwner, Observer { cartList ->

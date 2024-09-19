@@ -20,10 +20,24 @@
             android:id="@+id/cartItemCheckBox"
             android:layout_width="29dp"
             android:layout_height="38dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="6dp"
+            android:layout_marginRight="10dp"
             android:buttonTint="@color/light_green"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/removeItemButton"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
+            android:clickable="true"
+            android:contentDescription="Remove Item"
+            android:focusable="true"
+            android:src="@drawable/ic_close"
+            app:layout_constraintBottom_toBottomOf="@id/cartItemCheckBox"
+            app:layout_constraintEnd_toStartOf="@id/cartItemCheckBox"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
@@ -38,18 +52,17 @@
             android:id="@+id/onlineYn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_green_background"
+            android:gravity="center"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            android:background="@drawable/rounded_green_background"
-            android:textSize="8sp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:text="온라인"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@android:color/white"
+            android:textSize="8sp"
             app:layout_constraintStart_toEndOf="@id/colorIndicator"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/targetDescription"
@@ -57,26 +70,25 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_black_background"
+            android:gravity="center"
             android:paddingHorizontal="6dp"
             android:paddingVertical="4dp"
-            android:background="@drawable/rounded_black_background"
-            android:textSize="8sp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:text="타겟 설명"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@android:color/white"
+            android:textSize="8sp"
             app:layout_constraintStart_toEndOf="@id/onlineYn"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/cartItemTitle"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginHorizontal="20dp"
-            android:paddingHorizontal="10dp"
-            android:maxLines="1"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingHorizontal="10dp"
             android:text="강좌 제목"
             android:textColor="@android:color/black"
             android:textSize="12sp"
@@ -90,33 +102,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:paddingHorizontal="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/cartItemTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="8dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cartItemTitle">
 
             <TextView
                 android:id="@+id/period"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2024.08.10~2024.11.27"
-                android:textSize="10sp"
+                android:layout_marginEnd="4dp"
                 android:fontFamily="@font/happiness_sans_regular"
+                android:text="2024.08.10~2024.11.27"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginEnd="4dp"/>
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/lessonTime"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="| 2024-08-24(수) 14:00~15:00"
-                android:textSize="10sp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/happiness_sans_regular"
+                android:text="| 2024-08-24(수) 14:00~15:00"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginEnd="16dp"/>
+                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -124,13 +136,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             android:paddingHorizontal="10dp"
-            app:layout_constraintTop_toBottomOf="@id/infoLayout"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="8dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/infoLayout">
 
             <TextView
                 android:id="@+id/tutorName"
@@ -146,11 +158,11 @@
                 android:id="@+id/cost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="| 150,000원"
-                android:textSize="10sp"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/happiness_sans_regular"
+                android:text="| 150,000원"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginEnd="16dp"/>
+                android:textSize="10sp" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

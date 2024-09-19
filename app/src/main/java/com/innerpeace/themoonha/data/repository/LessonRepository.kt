@@ -82,4 +82,12 @@ class LessonRepository(private val lessonService: LessonService) {
             null
         }
     }
+
+    suspend fun fetchDeleteCart(cartId: Long) {
+        try {
+            lessonService.removeCart(cartId)
+        } catch (e: Exception) {
+            Log.e("장바구니 상품 제거 응답 실패", "${e.message}", e)
+        }
+    }
 }
