@@ -22,7 +22,7 @@ import com.innerpeace.themoonha.databinding.FragmentSignInBinding
 import kotlinx.coroutines.launch
 
 class SignInFragment : Fragment() {
-    private var mBinding : FragmentSignInBinding? = null
+    private var mBinding: FragmentSignInBinding? = null
     private val binding get() = mBinding!!
     private val authRepository = AuthRepository(ApiClient.getClient().create(AuthService::class.java))
     private val fcmRepository = AlimRepository(ApiClient.getClient().create(AlimService::class.java))
@@ -33,14 +33,15 @@ class SignInFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentSignInBinding.inflate(inflater, container, false)
+        mBinding = FragmentSignInBinding.inflate(inflater, container, false)
         sharedPreferencesManager = SharedPreferencesManager(requireContext().applicationContext)
-        mBinding = binding
         return mBinding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        updateUIBasedOnLoginState()
 
         binding.signInButton.setOnClickListener {
             val loginId = binding.inputLoginId.text.toString()
@@ -53,6 +54,24 @@ class SignInFragment : Fragment() {
             }
         }
 
+        binding.signOutButton.setOnClickListener {
+            sharedPreferencesManager.clear()
+            updateUIBasedOnLoginState() // 로그아웃 후 UI 업데이트
+        }
+    }
+
+    private fun updateUIBasedOnLoginState() {
+        if (sharedPreferencesManager.getIsLogin()) {
+            binding.signOutButton.visibility = View.VISIBLE
+            binding.signInButton.visibility = View.GONE
+            binding.inputLoginId.visibility = View.GONE
+            binding.inputPassword.visibility = View.GONE
+        } else {
+            binding.signOutButton.visibility = View.GONE
+            binding.signInButton.visibility = View.VISIBLE
+            binding.inputLoginId.visibility = View.VISIBLE
+            binding.inputPassword.visibility = View.VISIBLE
+        }
     }
 
     private fun login(loginId: String, password: String) {
@@ -67,6 +86,7 @@ class SignInFragment : Fragment() {
                 // 로그인에 성공하면 FCM 토큰 저장
                 getFcmToken()
                 findNavController().navigate(R.id.action_signInFragment_to_fragment_lesson)
+                updateUIBasedOnLoginState() // 로그인 후 UI 업데이트
             } else {
                 Toast.makeText(requireContext(), "로그인 실패", Toast.LENGTH_SHORT).show()
             }
@@ -109,5 +129,4 @@ class SignInFragment : Fragment() {
         mBinding = null
         super.onDestroyView()
     }
-
 }
