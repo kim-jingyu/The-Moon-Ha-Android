@@ -40,11 +40,6 @@ class ScheduleWeeklyAdapter(
     }
 
     override fun onBindViewHolder(holder: ScheduleWeeklyViewHolder, position: Int) {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val sundayDateStrings = standardSundayList.map { dateFormat.format(it.time) }
-        Log.d("adapter", scheduleWeeklyResponseList.toString())
-        Log.d("adapter", sundayDateStrings.toString())
-        Log.d("adapter", position.toString())
         holder.bind(scheduleWeeklyResponseList[position], standardSundayList[position])
 
     }

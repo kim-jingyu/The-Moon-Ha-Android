@@ -56,23 +56,45 @@ class ScheduleWeeklyViewHolder(view: View, private val fragment: Fragment, priva
         view.findViewById(R.id.tv_7)
     )
 
-
     fun bind(scheduleWeeklyResponseList: List<ScheduleWeeklyResponse>, standardSunday: Calendar) {
+        // 날짜 포맷 설정 (일만 표시)
+        val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
 
+        // standardSunday를 기준으로 일주일 간의 날짜 설정
+        for (i in tvDays.indices) {
+            // standardSunday에서 i일 더한 날짜를 계산
+            val dayCalendar = standardSunday.clone() as Calendar
+            dayCalendar.add(Calendar.DAY_OF_YEAR, i)
+
+            // TextView에 날짜 설정
+            tvDays[i].text = dateFormat.format(dayCalendar.time)
+        }
+
+
+        // 여기에 scheduleWeeklyResponseList에 대한 추가 바인딩 로직 추가 가능
+        // 예: 수업 정보를 표시하는 코드
+
+
+//    fun bind(scheduleWeeklyResponseList: List<ScheduleWeeklyResponse>, standardSunday: Calendar) {
+//
         if (scheduleWeeklyResponseList.isEmpty()) {
             gridInclude.visibility = View.GONE
             tvNoLesson.visibility = View.VISIBLE
             return
         }
-        Log.d("뷰홀더", scheduleWeeklyResponseList.toString())
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val formattedReferenceSunday = dateFormat.format(standardSunday.time)
-        Log.d("123d123", "Reference Sunday: $formattedReferenceSunday")
-
-
-        // 날짜 넣기
-        setupDates(standardSunday)
+//        Log.d("뷰홀더", scheduleWeeklyResponseList.toString())
+//
+//        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+//        val formattedReferenceSunday = dateFormat.format(standardSunday.time)
+//        Log.d("123d123", "Reference Sunday: $formattedReferenceSunday")
+//
+//
+//        // 날짜 넣기
+//        setupDates(standardSunday)
+//
+        Log.d("WeeklyHolder", "Fetched Schedule Data: $scheduleWeeklyResponseList")
+        Log.d("WeeklyHolder", "Fetched Schedule Data: $standardSunday")
 
         var latestHour = 0
         var latestMinute = 0
