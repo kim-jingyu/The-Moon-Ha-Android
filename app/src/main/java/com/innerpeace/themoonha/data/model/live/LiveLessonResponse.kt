@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LiveLessonResponse(
     val liveId: Long,
+    val lessonId: Long,
     val title: String,
     val streamKey: String,
     val description: String,

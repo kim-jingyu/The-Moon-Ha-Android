@@ -52,7 +52,7 @@ class LiveStreamingMainInfoFragment: Fragment() {
     private var imageUrl: String = ""
     private var summary: String = ""
     private var curriculum: String = ""
-    private var supply: String = ""
+    private var supply: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,

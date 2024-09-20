@@ -130,6 +130,9 @@
         <action
             android:id="@+id/action_onAir_to_myLiveLesson"
             app:destination="@id/fragment_myLiveLesson" />
+        <action
+            android:id="@+id/action_onAir_to_lessonDetailFragment"
+            app:destination="@id/lessonDetailFragment"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_myLiveLesson"

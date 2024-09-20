@@ -71,6 +71,8 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                     binding.titleDetail.ellipsize = null
                     binding.moreButton.visibility = View.GONE
                     isTextExpanded = !isTextExpanded
+                    binding.profileImageDetail.visibility = View.GONE
+                    binding.memberNameDetail.visibility = View.GONE
                 }
             }
 
@@ -81,6 +83,8 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                     binding.moreButton.text = "더보기"
                     binding.moreButton.visibility = View.VISIBLE
                     isTextExpanded = false
+                    binding.profileImageDetail.visibility = View.VISIBLE
+                    binding.memberNameDetail.visibility = View.VISIBLE
                 }
             }
         }
@@ -117,7 +121,7 @@ class FieldDetailAdapter(private val contents: List<FieldDetailResponse>) : Recy
                 val textView = TextView(binding.root.context).apply {
                     id = View.generateViewId()
                     text = "#$hashtag"
-                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.black))
+                    setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.white))
                     setPadding(0, 4, 8, 4)
                     textSize = 12f
                 }
