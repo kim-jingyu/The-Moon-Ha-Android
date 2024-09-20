@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
@@ -14,10 +15,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.live.LiveOnAirListAdapter
 import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
+import com.innerpeace.themoonha.data.network.ApiClient
+import com.innerpeace.themoonha.data.network.LessonService
+import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.data.repository.LiveRepository
 import com.innerpeace.themoonha.databinding.FragmentLiveOnAirListBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.LiveViewModel
+import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
 
 /**
@@ -37,8 +43,11 @@ class LiveOnAirListFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: LiveOnAirListAdapter
-    private val viewModel: LiveViewModel by viewModels {
+    private val liveViewModel: LiveViewModel by viewModels {
         LiveViewModelFactory(LiveRepository())
+    }
+    private val lessonViewModel: LessonViewModel by viewModels {
+        LessonViewModelFactory(LessonRepository(ApiClient.getClient().create(LessonService::class.java)))
     }
 
     override fun onCreateView(
@@ -59,7 +68,7 @@ class LiveOnAirListFragment : Fragment() {
         setupRecyclerView()
         setupSpinner()
 
-        viewModel.liveLessonListResponse.asLiveData().observe(viewLifecycleOwner) { contents ->
+        liveViewModel.liveLessonListResponse.asLiveData().observe(viewLifecycleOwner) { contents ->
             adapter.updateContents(contents)
         }
 
@@ -81,16 +90,16 @@ class LiveOnAirListFragment : Fragment() {
             ) {
                 when (position) {
                     0 -> {
-                        viewModel.getLiveLessonListWithoutMember()
+                        liveViewModel.getLiveLessonListWithoutMember()
                     }
                     1 -> {
-                        viewModel.getLiveLessonListWithoutMemberOrderByTitle()
+                        liveViewModel.getLiveLessonListWithoutMemberOrderByTitle()
                     }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                viewModel.getLiveLessonListWithoutMember()
+                liveViewModel.getLiveLessonListWithoutMember()
             }
         }
     }
@@ -99,23 +108,19 @@ class LiveOnAirListFragment : Fragment() {
         binding.fieldListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = LiveOnAirListAdapter(emptyList()) { content ->
+            Toast.makeText(requireContext(), "강좌를 신청해주세요.", Toast.LENGTH_SHORT).show()
             navigateToLiveLessonStreamingMain(content)
         }
         binding.fieldListRecyclerView.adapter = adapter
     }
 
     private fun navigateToLiveLessonStreamingMain(content: LiveLessonResponse) {
-        viewModel.getLiveLessonDetail(content.liveId)
-        viewModel.liveLessonDetailResponse.asLiveData().observe(viewLifecycleOwner) { detailResponse ->
-            detailResponse?.let {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainerView, LiveStreamingMainFragment().apply {
-                        arguments = Bundle().apply {
-                            putParcelable("liveLessonDetailResponse", it)
-                        }
-                    })
-                    .addToBackStack(null)
-                    .commit()
+        lessonViewModel.getLessonDetail(content.lessonId)
+        lessonViewModel.lessonDetail.observe(viewLifecycleOwner) { detailResponse ->
+            detailResponse.let {
+                findNavController().navigate(R.id.action_onAir_to_lessonDetailFragment,Bundle().apply {
+                    putLong("lessonId", content.lessonId)
+                })
             }
         }
     }

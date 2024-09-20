@@ -115,6 +115,8 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
                     binding.titleDetail.ellipsize = null
                     binding.moreButton.visibility = View.GONE
                     isTextExpanded = !isTextExpanded
+                    binding.profileImageDetail.visibility = View.GONE
+                    binding.memberNameDetail.visibility = View.GONE
                 }
             }
 
@@ -125,6 +127,8 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
                     binding.moreButton.text = "더보기"
                     binding.moreButton.visibility = View.VISIBLE
                     isTextExpanded = false
+                    binding.profileImageDetail.visibility = View.VISIBLE
+                    binding.memberNameDetail.visibility = View.VISIBLE
                 }
             }
         }
