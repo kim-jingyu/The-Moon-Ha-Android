@@ -45,13 +45,12 @@ class ScheduleViewModel(private val scheduleRepository: ScheduleRepository): Vie
     val selectedYearMonth: LiveData<String> get() = _selectedYearMonth
 
     // 다음 스케줄
-    private val _scheduleNext = MutableLiveData<ScheduleNextResponse>()
-    val scheduleNext: LiveData<ScheduleNextResponse> get() = _scheduleNext
+    private val _scheduleNext = MutableLiveData<ScheduleNextResponse?>()
+    val scheduleNext: LiveData<ScheduleNextResponse?> get() = _scheduleNext
 
 
-    fun setSelectedStandardDates(standardDates: List<String>) {
-        _selectedStandardDate.value = standardDates
-        Log.d("viewModel-standarddtaes", _selectedStandardDate.value.toString())
+    fun setSelectedStandardDate(dates: List<String>) {
+        _selectedStandardDate.value = dates
     }
 
     fun fetchScheduleWeeklyList(standardDates: List<String>) {
@@ -59,7 +58,6 @@ class ScheduleViewModel(private val scheduleRepository: ScheduleRepository): Vie
             try {
                 val response = scheduleRepository.fetchScheduleWeeklyList(standardDates)
                 _scheduleWeeklyList.postValue(response)
-                Log.d("븀호델, schedulelist 변경", response.toString())
             } catch (e: Exception) {
                 _scheduleWeeklyList.postValue(null)
             }

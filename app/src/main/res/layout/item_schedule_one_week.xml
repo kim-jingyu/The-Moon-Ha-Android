@@ -107,4 +107,5 @@
             android:fontFamily="@font/happiness_sans_bold"
             android:gravity="center"
             android:visibility="gone"/>
+
 </LinearLayout>
