@@ -10,7 +10,7 @@ import com.innerpeace.themoonha.databinding.FragmentFieldCategoryBinding
 
 class FieldListAdapter(
     private var fieldLists: List<FieldCategoryGroup>,
-    private val onItemClick: (Int) -> Unit
+    private val onItemClick: (FieldListResponse) -> Unit
     ) : RecyclerView.Adapter<FieldListAdapter.FieldCategoryViewHolder>() {
     inner class FieldCategoryViewHolder(val binding: FragmentFieldCategoryBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -24,8 +24,8 @@ class FieldListAdapter(
 
         holder.binding.categoryName.text = categoryGroup.category
 
-        val fieldContentAdapter = FieldContentAdapter(categoryGroup.fieldList) { selectedPosition ->
-            onItemClick(selectedPosition)
+        val fieldContentAdapter = FieldContentAdapter(categoryGroup.fieldList) { selectedField ->
+            onItemClick(selectedField)
         }
         holder.binding.horizontalRecyclerView.apply {
             layoutManager = LinearLayoutManager(holder.itemView.context, LinearLayoutManager.HORIZONTAL, false)

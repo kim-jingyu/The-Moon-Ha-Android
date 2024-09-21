@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
@@ -135,13 +136,18 @@ class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailRespo
 
         private fun setHashtags(hashtags: List<String>) {
             val flow = binding.hashtagFlow
-            val idList = mutableListOf<Int>()
+
+            flow.referencedIds = intArrayOf()
+            (flow.parent as? ViewGroup)?.let { parent ->
+                parent.children.filter { it.id in flow.referencedIds }.forEach { parent.removeView(it) }
+            }
 
             if (hashtags.isNullOrEmpty()) {
                 flow.referencedIds = intArrayOf()
                 return
             }
 
+            val idList = mutableListOf<Int>()
             for (hashtag in hashtags) {
                 val textView = TextView(binding.root.context).apply {
                     id = View.generateViewId()

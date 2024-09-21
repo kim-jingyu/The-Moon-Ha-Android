@@ -101,12 +101,19 @@
         android:label="FieldListFragment" >
         <action
             android:id="@+id/action_fieldListFragment_to_fieldDetailFragment"
-            app:destination="@id/beforeAfterEnrollFragment" />
+            app:destination="@id/fieldDetailFragment">
+            <argument
+                android:name="fieldId"
+                app:argType="long" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fieldDetailFragment"
         android:name="com.innerpeace.themoonha.ui.fragment.field.FieldDetailFragment"
         android:label="FieldDetailFragment">
+        <argument
+            android:name="fieldId"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/fieldEnrollFragment"

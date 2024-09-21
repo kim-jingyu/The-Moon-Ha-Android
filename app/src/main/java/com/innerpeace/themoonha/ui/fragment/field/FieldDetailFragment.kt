@@ -2,20 +2,27 @@ package com.innerpeace.themoonha.ui.fragment.field
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.helper.widget.Flow
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import com.innerpeace.themoonha.adapter.bite.FieldDetailAdapter
+import androidx.lifecycle.asLiveData
+import com.bumptech.glide.Glide
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
+import com.innerpeace.themoonha.R
+import com.innerpeace.themoonha.data.model.field.FieldDetailResponse
 import com.innerpeace.themoonha.data.repository.FieldRepository
 import com.innerpeace.themoonha.databinding.FragmentFieldDetailBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  * Field Detail 프래그먼트
@@ -32,7 +39,8 @@ import kotlinx.coroutines.launch
 class FieldDetailFragment : Fragment() {
     private var _binding: FragmentFieldDetailBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: FieldDetailAdapter
+    private var player: ExoPlayer? = null
+    private var isTextExpanded = false
     private val viewModel: FieldViewModel by activityViewModels {
         FieldViewModelFactory(FieldRepository())
     }
@@ -58,35 +66,137 @@ class FieldDetailFragment : Fragment() {
             activity?.onBackPressed()
         }
 
-        val viewPager = binding.viewPager2
-        val selectedPosition = arguments?.getInt("selectedPosition") ?: 0
-        val sortOption = arguments?.getInt("sortOption") ?: 0
+        val fieldId = arguments?.getLong("fieldId") ?: return
 
-        if (sortOption == 0) {
-            viewModel.getFieldDetailsByLatest(selectedPosition)
-            lifecycleScope.launch {
-                viewModel.fieldDetailByLatestResponses.collect { details ->
-                    adapter = FieldDetailAdapter(details)
-                    viewPager.adapter = adapter
-                    viewPager.setCurrentItem(0, false)
-                }
+        viewModel.getFieldDetail(fieldId)
+        viewModel.fieldDetailContent.asLiveData().observe(viewLifecycleOwner) { response ->
+            if (response != null) {
+                bindContent(response)
             }
-        } else if (sortOption == 1) {
-            viewModel.getFieldDetailsByTitle(selectedPosition)
-            lifecycleScope.launch {
-                viewModel.fieldDetailByTitleResponses.collect { details ->
-                    adapter = FieldDetailAdapter(details)
-                    viewPager.adapter = adapter
-                    viewPager.setCurrentItem(0, false)
-                }
+        }
+    }
+
+    private fun bindContent(content: FieldDetailResponse) {
+        // 글 제목 설정
+        binding.titleDetail.text = content.title
+
+        // 작성자 이름 설정
+        binding.memberNameDetail.text = content.memberName
+
+        // 프로필 이미지 설정
+        Glide.with(this)
+            .load(content.profileImgUrl)
+            .circleCrop()
+            .into(binding.profileImageDetail)
+
+        // 해시태그 설정
+        setupHashtags(content.hashtags)
+
+        // 이미지 또는 동영상 설정
+        if (content.contentIsImage == 1) {
+            binding.imageDetail.visibility = View.VISIBLE
+            binding.videoDetail.visibility = View.GONE
+
+            Glide.with(binding.root.context)
+                .load(content.contentUrl)
+                .into(binding.imageDetail)
+        } else {
+            binding.imageDetail.visibility = View.GONE
+            binding.videoDetail.visibility = View.VISIBLE
+
+            player = ExoPlayer.Builder(requireContext()).build().apply {
+                setMediaItem(MediaItem.fromUri(content.contentUrl))
+                prepare()
+                playWhenReady = true
+                repeatMode = ExoPlayer.REPEAT_MODE_ALL
+            }
+            binding.videoDetail.player = player
+            binding.videoDetail.useController = false
+            controlVideoPlayer(player)
+        }
+
+        // 텍스트 확장 처리
+        setupTextContent(content)
+    }
+
+    private fun setupTextContent(content: FieldDetailResponse) {
+        binding.titleDetail.post {
+            if (binding.titleDetail.layout.getEllipsisCount(0) > 0) {
+                binding.moreButton.visibility = View.VISIBLE
+            } else {
+                binding.moreButton.visibility = View.GONE
             }
         }
 
+        binding.moreButton.setOnClickListener {
+            if (!isTextExpanded) {
+                binding.titleDetail.maxLines = Int.MAX_VALUE
+                binding.titleDetail.ellipsize = null
+                binding.moreButton.visibility = View.GONE
+                isTextExpanded = true
+                binding.profileImageDetail.visibility = View.GONE
+                binding.memberNameDetail.visibility = View.GONE
+            }
+        }
+
+        binding.titleDetail.setOnClickListener {
+            if (isTextExpanded) {
+                binding.titleDetail.maxLines = 1
+                binding.titleDetail.ellipsize = TextUtils.TruncateAt.END
+                binding.moreButton.text = "더보기"
+                binding.moreButton.visibility = View.VISIBLE
+                isTextExpanded = false
+                binding.profileImageDetail.visibility = View.VISIBLE
+                binding.memberNameDetail.visibility = View.VISIBLE
+            }
+        }
     }
 
+    private fun controlVideoPlayer(player: ExoPlayer?) {
+        player?.let {
+            binding.videoDetail.setOnClickListener {
+                if (player.isPlaying) {
+                    player.pause()
+                    binding.pauseIcon.visibility = View.VISIBLE
+                    binding.playIcon.visibility = View.GONE
+                } else {
+                    player.play()
+                    binding.playIcon.visibility = View.VISIBLE
+                    binding.pauseIcon.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    private fun setupHashtags(hashtags: List<String>) {
+        if (hashtags.isNullOrEmpty()) return
+        val flow = binding.root.findViewById<Flow>(R.id.hashtagFlow)
+        val idList = mutableListOf<Int>()
+
+        for (hashtag in hashtags) {
+            val textView = TextView(requireContext()).apply {
+                id = View.generateViewId()
+                text = "#$hashtag"
+                setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                setPadding(0, 4, 8, 4)
+                textSize = 12f
+                layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+            }
+
+            binding.root.addView(textView)
+            idList.add(textView.id)
+        }
+
+        flow.referencedIds = idList.toIntArray()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        player?.release()
+        player = null
         _binding = null
     }
 }

@@ -1,7 +1,11 @@
 package com.innerpeace.themoonha.ui.fragment.field
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -170,8 +174,8 @@ class FieldListFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        fieldListAdapter = FieldListAdapter(emptyList()) { position ->
-            navigateToFieldDetail(position)
+        fieldListAdapter = FieldListAdapter(emptyList()) { content ->
+            navigateToFieldDetail(content)
         }
 
         binding.fieldListRecyclerView.apply {
@@ -180,14 +184,11 @@ class FieldListFragment : Fragment() {
             setHasFixedSize(true)
         }
     }
-    private fun navigateToFieldDetail(selectedPosition: Int) {
-        findNavController().navigate(
-            R.id.fieldDetailFragment,
-            Bundle().apply {
-                putInt("selectedPosition", selectedPosition)
-                putInt("sortOption", sortOption)
-            }
-        )
+
+    private fun navigateToFieldDetail(content: FieldListResponse) {
+        findNavController().navigate(R.id.fieldDetailFragment, Bundle().apply {
+            putLong("fieldId", content.fieldId)
+        })
     }
 
     private fun setupToBeforeAfter() {

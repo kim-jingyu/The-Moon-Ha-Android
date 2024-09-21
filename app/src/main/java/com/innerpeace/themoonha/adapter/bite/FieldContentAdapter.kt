@@ -13,7 +13,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class FieldContentAdapter(
     private val fieldList: List<FieldListResponse>,
-    private val itemClickListener: (Int) -> Unit
+    private val itemClickListener: (FieldListResponse) -> Unit
     ) : RecyclerView.Adapter<FieldContentAdapter.FieldContentViewHolder>() {
     inner class FieldContentViewHolder(val binding: FragmentFieldContentBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -33,7 +33,7 @@ class FieldContentAdapter(
         setBottomContent(holder, fieldItem)
 
         holder.binding.root.setOnClickListener {
-            itemClickListener(position)
+            itemClickListener(fieldItem)
         }
     }
 

@@ -32,15 +32,13 @@ import okhttp3.RequestBody
  */
 class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
     private val _fieldListContents = MutableStateFlow<List<FieldListResponse>>(emptyList())
-    private val _fieldDetailByLatestContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
-    private val _fieldDetailByTitleContents = MutableStateFlow<List<FieldDetailResponse>>(emptyList())
+    private val _fieldDetailContent = MutableStateFlow<FieldDetailResponse?>(null)
     private val _fieldSearchContents = MutableStateFlow<List<FieldSearchResponse>>(emptyList())
     private val _makeFieldResponse = MutableStateFlow(Result.success(""))
     private val _error = MutableStateFlow<FieldException?>(null)
 
     val fieldListResponse: StateFlow<List<FieldListResponse>> get() = _fieldListContents.asStateFlow()
-    val fieldDetailByLatestResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailByLatestContents.asStateFlow()
-    val fieldDetailByTitleResponses: StateFlow<List<FieldDetailResponse>> get() = _fieldDetailByTitleContents.asStateFlow()
+    val fieldDetailContent: StateFlow<FieldDetailResponse?> get() = _fieldDetailContent.asStateFlow()
     val fieldSearchResponse: StateFlow<List<FieldSearchResponse>> get() = _fieldSearchContents.asStateFlow()
     val makeFieldResponse: StateFlow<Result<String>> = _makeFieldResponse.asStateFlow()
     val error: StateFlow<FieldException?> get() = _error.asStateFlow()
@@ -75,36 +73,12 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
-    fun getFieldDetailsByLatest(selectedPosition: Int) {
+    fun getFieldDetail(fieldId: Long) {
         viewModelScope.launch {
             try {
-                val response = datasource.retrieveFieldContentsByLatest()
+                val response = datasource.retrieveFieldContent(fieldId)
                 if (response.isSuccessful && response.body() != null) {
-                    val fieldDetails = response.body()!!
-
-                    _fieldDetailByLatestContents.value =
-                        mutableListOf(fieldDetails[selectedPosition]).apply {
-                            addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
-                        }
-                } else {
-                    _error.value = FieldRetrievingException()
-                }
-            } catch (e: Exception) {
-                _error.value = FieldRetrievingException()
-            }
-        }
-    }
-
-    fun getFieldDetailsByTitle(selectedPosition: Int) {
-        viewModelScope.launch {
-            try {
-                val response = datasource.retrieveFieldContentsByTitle()
-                if (response.isSuccessful && response.body() != null) {
-                    val fieldDetails = response.body()!!
-                    _fieldDetailByTitleContents.value =
-                        mutableListOf(fieldDetails[selectedPosition]).apply {
-                        addAll(fieldDetails.filterIndexed { index, _ -> index != selectedPosition })
-                    }
+                    _fieldDetailContent.value = response.body()!!
                 } else {
                     _error.value = FieldRetrievingException()
                 }
