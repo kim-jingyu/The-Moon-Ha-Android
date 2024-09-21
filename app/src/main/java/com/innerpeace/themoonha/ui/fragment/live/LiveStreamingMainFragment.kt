@@ -5,12 +5,15 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -169,6 +172,27 @@ class LiveStreamingMainFragment : Fragment() {
                 setupRemoteVideo(uid)
             }
         }
+
+        override fun onUserOffline(uid: Int, reason: Int) {
+            activity?.runOnUiThread {
+                showStreamEndedMessage()
+            }
+        }
+    }
+
+    private fun showStreamEndedMessage() {
+        binding.onAirPlayer.removeAllViews()
+        binding.onAirPlayer.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.black))
+        binding.onAirPlayer.addView(TextView(requireContext()).apply {
+            text = "방송이 종료되었습니다."
+            setTextColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+            gravity = Gravity.CENTER
+            textSize = 20f
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        })
     }
 
     private fun setupLocalVideo() {
