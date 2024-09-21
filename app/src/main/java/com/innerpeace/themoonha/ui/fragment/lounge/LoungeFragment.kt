@@ -52,6 +52,7 @@ class LoungeFragment : Fragment() {
 
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("라운지")
+        (activity as? MainActivity)?.showNavigationBar()
 
         return view
     }

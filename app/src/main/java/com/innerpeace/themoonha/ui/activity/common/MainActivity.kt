@@ -1,5 +1,6 @@
 package com.innerpeace.themoonha.ui.activity.common
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,16 +10,18 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseApp
-import com.google.firebase.messaging.Constants.TAG
-import com.google.firebase.messaging.FirebaseMessaging
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.SharedPreferencesManager
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.databinding.ActivityMainBinding
+import com.innerpeace.themoonha.ui.fragment.live.LiveMyLessonListFragment
+import com.innerpeace.themoonha.ui.fragment.live.LiveOnAirListFragment
+import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeFragment
 import com.kakao.sdk.common.KakaoSdk
 
 /**
@@ -41,7 +44,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // FCM
         FirebaseApp.initializeApp(this)
+        handleIntent(intent)
+
         ApiClient.init(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -74,6 +80,41 @@ class MainActivity : AppCompatActivity() {
             hideToolbar() // 필요에 따라 툴바도 숨기기
         }
     }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            handleIntent(it)
+        }
+    }
+
+    private fun handleIntent(intent: Intent) {
+        val targetFragment = intent.getStringExtra("Fragment")
+        if (targetFragment != null) {
+            when (targetFragment) {
+                "loungeHomeFragment" -> {
+                    val loungeId = intent.getLongExtra("loungeId", -1)
+                    if (loungeId != -1L) {
+                        // LoungeHomeFragment로 이동
+                        saveAndChangeFragment(LoungeHomeFragment().apply {
+                            arguments = Bundle().apply { putLong("loungeId", loungeId) }
+                        })
+                    }
+                }
+                "liveFragment" -> {
+                    saveAndChangeFragment(LiveMyLessonListFragment())
+                }
+            }
+        }
+    }
+
+    fun saveAndChangeFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     // 툴바 제목 설정
     fun setToolbarTitle(title: String) {

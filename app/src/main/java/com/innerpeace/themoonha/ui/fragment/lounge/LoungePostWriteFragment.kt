@@ -134,7 +134,7 @@ class LoungePostWriteFragment : Fragment() {
             text = "저장     "
             typeface = ResourcesCompat.getFont(context, R.font.happiness_sans_bold)
             setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 15f)
 
             setOnClickListener {
                 registerPost()

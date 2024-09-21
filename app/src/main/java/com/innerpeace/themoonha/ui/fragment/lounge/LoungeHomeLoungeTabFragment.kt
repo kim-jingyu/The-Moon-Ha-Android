@@ -82,14 +82,14 @@ class LoungeHomeLoungeTabFragment : Fragment() {
 
         loungeId = viewModel.selectedLoungeId.value
         if (loungeId != null) {
-            viewModel.resetPagination()  // 페이지 초기화
+            viewModel.resetPagination()
             viewModel.fetchLoungePostList(loungeId!!, 10)
         }
 
         // 데이터 변경
         viewModel.loungePostList.observe(viewLifecycleOwner, Observer { post ->
             if (post != null) {
-                adapter.setItems(post)  // 페이지 데이터 덮어쓰기
+                adapter.setItems(post)
             }
         })
 
@@ -109,8 +109,6 @@ class LoungeHomeLoungeTabFragment : Fragment() {
                 }
             }
         })
-
-
     }
 
     // 페이지 이동

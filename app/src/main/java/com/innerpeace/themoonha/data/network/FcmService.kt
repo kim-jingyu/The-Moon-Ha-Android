@@ -13,6 +13,7 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeFragment
 
 /**
  * FCM 서비스
@@ -31,14 +32,47 @@ class FcmService : FirebaseMessagingService() {
     // 메시지 수신
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
+        Log.d(TAG, "onMessageReceived()")
+
 
         // 데이터 정보 확인
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
-            sendNotification(
-                remoteMessage.data["title"].toString(),
-                remoteMessage.data["message"].toString()
-            )
+
+            val title = remoteMessage.data["title"].toString()
+            val message = remoteMessage.data["message"].toString()
+            val type = remoteMessage.data["type"]
+            val id = remoteMessage.data["id"]?.toLongOrNull()
+
+            Log.d("type", type.toString())
+            Log.d("id", id.toString())
+
+            // type에 따라 분기
+            if (type != null) {
+                when (type) {
+                    "lounge" -> {
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            putExtra("Fragment", "loungeHomeFragment")
+                            id?.let { putExtra("loungeId", it) }
+                        }
+                        sendNotification(title, message, intent)
+                    }
+                    "live" -> {
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            putExtra("Fragment", "liveFragment")
+                            id?.let { putExtra("broadcastId", it) }
+                        }
+                        sendNotification(title, message, intent)
+                    }
+                    else -> {
+                        sendNotification(title, message)
+                    }
+                }
+            } else {
+                sendNotification(title, message)
+            }
         } else {
             remoteMessage.notification?.let {
                 sendNotification(
@@ -61,12 +95,14 @@ class FcmService : FirebaseMessagingService() {
     }
 
     // 알림 표시
-    private fun sendNotification(title: String, body: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    private fun sendNotification(title: String, body: String, intent: Intent? = null) {
+        Log.d(TAG, "sendNotification($body)")
+
+        val targetIntent = intent ?: Intent(this, MainActivity::class.java)
+        targetIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
         val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent,
-            PendingIntent.FLAG_IMMUTABLE
+            this, 0, targetIntent, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val channelId = "fcm_default_channel"

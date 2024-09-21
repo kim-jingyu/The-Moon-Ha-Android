@@ -82,7 +82,13 @@ class LoungeHomeFragment : Fragment() {
             }
         }
 
-        // 데이터 불러오기
+        // FCM으로 전달된 id가 있을 경우 지정
+        val fcmLoungeId = arguments?.getLong("loungeId", -1)
+
+        if (fcmLoungeId != null && fcmLoungeId != -1L) {
+            viewModel.setSelectedLoungeId(fcmLoungeId)
+        }
+
         viewModel.selectedLoungeId.observe(viewLifecycleOwner, Observer { loungeId ->
             if (loungeId != null) {
                 viewModel.fetchLoungeHome(loungeId)
