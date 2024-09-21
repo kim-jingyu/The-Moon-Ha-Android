@@ -65,9 +65,9 @@ class LessonDetailFragment : Fragment() {
     private lateinit var pagerAdapter: LessonDetailReviewAdapter
 
     private val reviews = listOf(
-        LessonReview(R.drawable.prologue_already_liked, "홍길동", "좋은 강의였습니다!"),
-        LessonReview(R.drawable.ic_before, "김철수", "내용이 알차고 강사님이 친절했어요."),
-        LessonReview(R.drawable.ic_after, "이영희", "가격 대비 강의 내용이 부족하네요.")
+        LessonReview(R.drawable.yogareview2, "김*준", "하루의 피로를 요가로 완벽하게 풀어낼 수 있었어요, 숙면까지 덤으로!"),
+        LessonReview(R.drawable.homeyoga, "박*태", "직장인에게 딱 맞는 강의, 퇴근 후 집에서 따라하기 쉽게 잘 설명해주십니다!"),
+        LessonReview(R.drawable.yogareview1, "최*진", "몸과 마음이 편안해지는 시간이었어요, 스트레스가 사라지는 기분입니다.")
     )
 
     private val slideRunnable2 = object : Runnable {
