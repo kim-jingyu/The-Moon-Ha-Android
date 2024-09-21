@@ -25,7 +25,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.LessonDetailReviewAdapter
+import com.innerpeace.themoonha.adapter.lesson.LessonDetailReviewAdapter
 import com.innerpeace.themoonha.data.model.lesson.CartRequest
 import com.innerpeace.themoonha.data.model.lesson.LessonReview
 import com.innerpeace.themoonha.data.network.ApiClient
@@ -36,8 +36,20 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
+/**
+ * 강좌 상세 조회 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.02  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.02
+ */
 class LessonDetailFragment : Fragment() {
     private var _binding: FragmentLessonDetailBinding? = null
     private val binding get() = _binding!!

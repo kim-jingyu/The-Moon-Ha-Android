@@ -7,6 +7,19 @@ import com.innerpeace.themoonha.data.model.craft.SuggestionRequest
 import com.innerpeace.themoonha.data.model.craft.SuggestionResponse
 import com.innerpeace.themoonha.data.network.CraftService
 
+/**
+ * 문화공방 api 조회 레포지토리
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.03
+ */
 class CraftRepository(private val craftService: CraftService) {
     suspend fun fetchCraftMain(): CraftMainResponse? {
         return try {

@@ -1,17 +1,27 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.craft
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.data.model.craft.PrologueDTO
 import com.innerpeace.themoonha.data.model.craft.PrologueThemeDTO
 import com.innerpeace.themoonha.databinding.FragmentPrologueThemeBinding
 import com.innerpeace.themoonha.ui.fragment.craft.PrologueSpacingItemDecoration
-import com.innerpeace.themoonha.viewModel.CraftViewModel
 
+/**
+ * 문화공방 프롤로그 테마 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03 	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.03
+ */
 class PrologueThemeAdapter(
     private val themeList: List<PrologueThemeDTO>,
     private val onPrologueClick: (PrologueDTO) -> Unit

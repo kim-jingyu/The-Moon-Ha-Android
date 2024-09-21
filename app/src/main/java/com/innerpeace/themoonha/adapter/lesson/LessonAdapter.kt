@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.lesson
 
 import android.icu.text.DecimalFormat
 import android.os.Build
@@ -14,6 +14,19 @@ import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.LessonDTO
 
+/**
+ * 강좌 목록의 강좌 아이템 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.31  	손승완       최초 생성
+ * </pre>
+ * @since 2024.08.31
+ */
 class LessonAdapter(
     private var lessons: List<LessonDTO>,
     private val onLessonClick: (Long) -> Unit,

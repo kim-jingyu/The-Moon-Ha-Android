@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.lesson
 
 import android.graphics.Color
 import android.icu.text.DecimalFormat
@@ -14,6 +14,20 @@ import com.innerpeace.themoonha.data.model.lesson.TargetType
 import com.innerpeace.themoonha.databinding.FragmentCartItemBinding
 import com.innerpeace.themoonha.databinding.FragmentCartBranchBinding
 
+/**
+ * 장바구니 강좌 아이템 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.06  	손승완       최초 생성
+ * 2024.09.19  	손승완       장바구니 아이템 삭제 기능 추가
+ * </pre>
+ * @since 2024.09.06
+ */
 class CartItemAdapter(
     private val onCheckedChange: (CartResponse, Boolean) -> Unit,
     private val onRemoveItem: (CartResponse) -> Unit

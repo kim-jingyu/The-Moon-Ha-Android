@@ -11,6 +11,19 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
 
+/**
+ * 초기 화면 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.21  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.21
+ */
 class MainFragment : Fragment() {
 
     override fun onCreateView(

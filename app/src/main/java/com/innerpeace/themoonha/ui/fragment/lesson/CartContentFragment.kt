@@ -14,7 +14,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
-import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -22,7 +21,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.CartItemAdapter
+import com.innerpeace.themoonha.adapter.lesson.CartItemAdapter
 import com.innerpeace.themoonha.data.model.lesson.CartResponse
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import com.innerpeace.themoonha.data.network.ApiClient
@@ -45,8 +44,20 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.Locale
-import kotlin.random.Random
 
+/**
+ * 장바구니 내용 조회 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.05  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.05
+ */
 class CartContentFragment : Fragment() {
 
     private var _binding: FragmentCartContentBinding? = null
