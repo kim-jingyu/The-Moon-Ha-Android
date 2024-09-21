@@ -26,7 +26,6 @@
         android:text="확인"
         android:background="@drawable/lesson_detail_dialog_button_background"
         android:textColor="@color/white"
-        android:enabled="false"
         android:textSize="12sp"
         android:layout_marginTop="16dp" />
 

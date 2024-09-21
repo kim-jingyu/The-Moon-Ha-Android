@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/navigation_graph"
-        app:startDestination="@id/fragment_lesson">
+        app:startDestination="@id/mainFragment">
     <fragment
             android:id="@+id/fragment_lesson"
             android:name="com.innerpeace.themoonha.ui.fragment.lesson.LessonFragment"
@@ -200,6 +200,14 @@
         android:label="SignInFragment" >
         <action
             android:id="@+id/action_signInFragment_to_fragment_lesson"
+            app:destination="@id/fragment_lesson" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.innerpeace.themoonha.ui.fragment.lesson.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_fragment_lesson"
             app:destination="@id/fragment_lesson" />
     </fragment>
 </navigation>

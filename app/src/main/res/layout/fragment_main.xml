@@ -1,0 +1,13 @@
+<!-- res/layout/fragment_main.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/hyundai_main"
+        android:scaleType="centerCrop" />
+
+</FrameLayout>
