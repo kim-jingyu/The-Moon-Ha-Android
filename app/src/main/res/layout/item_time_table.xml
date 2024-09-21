@@ -81,7 +81,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="sunday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -90,7 +90,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="monday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -99,7 +99,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="tuesday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -108,7 +108,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="wednesday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -117,7 +117,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="thursday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -126,7 +126,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="friday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <TextView
@@ -135,7 +135,7 @@
                 android:layout_height="10dp"
                 android:layout_columnWeight="2"
                 android:tag="saturday1000"
-                android:background="@drawable/line_right"
+                android:background="@drawable/line_right_top"
                 android:layout_gravity="fill" />
 
         <!-- 10:10 -->
