@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_before"
-            android:background="@drawable/rounded_corner_content"
             android:clipToOutline="true" />
 
         <VideoView
@@ -48,16 +47,18 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:layout_marginLeft="10dp"
         android:text="타이틀"
         android:textColor="@color/black"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@id/profileImage"
-        app:layout_constraintTop_toTopOf="@id/profileImage" />
+        app:layout_constraintTop_toTopOf="@id/profileImage"
+        app:layout_constraintVertical_bias="0.062" />
 
     <TextView
         android:id="@+id/instructorName"
