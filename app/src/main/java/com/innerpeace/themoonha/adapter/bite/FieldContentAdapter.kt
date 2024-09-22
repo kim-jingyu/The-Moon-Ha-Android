@@ -29,8 +29,9 @@ class FieldContentAdapter(
         val fieldItem = fieldList[position % fieldList.size]
 
         setContentImage(holder, fieldItem)
-
         setBottomContent(holder, fieldItem)
+
+        holder.binding.lessonTitle.text = fieldItem.lessonTitle
 
         holder.binding.root.setOnClickListener {
             itemClickListener(fieldItem)
