@@ -1,10 +1,8 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.lesson
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,18 +11,25 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
-import com.innerpeace.themoonha.data.network.ApiClient
-import com.innerpeace.themoonha.data.network.LessonService
-import com.innerpeace.themoonha.data.repository.LessonRepository
 import com.innerpeace.themoonha.viewModel.LessonViewModel
-import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 
+/**
+ * 숏폼 상세 조회 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.01  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.01
+ */
 class ShortFormDetailAdapter(
     private var shortForms: List<ShortFormDTO>,
     private val viewModel: LessonViewModel

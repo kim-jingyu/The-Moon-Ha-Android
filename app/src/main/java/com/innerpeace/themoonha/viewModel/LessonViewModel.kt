@@ -8,6 +8,19 @@ import com.innerpeace.themoonha.data.model.lesson.*
 import com.innerpeace.themoonha.data.repository.LessonRepository
 import kotlinx.coroutines.launch
 
+/**
+ * 강좌 뷰모델
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.31  	손승완       최초 생성
+ * </pre>
+ * @since 2024.08.31
+ */
 class LessonViewModel(private val lessonRepository: LessonRepository) : ViewModel() {
     private val _lessonList = MutableLiveData<List<LessonDTO>>()
     val lessonList: LiveData<List<LessonDTO>> get() = _lessonList

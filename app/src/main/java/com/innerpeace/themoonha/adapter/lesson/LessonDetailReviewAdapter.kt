@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.lesson
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.LessonReview
 
+/**
+ * 강좌 상세 후기 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.15  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.15
+ */
 class LessonDetailReviewAdapter(private val context: Context, private val reviews: List<LessonReview>) :
     RecyclerView.Adapter<LessonDetailReviewAdapter.ReviewViewHolder>() {
 

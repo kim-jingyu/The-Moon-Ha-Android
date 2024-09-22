@@ -1,9 +1,6 @@
 package com.innerpeace.themoonha.ui.fragment.craft
 
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -21,8 +16,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.PrologueThemeAdapter
-import com.innerpeace.themoonha.adapter.SuggestionAdapter
+import com.innerpeace.themoonha.adapter.craft.PrologueThemeAdapter
+import com.innerpeace.themoonha.adapter.craft.SuggestionAdapter
 import com.innerpeace.themoonha.data.model.craft.PageDTO
 import com.innerpeace.themoonha.data.model.craft.PrologueDTO
 import com.innerpeace.themoonha.data.model.craft.PrologueThemeDTO
@@ -36,7 +31,19 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.viewModel.CraftViewModel
 import com.innerpeace.themoonha.viewModel.factory.CraftViewModelFactory
 
-
+/**
+ * 문화공방 메인 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.03
+ */
 class CraftFragment : Fragment() {
     private var _binding: FragmentCraftBinding? = null
     private val binding get() = _binding!!

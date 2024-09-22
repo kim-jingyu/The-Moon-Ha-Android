@@ -3,6 +3,19 @@ package com.innerpeace.themoonha
 import android.content.Context
 import android.content.SharedPreferences
 
+/**
+ * 로그인 상태 유지를 위한 클래스
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.10  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.10
+ */
 class SharedPreferencesManager(context: Context) {
     private val authSharedPreferences: SharedPreferences =
         context.getSharedPreferences("AuthPrefs", Context.MODE_PRIVATE)

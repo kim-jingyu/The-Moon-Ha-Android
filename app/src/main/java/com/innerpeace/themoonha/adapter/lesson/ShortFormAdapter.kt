@@ -1,4 +1,4 @@
-package com.innerpeace.themoonha.adapter
+package com.innerpeace.themoonha.adapter.lesson
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +10,19 @@ import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lesson.ShortFormDTO
 
+/**
+ * 숏폼 어댑터
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.31 	손승완       최초 생성
+ * </pre>
+ * @since 2024.08.31
+ */
 class ShortFormAdapter( private var shortForms: List<ShortFormDTO>,
                         private val onItemClicked: (ShortFormDTO, Int) -> Unit
 ) : RecyclerView.Adapter<ShortFormAdapter.ShortFormViewHolder>() {

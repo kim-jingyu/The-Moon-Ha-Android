@@ -10,6 +10,19 @@ import com.innerpeace.themoonha.data.model.lesson.LessonListResponse
 import com.innerpeace.themoonha.data.model.lesson.SugangRequest
 import com.innerpeace.themoonha.data.network.LessonService
 
+/**
+ * 강좌 관련 api 조회 레포지토리
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.31  	손승완       최초 생성
+ * </pre>
+ * @since 2024.08.31
+ */
 class LessonRepository(private val lessonService: LessonService) {
 
     suspend fun fetchLessonList(lessonListRequestMap: Map<String, String>): LessonListResponse? {

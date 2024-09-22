@@ -21,6 +21,19 @@ import com.innerpeace.themoonha.data.repository.AlimRepository
 import com.innerpeace.themoonha.databinding.FragmentSignInBinding
 import kotlinx.coroutines.launch
 
+/**
+ * 로그인 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.10  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.10
+ */
 class SignInFragment : Fragment() {
     private var mBinding: FragmentSignInBinding? = null
     private val binding get() = mBinding!!

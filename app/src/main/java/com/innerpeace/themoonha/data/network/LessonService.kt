@@ -14,6 +14,19 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
 
+/**
+ * 강좌 도메인 서비스
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.31 	손승완       최초 생성
+ * </pre>
+ * @since 2024.08.31
+ */
 interface LessonService {
     @GET("lesson/list")
     suspend fun getLessonList(@QueryMap lessonListRequestMap: Map<String, String>): LessonListResponse

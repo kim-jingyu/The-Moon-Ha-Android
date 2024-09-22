@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.innerpeace.themoonha.R
-import com.innerpeace.themoonha.adapter.ShortFormDetailAdapter
+import com.innerpeace.themoonha.adapter.lesson.ShortFormDetailAdapter
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LessonService
 import com.innerpeace.themoonha.data.repository.LessonRepository
@@ -19,6 +19,19 @@ import com.innerpeace.themoonha.databinding.FragmentShortFormDetailBinding
 import com.innerpeace.themoonha.viewModel.LessonViewModel
 import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 
+/**
+ * 숏폼 상세 조회 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.01  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.01
+ */
 class ShortFormDetailFragment : Fragment() {
 
     private var _binding: FragmentShortFormDetailBinding? = null

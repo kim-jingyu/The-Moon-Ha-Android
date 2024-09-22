@@ -21,6 +21,19 @@ import com.innerpeace.themoonha.databinding.FragmentPrologueDetailBinding
 import com.innerpeace.themoonha.viewModel.CraftViewModel
 import com.innerpeace.themoonha.viewModel.factory.CraftViewModelFactory
 
+/**
+ * 문화공방 프롤로그 상세 조회 페이지 프레그먼트
+ *
+ * @author 손승완
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.04  	손승완       최초 생성
+ * </pre>
+ * @since 2024.09.04
+ */
 class PrologueDetailFragment : Fragment() {
     private var _binding: FragmentPrologueDetailBinding? = null
     private val binding get() = _binding!!
