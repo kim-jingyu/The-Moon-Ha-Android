@@ -58,6 +58,21 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
         }
     }
 
+    fun getFieldListByCategory(categoryId: Long) {
+        viewModelScope.launch {
+            try {
+                val response = datasource.retrieveFieldListByCategory(categoryId)
+                if (response.isSuccessful && response.body() != null) {
+                    _fieldListContents.value = response.body()!!
+                } else {
+                    _error.value = FieldRetrievingException()
+                }
+            } catch (e: Exception) {
+                _error.value = FieldRetrievingException()
+            }
+        }
+    }
+
     fun getFieldListOrderByTitle() {
         viewModelScope.launch {
             try {

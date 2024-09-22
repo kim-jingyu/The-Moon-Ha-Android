@@ -127,6 +127,14 @@
         <argument
             android:name="fieldId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_fieldDetailFragment_to_lessonDetailFragment"
+            app:destination="@id/lessonDetailFragment">
+            <argument
+                android:name="lessonId"
+                app:argType="long"
+                />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/fieldEnrollFragment"

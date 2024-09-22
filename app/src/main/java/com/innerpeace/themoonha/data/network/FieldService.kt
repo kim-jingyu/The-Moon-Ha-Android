@@ -7,7 +7,12 @@ import com.innerpeace.themoonha.data.model.field.FieldSearchResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * 분야별 한 입 API 서비스
@@ -27,6 +32,9 @@ interface FieldService {
 
     @GET("/bite/field/by-title")
     suspend fun retrieveFieldListOrderByTitle() : Response<List<FieldListResponse>>
+
+    @GET("/bite/field/by-category/{categoryId}")
+    fun retrieveFieldListByCategory(@Path("categoryId") categoryId: Long): Response<List<FieldListResponse>>
 
     @GET("/bite/field/{fieldId}")
     suspend fun retrieveFieldContent(@Path("fieldId") fieldId: Long) : Response<FieldDetailResponse>

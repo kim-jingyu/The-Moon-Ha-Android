@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -78,6 +79,20 @@ class FieldDetailFragment : Fragment() {
                 bindContent(response)
             }
         }
+
+        binding.showDetailButton.setOnClickListener {
+            viewModel.fieldDetailContent.value?.lessonId?.let { lessonId ->
+                navigateToLessonDetail(lessonId)
+            }
+        }
+    }
+
+    private fun navigateToLessonDetail(lessonId: Long) {
+        findNavController().navigate(
+            R.id.action_fieldDetailFragment_to_lessonDetailFragment,
+            Bundle().apply {
+                putLong("lessonId", lessonId)
+            })
     }
 
     private fun bindContent(content: FieldDetailResponse) {

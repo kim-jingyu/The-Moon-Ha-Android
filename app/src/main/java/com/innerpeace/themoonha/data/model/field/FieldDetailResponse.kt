@@ -5,6 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class FieldDetailResponse(
+    val lessonId: Long,
     val contentUrl: String,
     val contentIsImage: Int,
     val title: String,
