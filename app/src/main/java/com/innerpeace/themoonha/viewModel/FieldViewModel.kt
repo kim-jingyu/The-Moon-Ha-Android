@@ -80,9 +80,11 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                 if (response.isSuccessful && response.body() != null) {
                     _fieldDetailContent.value = response.body()!!
                 } else {
+                    _fieldDetailContent.value = null
                     _error.value = FieldRetrievingException()
                 }
             } catch (e: Exception) {
+                _fieldDetailContent.value = null
                 _error.value = FieldRetrievingException()
             }
         }
@@ -131,5 +133,9 @@ class FieldViewModel(private val datasource: FieldRepository) : ViewModel() {
                 _error.value = FieldRetrievingException()
             }
         }
+    }
+
+    fun clearFieldDetail() {
+        _fieldDetailContent.value = null
     }
 }

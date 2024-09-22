@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.distinctUntilChanged
 import com.bumptech.glide.Glide
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
@@ -68,8 +69,11 @@ class FieldDetailFragment : Fragment() {
 
         val fieldId = arguments?.getLong("fieldId") ?: return
 
+        viewModel.clearFieldDetail()
         viewModel.getFieldDetail(fieldId)
-        viewModel.fieldDetailContent.asLiveData().observe(viewLifecycleOwner) { response ->
+        viewModel.fieldDetailContent.asLiveData()
+            .distinctUntilChanged()
+            .observe(viewLifecycleOwner) { response ->
             if (response != null) {
                 bindContent(response)
             }
@@ -77,22 +81,14 @@ class FieldDetailFragment : Fragment() {
     }
 
     private fun bindContent(content: FieldDetailResponse) {
-        // 글 제목 설정
         binding.titleDetail.text = content.title
-
-        // 작성자 이름 설정
         binding.memberNameDetail.text = content.memberName
 
-        // 프로필 이미지 설정
         Glide.with(this)
             .load(content.profileImgUrl)
             .circleCrop()
             .into(binding.profileImageDetail)
 
-        // 해시태그 설정
-        setupHashtags(content.hashtags)
-
-        // 이미지 또는 동영상 설정
         if (content.contentIsImage == 1) {
             binding.imageDetail.visibility = View.VISIBLE
             binding.videoDetail.visibility = View.GONE
@@ -114,9 +110,8 @@ class FieldDetailFragment : Fragment() {
             binding.videoDetail.useController = false
             controlVideoPlayer(player)
         }
-
-        // 텍스트 확장 처리
         setupTextContent(content)
+        setupHashtags(content.hashtags)
     }
 
     private fun setupTextContent(content: FieldDetailResponse) {
@@ -174,10 +169,10 @@ class FieldDetailFragment : Fragment() {
         val idList = mutableListOf<Int>()
 
         for (hashtag in hashtags) {
-            val textView = TextView(requireContext()).apply {
+            val textView = TextView(binding.root.context).apply {
                 id = View.generateViewId()
                 text = "#$hashtag"
-                setTextColor(ContextCompat.getColor(context, android.R.color.white))
+                setTextColor(ContextCompat.getColor(binding.root.context, android.R.color.white))
                 setPadding(0, 4, 8, 4)
                 textSize = 12f
                 layoutParams = ConstraintLayout.LayoutParams(
@@ -185,11 +180,9 @@ class FieldDetailFragment : Fragment() {
                     ConstraintLayout.LayoutParams.WRAP_CONTENT
                 )
             }
-
             binding.root.addView(textView)
             idList.add(textView.id)
         }
-
         flow.referencedIds = idList.toIntArray()
     }
 
