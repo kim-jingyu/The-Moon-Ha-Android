@@ -47,11 +47,12 @@ class FieldListFragment : Fragment() {
     }
 
     private var sortOption: Int = 0
+    private var categoryId: Long? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFieldListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -68,8 +69,18 @@ class FieldListFragment : Fragment() {
         setHasOptionsMenu(true)
         setupRecyclerView()
         setupToBeforeAfter()
+        categoryId = arguments?.getLong("categoryId")
+        setInitData()
         setupSpinner()
         observeFieldList()
+    }
+
+    private fun setInitData() {
+        if (categoryId != null) {
+            viewModel.getFieldListByCategory(categoryId!!)
+        } else {
+            viewModel.getFieldList()
+        }
     }
 
     private fun observeFieldList() {
@@ -96,20 +107,30 @@ class FieldListFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                when (position) {
-                    0 -> {
-                        viewModel.getFieldList()
-                        sortOption = 0
-                    }
-                    1 -> {
-                        viewModel.getFieldListOrderByTitle()
-                        sortOption = 1
+                if (sortOption != position) {
+                    sortOption = position
+                    when (position) {
+                        0 -> {
+                            if (categoryId != null) {
+                                viewModel.getFieldListByCategory(categoryId!!)
+                            } else {
+                                viewModel.getFieldList()
+                            }
+                            sortOption = 0
+                        }
+                        1 -> {
+                            if (categoryId != null) {
+                                viewModel.getFieldListByCategory(categoryId!!)
+                            } else {
+                                viewModel.getFieldListOrderByTitle()
+                            }
+                            sortOption = 1
+                        }
                     }
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                viewModel.getFieldList()
             }
         }
     }
