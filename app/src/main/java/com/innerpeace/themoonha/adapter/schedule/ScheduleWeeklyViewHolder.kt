@@ -67,11 +67,6 @@ class ScheduleWeeklyViewHolder(view: View, private val fragment: Fragment, priva
         // 날짜 포맷 설정 (일만 표시)
         val dateFormat = SimpleDateFormat("dd", Locale.getDefault())
 
-        val happinessBoldFont = ResourcesCompat.getFont(itemView.context, R.font.happiness_sans_bold)
-        val greenColor = ContextCompat.getColor(itemView.context, R.color.green)
-        // 오늘 날짜를 얻음
-        val today = Calendar.getInstance()
-
         // standardSunday를 기준으로 일주일 간의 날짜 설정
         for (i in tvDays.indices) {
             // standardSunday에서 i일 더한 날짜를 계산
@@ -80,17 +75,6 @@ class ScheduleWeeklyViewHolder(view: View, private val fragment: Fragment, priva
 
             // TextView에 날짜 설정
             tvDays[i].text = dateFormat.format(dayCalendar.time)
-
-            // 오늘 날짜와 비교하여 스타일 적용
-            if (dayCalendar.get(Calendar.YEAR) == today.get(Calendar.YEAR) &&
-                dayCalendar.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)) {
-                tvDays[i].setTextColor(greenColor)
-                tvDays[i].typeface = happinessBoldFont
-            } else {
-                // 오늘이 아니면 기본 폰트와 색상 적용 (필요에 따라 변경)
-                tvDays[i].setTextColor(Color.BLACK)
-                tvDays[i].setTypeface(null, Typeface.NORMAL)
-            }
         }
 
 
@@ -297,6 +281,7 @@ class ScheduleWeeklyViewHolder(view: View, private val fragment: Fragment, priva
 
         // 날짜 포맷 설정
         val formatter = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
+
         val todayDate = Calendar.getInstance().time
         dialogBinding.tvSelectedDate.text = "${formatter.format(todayDate)}의 강좌"
 

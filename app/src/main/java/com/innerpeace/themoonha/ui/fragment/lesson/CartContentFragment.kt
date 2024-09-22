@@ -116,7 +116,7 @@ class CartContentFragment : Fragment() {
         viewModel.paymentStatus.observe(viewLifecycleOwner, Observer { result ->
             if (result) {
                 showSuccessAlert()
-                findNavController().navigate(R.id.action_cartContentFragment_to_fragment_schedule)
+                findNavController().navigate(R.id.action_cartContentFragment_to_fragment_lesson)
             } else {
                 showFailureAlert()
             }
