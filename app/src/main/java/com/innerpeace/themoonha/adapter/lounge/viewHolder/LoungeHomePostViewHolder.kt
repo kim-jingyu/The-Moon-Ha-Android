@@ -86,12 +86,11 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
                         .transform(CenterCrop(), RoundedCorners(20))
                         .into(imageView)
 
-                    // 첫 번째 이미지는 오른쪽 마진에 5dp, 두 번째 이미지는 왼쪽 마진에 5dp 적용
                     val params = createGridLayoutParams(i % 2, 0, 1, 1, marginSize)
                     if (i == 0) {
-                        params.setMargins(marginSize, marginSize, specialMargin, marginSize) // 오른쪽 마진 5dp
+                        params.setMargins(marginSize, marginSize, specialMargin, marginSize)
                     } else if (i == 1) {
-                        params.setMargins(specialMargin, marginSize, marginSize, marginSize) // 왼쪽 마진 5dp
+                        params.setMargins(specialMargin, marginSize, marginSize, marginSize)
                     }
                     gridLayout.addView(imageView, params)
                 }
@@ -105,11 +104,21 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
                         .load(imageUrls[i])
                         .transform(CenterCrop(), RoundedCorners(20))
                         .into(imageView)
-                    if (i == 0) {
-                        gridLayout.addView(imageView, createGridLayoutParams(0, 0, 2, 1, marginSize))
+
+                    val params = if (i == 0) {
+                        createGridLayoutParams(0, 0, 2, 1, marginSize).apply {
+                            setMargins(marginSize, marginSize, marginSize, specialMargin)
+                        }
                     } else {
-                        gridLayout.addView(imageView, createGridLayoutParams((i + 1) % 2, 1, 1, 1, marginSize))
+                        createGridLayoutParams((i + 1) % 2, 1, 1, 1, marginSize).apply {
+                            if (i == 1) {
+                                setMargins(marginSize, specialMargin, specialMargin, marginSize)
+                            } else {
+                                setMargins(specialMargin, specialMargin, marginSize, marginSize)
+                            }
+                        }
                     }
+                    gridLayout.addView(imageView, params)
                 }
             }
             else -> {
@@ -121,7 +130,15 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
                         .load(imageUrls[i])
                         .transform(CenterCrop(), RoundedCorners(20))
                         .into(imageView)
-                    gridLayout.addView(imageView, createGridLayoutParams(i % 2, i / 2, 1, 1, marginSize))
+
+                    val params = createGridLayoutParams(i % 2, i / 2, 1, 1, marginSize)
+                    when (i) {
+                        0 -> params.setMargins(marginSize, marginSize, specialMargin, specialMargin)
+                        1 -> params.setMargins(specialMargin, marginSize, marginSize, specialMargin)
+                        2 -> params.setMargins(marginSize, specialMargin, specialMargin, marginSize)
+                        3 -> params.setMargins(specialMargin, specialMargin, marginSize, marginSize)
+                    }
+                    gridLayout.addView(imageView, params)
                 }
             }
         }

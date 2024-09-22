@@ -19,6 +19,7 @@ import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.data.repository.ScheduleRepository
 import com.innerpeace.themoonha.databinding.FragmentScheduleWeeklyBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.ui.util.LoadingDialog
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.ScheduleViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
@@ -48,6 +49,7 @@ class ScheduleWeeklyFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: ScheduleWeeklyAdapter
+    private lateinit var loadingDialog: LoadingDialog
 
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val yearMonthFormat = SimpleDateFormat("yyyy-MM", Locale.getDefault())
@@ -74,6 +76,9 @@ class ScheduleWeeklyFragment : Fragment() {
         _binding = FragmentScheduleWeeklyBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // 로딩 다이얼로그
+        loadingDialog = LoadingDialog(requireContext())
+
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("스케줄")
 
@@ -94,6 +99,9 @@ class ScheduleWeeklyFragment : Fragment() {
                 else -> false
             }
         }
+
+        // 로딩 시작
+        loadingDialog.show()
 
         // 1. 초기 데이터 리스트 설정
         standardSundayCalendarList = getWeeklyDates().toMutableList() // 초기 주차 데이터
@@ -142,6 +150,8 @@ class ScheduleWeeklyFragment : Fragment() {
             // 업데이트된 날짜 리스트를 ViewModel에 전달
             viewModel.setSelectedStandardDate(standardSundayStringList)
         }
+
+        loadingDialog.dismiss()
     }
 
     private fun getWeeklyDates(): List<Calendar> {

@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:textColor="@color/black"
+            android:textSize="12sp"
             app:layout_constraintStart_toEndOf="@+id/iv_profile_image"
             app:layout_constraintTop_toTopOf="@+id/iv_profile_image"
             app:layout_constraintBottom_toBottomOf="@+id/iv_profile_image" />

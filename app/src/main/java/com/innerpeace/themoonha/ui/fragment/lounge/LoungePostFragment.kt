@@ -87,8 +87,8 @@ class LoungePostFragment : Fragment() {
                 setupImageRecyclerView(it.loungePost.loungePostImgList)
                 if (postDetail.loungeCommentList.isNotEmpty()) {
                     binding.line.visibility = View.VISIBLE
-                    setupCommentRecyclerView(it.loungeCommentList)
                 }
+                setupCommentRecyclerView(it.loungeCommentList)
             }
         })
 

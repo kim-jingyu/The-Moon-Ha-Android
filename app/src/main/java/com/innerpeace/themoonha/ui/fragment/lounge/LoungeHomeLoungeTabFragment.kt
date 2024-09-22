@@ -89,7 +89,14 @@ class LoungeHomeLoungeTabFragment : Fragment() {
         // 데이터 변경
         viewModel.loungePostList.observe(viewLifecycleOwner, Observer { post ->
             if (post != null) {
-                adapter.setItems(post)
+                if (post.isNotEmpty()) {
+                    binding.rvPostList.visibility = View.VISIBLE
+                    binding.tvNoPost.visibility = View.GONE
+                    adapter.setItems(post)
+                } else {
+                    binding.rvPostList.visibility = View.GONE
+                    binding.tvNoPost.visibility = View.VISIBLE
+                }
             }
         })
 
