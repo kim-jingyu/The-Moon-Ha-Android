@@ -33,7 +33,7 @@ class FieldRepository: FieldService {
         return api.retrieveFieldListOrderByTitle()
     }
 
-    override fun retrieveFieldListByCategory(categoryId: Long): Response<List<FieldListResponse>> {
+    override suspend fun retrieveFieldListByCategory(categoryId: Long): Response<List<FieldListResponse>> {
         return api.retrieveFieldListByCategory(categoryId)
     }
 

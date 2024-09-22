@@ -196,6 +196,9 @@
         <action
                 android:id="@+id/action_shortFormDetailFragment_to_lessonDetailFragment"
                 app:destination="@id/lessonDetailFragment"/>
+        <action
+            android:id="@+id/action_shortFormDetailFragment_to_fieldListFragment"
+            app:destination="@id/fieldListFragment" />
     </fragment>
     <fragment
             android:id="@+id/lessonDetailFragment"

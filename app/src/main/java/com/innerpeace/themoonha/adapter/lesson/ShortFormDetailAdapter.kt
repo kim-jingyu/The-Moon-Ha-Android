@@ -57,6 +57,12 @@ class ShortFormDetailAdapter(
             val bundle = bundleOf("lessonId" to shortForm.lessonId)
             holder.itemView.findNavController().navigate(R.id.action_shortFormDetailFragment_to_lessonDetailFragment, bundle)
         }
+
+        holder.showCategoryButton.setOnClickListener {
+            viewModel.currentPage = position
+            val bundle = bundleOf("categoryId" to shortForm.categoryId)
+            holder.itemView.findNavController().navigate(R.id.action_shortFormDetailFragment_to_fieldListFragment, bundle)
+        }
     }
 
     override fun getItemCount(): Int = shortForms.size
@@ -67,6 +73,7 @@ class ShortFormDetailAdapter(
         private val playIcon: ImageView = itemView.findViewById(R.id.playIcon)
         private val pauseIcon: ImageView = itemView.findViewById(R.id.pauseIcon)
         val showDetailButton: Button = itemView.findViewById(R.id.showDetailButton) // 클릭 이벤트 설정할 버튼
+        val showCategoryButton: Button = itemView.findViewById(R.id.showCategoryButton)
 
         fun bind(shortFormDTO: ShortFormDTO) {
             videoView.setVideoPath(shortFormDTO.videoUrl)

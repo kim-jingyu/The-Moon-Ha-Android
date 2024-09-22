@@ -34,7 +34,7 @@ interface FieldService {
     suspend fun retrieveFieldListOrderByTitle() : Response<List<FieldListResponse>>
 
     @GET("/bite/field/by-category/{categoryId}")
-    fun retrieveFieldListByCategory(@Path("categoryId") categoryId: Long): Response<List<FieldListResponse>>
+    suspend fun retrieveFieldListByCategory(@Path("categoryId") categoryId: Long): Response<List<FieldListResponse>>
 
     @GET("/bite/field/{fieldId}")
     suspend fun retrieveFieldContent(@Path("fieldId") fieldId: Long) : Response<FieldDetailResponse>
