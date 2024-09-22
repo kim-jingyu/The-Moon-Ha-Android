@@ -3,6 +3,7 @@ package com.innerpeace.themoonha.data.model.lesson
 data class ShortFormDTO(
     val lessonId: Long,
     val shortFormId: Long,
+    val categoryId: Long,
     val lessonTitle: String,
     val tutorName: String,
     val shortFormName: String,
