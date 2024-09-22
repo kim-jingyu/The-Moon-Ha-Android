@@ -97,15 +97,22 @@ class LoungeHomeInfoTabFragment : Fragment() {
                     .circleCrop()
                     .into(binding.ivProfileImage)
                 binding.tvTutorName.text = home.loungeInfo.tutorName
-                setupAttendance(home.attendanceList)
+                if (home.attendanceList.attendanceDates.isEmpty() || home.attendanceList.students.isEmpty()) {
+                    binding.tableAttendance.visibility = View.INVISIBLE
+                    binding.tvNoAttendance.visibility = View.VISIBLE
+                } else {
+                    binding.tableAttendance.visibility = View.VISIBLE
+                    binding.tvNoAttendance.visibility = View.INVISIBLE
+                    setupAttendance(home.attendanceList, home.loungeInfo.permissionYn)
+                }
                 binding.tvPlanDetail.text = home.loungeInfo.summary
                 setupMemberRecyclerView(home.loungeMemberList)
 
-//                binding.btnAttendanceStart.visibility = if (home.loungeInfo.permissionYn) {
-//                    View.VISIBLE
-//                } else {
-//                    View.GONE
-//                }
+                binding.btnAttendanceStart.visibility = if (home.loungeInfo.permissionYn) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
             }
         })
     }
@@ -151,94 +158,180 @@ class LoungeHomeInfoTabFragment : Fragment() {
 
 
     // 출석 정보
-    private fun setupAttendance(item: AttendanceMembersResponse) {
+    private fun setupAttendance(item: AttendanceMembersResponse, permissionYn: Boolean) {
         val attendanceDates = item.attendanceDates
         val tableLayout = binding.attendanceTable
 
         // 헤더
         tableLayout.removeAllViews()
 
-        val headerRow = TableRow(context)
+        val paddingInDp = 4
+        val paddingInPx = (paddingInDp * resources.displayMetrics.density).toInt()
 
-        val headerNumber = TextView(context).apply {
-            text = "번호"
-            setTableTextViewHeaderProperties(this)
-        }
-        headerRow.addView(headerNumber)
+        if (permissionYn) {
+            // permissionYn이 true일 때, 여러 학생의 출석 정보를 표시하는 테이블
+            val headerRow = TableRow(context)
 
-        val headerName = TextView(context).apply {
-            text = "이름"
-            setTableTextViewHeaderProperties(this)
-        }
-        headerRow.addView(headerName)
-
-        val headerCount = TextView(context).apply {
-            text = "출석횟수"
-            setTableTextViewHeaderProperties(this)
-        }
-        headerRow.addView(headerCount)
-
-        attendanceDates.forEachIndexed { index, date ->
-            val dateTextView = TextView(context)
-            val spannableString = SpannableString("${index + 1}회차\n$date")
-            setTableTextViewHeaderProperties(dateTextView)
-
-            spannableString.setSpan(
-                RelativeSizeSpan(0.5f),  // 글자 크기를 절반으로 설정 (6sp 적용에 해당)
-                spannableString.indexOf("\n") + 1, spannableString.length,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
-
-            dateTextView.text = spannableString
-            dateTextView.gravity = Gravity.CENTER
-
-            headerRow.addView(dateTextView)
-        }
-
-        tableLayout.addView(headerRow)
-
-        // 출석 정보 추가
-        item.students.forEachIndexed { index, student ->
-            val row = TableRow(context)
-
-            // 번호
-            val numberTextView = TextView(context).apply {
-                text = (index + 1).toString()
-                setTableTextViewRowProperties(this)
+            val headerNumber = TextView(context).apply {
+                text = "번호"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
             }
-            row.addView(numberTextView)
+            headerRow.addView(headerNumber)
 
-            // 이름
-            val nameTextView = TextView(context).apply {
-                text = student.name
-                setTableTextViewRowProperties(this)
+            val headerName = TextView(context).apply {
+                text = "이름"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
             }
-            row.addView(nameTextView)
+            headerRow.addView(headerName)
 
-            // 출석 횟수
-            val countTextView = TextView(context).apply {
-                text = student.attendanceCnt.toString()
-                setTableTextViewRowProperties(this)
+            val headerCount = TextView(context).apply {
+                text = "출석횟수"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
             }
-            row.addView(countTextView)
+            headerRow.addView(headerCount)
 
-            // 출석 상태
-            student.attendance.forEach { isPresent ->
-                val attendanceTextView = TextView(context).apply {
-                    text = if (isPresent) "O" else "X"
+            attendanceDates.forEachIndexed { index, date ->
+                val dateTextView = TextView(context) // TextView 생성
+                val spannableString = SpannableString("${index + 1}회차\n$date")
+
+                setTableTextViewHeaderProperties(dateTextView)
+
+                dateTextView.setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+
+                spannableString.setSpan(
+                    RelativeSizeSpan(0.8f),
+                    spannableString.indexOf("\n") + 1, spannableString.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+                // 텍스트 적용 및 레이아웃 속성 설정
+                dateTextView.text = spannableString
+                dateTextView.gravity = Gravity.CENTER
+
+                // 행에 추가
+                headerRow.addView(dateTextView)
+            }
+
+            tableLayout.addView(headerRow)
+
+            // 출석 정보 추가
+            item.students.forEachIndexed { index, student ->
+                val row = TableRow(context)
+
+                // 번호
+                val numberTextView = TextView(context).apply {
+                    text = (index + 1).toString()
                     setTableTextViewRowProperties(this)
+                    setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
                 }
-                row.addView(attendanceTextView)
+                row.addView(numberTextView)
+
+                // 이름
+                val nameTextView = TextView(context).apply {
+                    text = student.name
+                    setTableTextViewRowProperties(this)
+                    setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                }
+                row.addView(nameTextView)
+
+                // 출석 횟수
+                val countTextView = TextView(context).apply {
+                    text = student.attendanceCnt.toString()
+                    setTableTextViewRowProperties(this)
+                    setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                }
+                row.addView(countTextView)
+
+                // 출석 상태
+                student.attendance.forEach { isPresent ->
+                    val attendanceTextView = TextView(context).apply {
+                        text = if (isPresent) "O" else "X"
+                        setTableTextViewRowProperties(this)
+                        setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                        setTextColor(
+                            if (isPresent) Color.GREEN else Color.RED // O는 초록색, X는 빨간색
+                        )
+                    }
+                    row.addView(attendanceTextView)
+                }
+
+                // 테이블에 행 추가
+                tableLayout.addView(row)
             }
 
-            // 테이블에 행 추가
-            tableLayout.addView(row)
+        } else {
+            // permissionYn이 false일 때, 한 명의 학생의 출석 정보를 날짜별로 표시하는 테이블
+            val headerRow = TableRow(context)
+
+            val headerNumber = TextView(context).apply {
+                text = "번호"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+            }
+            headerRow.addView(headerNumber)
+
+            val headerDate = TextView(context).apply {
+                text = "날짜"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+            }
+            headerRow.addView(headerDate)
+
+            val headerAttendance = TextView(context).apply {
+                text = "출결"
+                setTableTextViewHeaderProperties(this)
+                setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+            }
+            headerRow.addView(headerAttendance)
+
+            tableLayout.addView(headerRow)
+
+            // 학생 한 명의 출석 정보를 날짜별로 표시
+            val student = item.students.firstOrNull() // 학생 한 명만 존재
+            student?.let {
+                attendanceDates.forEachIndexed { index, date ->
+                    val row = TableRow(context)
+
+                    // 번호
+                    val numberTextView = TextView(context).apply {
+                        text = (index + 1).toString()
+                        setTableTextViewRowProperties(this)
+                        setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                    }
+                    row.addView(numberTextView)
+
+                    // 날짜
+                    val dateTextView = TextView(context).apply {
+                        text = date
+                        setTableTextViewRowProperties(this)
+                        setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                    }
+                    row.addView(dateTextView)
+
+                    // 출결 상태
+                    val attendanceTextView = TextView(context).apply {
+                        text = if (student.attendance[index]) "O" else "X"
+                        setTableTextViewRowProperties(this)
+                        setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
+                        setTextColor(
+                            if (student.attendance[index]) Color.GREEN else Color.RED // O는 초록색, X는 빨간색
+                        )
+                    }
+                    row.addView(attendanceTextView)
+
+                    // 테이블에 행 추가
+                    tableLayout.addView(row)
+                }
+            }
         }
     }
 
     private fun setTableTextViewHeaderProperties(textView: TextView) {
         textView.apply {
-            textSize = 10f
+            textSize = 12f
             setTextColor(Color.BLACK)
             gravity = Gravity.CENTER
         }
@@ -246,11 +339,13 @@ class LoungeHomeInfoTabFragment : Fragment() {
 
     private fun setTableTextViewRowProperties(textView: TextView) {
         textView.apply {
-            textSize = 8f
+            textSize = 10f
             setTextColor(Color.BLACK)
             gravity = Gravity.CENTER
         }
     }
+
+
 
     // 회원 목록 Recycler view
     private fun setupMemberRecyclerView(item: List<LoungeHomeResponse.LoungeMember>) {

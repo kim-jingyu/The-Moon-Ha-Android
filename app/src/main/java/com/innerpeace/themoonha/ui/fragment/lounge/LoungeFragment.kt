@@ -51,6 +51,7 @@ class LoungeFragment : Fragment() {
         val view = binding.root
 
         // 툴바 제목 변경
+        (activity as? MainActivity)?.showToolbar()
         (activity as? MainActivity)?.setToolbarTitle("라운지")
         (activity as? MainActivity)?.showNavigationBar()
 

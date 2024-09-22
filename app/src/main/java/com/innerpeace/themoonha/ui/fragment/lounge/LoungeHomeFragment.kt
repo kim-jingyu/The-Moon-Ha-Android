@@ -19,6 +19,7 @@ import com.innerpeace.themoonha.data.network.LoungeService
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
+import com.innerpeace.themoonha.ui.util.LoadingDialog
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 
@@ -41,6 +42,7 @@ class LoungeHomeFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var loadingDialog: LoadingDialog
 
     private lateinit var adapter: LoungeHomeNoticeViewAdapter
     private val viewModel: LoungeViewModel by activityViewModels {
@@ -55,6 +57,9 @@ class LoungeHomeFragment : Fragment() {
         _binding = FragmentLoungeHomeBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        // 로딩 다이얼로그
+        loadingDialog = LoadingDialog(requireContext())
+
         // 탭 설정
         binding.tab.tabRippleColor = null
         setHasOptionsMenu(true)
@@ -62,6 +67,7 @@ class LoungeHomeFragment : Fragment() {
 
         // 네비게이션바
         (activity as? MainActivity)?.hideNavigationBar()
+        (activity as? MainActivity)?.showToolbar()
 
         return view
     }
@@ -82,6 +88,9 @@ class LoungeHomeFragment : Fragment() {
             }
         }
 
+        // 로딩 시작
+        loadingDialog.show()
+
         // FCM으로 전달된 id가 있을 경우 지정
         val fcmLoungeId = arguments?.getLong("loungeId", -1)
 
@@ -98,9 +107,21 @@ class LoungeHomeFragment : Fragment() {
         viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
             if (home != null) {
                 setupMainImages(home.loungeInfo)
-                setupNoticeRecyclerView(home.loungeNoticeList)
+                if (home.loungeNoticeList.isNotEmpty()) {
+                    binding.vpLoungeNotice.visibility = View.VISIBLE
+                    binding.vpHomeDotsIndicator.visibility = View.VISIBLE
+                    binding.tvNoNotice.visibility = View.GONE
+                    setupNoticeRecyclerView(home.loungeNoticeList)
+                } else {
+                    binding.vpLoungeNotice.visibility = View.GONE
+                    binding.vpHomeDotsIndicator.visibility = View.INVISIBLE
+                    binding.tvNoNotice.visibility = View.VISIBLE
+                }
             }
         })
+
+        // 로딩 종료
+        loadingDialog.dismiss()
     }
 
     // 툴바 메뉴 변경
