@@ -27,7 +27,7 @@ import com.innerpeace.themoonha.viewModel.FieldViewModel
 import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 
 /**
- * Field Detail 프래그먼트
+ * 분야별 한입 상세보기용 프래그먼트
  * @author 김진규
  * @since 2024.09.05
  * @version 1.0

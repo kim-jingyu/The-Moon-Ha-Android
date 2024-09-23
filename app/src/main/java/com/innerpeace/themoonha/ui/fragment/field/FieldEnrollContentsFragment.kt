@@ -21,7 +21,7 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import java.io.File
 
 /**
- * 분야별 한 입 Enroll Contents 프래그먼트
+ * 분야별 한입 콘텐츠 등록용 프래그먼트
  * @author 김진규
  * @since 2024.09.03
  * @version 1.0

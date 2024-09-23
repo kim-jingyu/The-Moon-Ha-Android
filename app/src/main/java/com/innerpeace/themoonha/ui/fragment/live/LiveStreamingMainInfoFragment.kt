@@ -28,7 +28,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
- * 실시간 강좌 - 스트리밍 메인 페이지 정보 프래그먼트
+ * 실시간 강좌 스트리밍 페이지 정보용 프래그먼트
  * @author 김진규
  * @since 2024.09.06
  * @version 1.0

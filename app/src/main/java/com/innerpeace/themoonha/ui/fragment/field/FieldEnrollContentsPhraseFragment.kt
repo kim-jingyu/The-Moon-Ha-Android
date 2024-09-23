@@ -43,7 +43,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * 분야별 한 입 콘텐츠 등록 문구 추가 프래그먼트
+ * 분야별 한입 콘텐츠 등록 문구 추가용 프래그먼트
  * @author 김진규
  * @since 2024.09.03
  * @version 1.0

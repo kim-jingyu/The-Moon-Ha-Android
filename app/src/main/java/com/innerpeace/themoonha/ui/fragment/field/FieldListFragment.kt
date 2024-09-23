@@ -26,7 +26,7 @@ import com.innerpeace.themoonha.viewModel.factory.FieldViewModelFactory
 import kotlinx.coroutines.flow.collect
 
 /**
- * 분야별 한 입 목록 조회 프래그먼트
+ * 분야별 한입 목록 조회용 프래그먼트
  * @author 김진규
  * @since 2024.09.05
  * @version 1.0

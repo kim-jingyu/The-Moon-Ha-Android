@@ -19,7 +19,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 /**
- * 분야별 한 입 API ViewModel
+ * 분야별 한입 API ViewModel
  * @author 김진규
  * @since 2024.09.04
  * @version 1.0

@@ -11,6 +11,18 @@ import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldContentBinding
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
+/**
+ * 분야별 한입 목록의 콘텐츠용 어댑터
+ * @author 김진규
+ * @since 2024.08.25
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.25  	김진규       최초 생성
+ * </pre>
+ */
 class FieldContentAdapter(
     private val fieldList: List<FieldListResponse>,
     private val itemClickListener: (FieldListResponse) -> Unit
