@@ -79,6 +79,7 @@ class ScheduleWeeklyFragment : Fragment() {
 
         // 툴바 제목 변경
         (activity as? MainActivity)?.setToolbarTitle("스케줄")
+        (activity as? MainActivity)?.showNavigationBar()
 
         return view
     }
@@ -114,14 +115,16 @@ class ScheduleWeeklyFragment : Fragment() {
         // 데이터 어댑터에 반영
         viewModel.scheduleWeeklyList.observe(viewLifecycleOwner, Observer { scheduleWeeklyResponseList ->
             scheduleWeeklyResponseList?.let {
-                adapter = ScheduleWeeklyAdapter(it, standardSundayCalendarList, this, loungeViewModel)
+                // 리스트의 1번째 값만 adapter에 전달
+                adapter = ScheduleWeeklyAdapter(it[1], standardSundayCalendarList[1], this, loungeViewModel)
                 viewPager.adapter = adapter
                 viewPager.post {
-                    viewPager.currentItem = 1
+                    viewPager.currentItem = 0 // 페이지는 하나만 있으므로 0번째
                     updateYearMonthDisplay(standardSundayCalendarList[1])
                 }
             }
         })
+
 
         // 처음 데이터 요청 (오늘 날짜)
         viewModel.setSelectedStandardDate(standardSundayStringList)

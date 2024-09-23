@@ -8,7 +8,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.innerpeace.themoonha.data.model.CommonResponse
-import com.innerpeace.themoonha.data.model.lounge.*
+import com.innerpeace.themoonha.data.model.lounge.Attendance
+import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
+import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
+import com.innerpeace.themoonha.data.model.lounge.LoungePostRequest
+import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import com.innerpeace.themoonha.data.repository.LoungeRepository
 import kotlinx.coroutines.launch
 
@@ -102,14 +108,6 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
         }
     }
 
-//    fun fetchLoungePostList(loungeId: Long, page: Int, size: Int) {
-//        viewModelScope.launch {
-//            val response = loungeRepository.fetchLoungePostList(loungeId, page, size)
-//            _loungePostList.postValue(response)
-//        }
-//    }
-
-
     fun hasMoreData(): Boolean {
         return !isLastPage && !isLoading
     }
@@ -125,12 +123,12 @@ class LoungeViewModel(private val loungeRepository: LoungeRepository) : ViewMode
                 val currentList = _loungePostList.value.orEmpty().toMutableList()
                 currentList.addAll(response)
                 _loungePostList.postValue(currentList)
-                currentPage++  // 페이지 증가
+                currentPage++
             } else {
-                isLastPage = true  // 마지막 페이지 설정
+                isLastPage = true
             }
 
-            isLoading = false  // 로딩 종료
+            isLoading = false
         }
     }
 

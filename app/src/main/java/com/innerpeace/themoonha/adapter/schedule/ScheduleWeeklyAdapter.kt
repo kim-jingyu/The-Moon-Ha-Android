@@ -23,8 +23,8 @@ import java.util.Calendar
  * </pre>
  */
 class ScheduleWeeklyAdapter(
-    private val scheduleWeeklyResponseList: List<List<ScheduleWeeklyResponse>>,
-    private val standardSundayList: List<Calendar>,
+    private val scheduleWeeklyResponseList: List<ScheduleWeeklyResponse>,
+    private val standardSundayList: Calendar,
     private val fragment: Fragment,
     private val viewModel: LoungeViewModel
     ) :
@@ -37,7 +37,7 @@ class ScheduleWeeklyAdapter(
     }
 
     override fun onBindViewHolder(holder: ScheduleWeeklyViewHolder, position: Int) {
-        holder.bind(scheduleWeeklyResponseList[position], standardSundayList[position])
+        holder.bind(scheduleWeeklyResponseList, standardSundayList)
 
     }
 
