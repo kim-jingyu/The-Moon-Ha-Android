@@ -102,10 +102,11 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         displayContent()
         val lessonSpinner = binding.lessonSpinner
 
-        lessonViewModel.lessonFieldEnroll.observe(viewLifecycleOwner, { lessons ->
+        lessonViewModel.lessonFieldEnroll.observe(viewLifecycleOwner) { lessons ->
             val lessonTitles = lessons.map { it.title }
-            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, lessonTitles)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            val arrayAdapter =
+                ArrayAdapter(requireContext(), R.layout.spinner_selected_item, lessonTitles)
+            arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             lessonSpinner.adapter = arrayAdapter
 
             lessonSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -122,7 +123,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
             binding.nextButton.setOnClickListener {
                 submitFieldContent()
             }
-        })
+        }
 
         binding.inputPhrase.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -164,7 +165,7 @@ class FieldEnrollContentsPhraseFragment : Fragment() {
         }
 
         binding.root.addView(hashtagView)
-        binding.hashtagFlow.referencedIds = binding.hashtagFlow.referencedIds + hashtagView.id
+        binding.hashtagFlow.referencedIds += hashtagView.id
     }
 
     private fun submitFieldContent() {

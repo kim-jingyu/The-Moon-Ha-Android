@@ -105,10 +105,11 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         displayContent()
         val lessonSpinner = binding.lessonSpinner
 
-        lessonViewModel.lessonEnroll.observe(viewLifecycleOwner, { lessons ->
+        lessonViewModel.lessonEnroll.observe(viewLifecycleOwner) { lessons ->
             val lessonTitles = lessons.map { it.title }
-            val arrayAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, lessonTitles)
-            arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            val arrayAdapter =
+                ArrayAdapter(requireContext(), R.layout.spinner_selected_item, lessonTitles)
+            arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
             lessonSpinner.adapter = arrayAdapter
 
             lessonSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -126,7 +127,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
                 binding.nextButton.isEnabled = false
                 submitBeforeAfterContent()
             }
-        })
+        }
 
         binding.inputPhrase.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -167,7 +168,7 @@ class BeforeAfterEnrollContentsPhraseFragment : Fragment() {
         }
 
         binding.root.addView(hashtagView)
-        binding.hashtagFlow.referencedIds = binding.hashtagFlow.referencedIds + hashtagView.id
+        binding.hashtagFlow.referencedIds += hashtagView.id
     }
 
     private fun submitBeforeAfterContent() {

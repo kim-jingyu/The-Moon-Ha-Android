@@ -135,13 +135,13 @@
 
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="70dp"
-        android:layout_height="38dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@android:color/transparent"
         android:background="@android:color/transparent"
         android:text="작성"
         android:textColor="@color/black"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:cornerRadius="16dp"
         app:layout_constraintBottom_toTopOf="@id/line"
         app:layout_constraintEnd_toEndOf="parent"
