@@ -1,6 +1,7 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -99,6 +100,7 @@ class LoungeHomeFragment : Fragment() {
         val fcmLoungeId = arguments?.getLong("loungeId", -1)
 
         if (fcmLoungeId != null && fcmLoungeId != -1L) {
+            Log.d("alim id", fcmLoungeId.toString())
             viewModel.setSelectedLoungeId(fcmLoungeId)
         }
 

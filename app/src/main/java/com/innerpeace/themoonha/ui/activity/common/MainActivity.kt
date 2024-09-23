@@ -100,12 +100,12 @@ class MainActivity : AppCompatActivity() {
         if (targetFragment != null) {
             when (targetFragment) {
                 "loungeHomeFragment" -> {
-//                    val loungeId = intent.getLongExtra("loungeId", -1)
-//                    if (loungeId != -1L) {
-//                        val bundle = Bundle().apply { putLong("loungeId", loungeId) }
-//                        navController.navigate(R.id.action_global_loungeHomeFragment, bundle)
-//                    }
-                    navController.navigate(R.id.action_global_loungeFragment)
+                    val loungeId = intent.getLongExtra("loungeId", -1)
+                    if (loungeId != -1L) {
+                        val bundle = Bundle().apply { putLong("loungeId", loungeId) }
+                        navController.navigate(R.id.action_global_loungeHomeFragment, bundle)
+                    }
+//                    navController.navigate(R.id.action_global_loungeFragment)
                 }
                 "liveFragment" -> {
                     navController.navigate(R.id.action_global_myLiveLesson)
