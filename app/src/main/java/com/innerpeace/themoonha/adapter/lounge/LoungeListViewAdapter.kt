@@ -2,8 +2,8 @@ package com.innerpeace.themoonha.adapter.lounge
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.adapter.lounge.viewHolder.LoungeListViewHolder
+import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 
 /**
  * 라운지 목록 Recycler View
@@ -28,11 +28,11 @@ class LoungeListViewAdapter(
     override fun onBindViewHolder(holder: LoungeListViewHolder, position: Int) {
         val layoutParams = holder.itemView.layoutParams as ViewGroup.MarginLayoutParams
 
-        // 짝수 번째 아이템일 때 오른쪽에만 마진 15dp 설정
+        // 이미지 마진 설정
         if (position % 2 == 0) {
-            layoutParams.setMargins(0, 0, 20, 0) // 오른쪽 마진 15
+            layoutParams.setMargins(0, 0, 20, 0)
         } else {
-            layoutParams.setMargins(20, 0, 0, 0) // 마진 없음
+            layoutParams.setMargins(20, 0, 0, 0)
         }
 
         holder.itemView.layoutParams = layoutParams

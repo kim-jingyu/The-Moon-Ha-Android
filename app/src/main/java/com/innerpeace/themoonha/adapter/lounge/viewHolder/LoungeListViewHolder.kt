@@ -9,8 +9,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
 import com.innerpeace.themoonha.databinding.ItemLoungeBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * 라운지 목록 Recycler View Holder
@@ -28,6 +26,8 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
     // Recycler View에 데이터 바인딩
     fun onBind(item: LoungeListResponse, clickListener: (LoungeListResponse) -> Unit) {
+
+        // 이미지
         Glide.with(binding.ivLoungeImage.context)
             .load(item.loungeImgUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(80)))
@@ -35,12 +35,6 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
 
         binding.tvLoungeTitle.text = item.title
 
-//        item.latestPostTime?.let { latestPostTime ->
-//            val formattedTime = getFormattedPostedTime(latestPostTime)
-//
-//            binding.ivNewIcon.visibility = if (formattedTime == latestPostTime) View.VISIBLE else View.GONE
-//            binding.tvLatestPostTime.text = formattedTime
-//        }
         item.latestPostTime?.let { latestPostTime ->
             binding.ivNewIcon.visibility = if (latestPostTime.contains("전")) View.VISIBLE else View.GONE
             binding.tvLatestPostTime.text = latestPostTime
@@ -57,21 +51,6 @@ class LoungeListViewHolder(private val binding: ItemLoungeBinding) : RecyclerVie
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = ItemLoungeBinding.inflate(layoutInflater, parent, false)
             return LoungeListViewHolder(binding)
-        }
-    }
-
-    fun getFormattedPostedTime(latestPostTime: String): String {
-        return try {
-            val inputFormat = SimpleDateFormat("MM.dd. HH:mm", Locale.KOREAN)
-            val outputFormat = SimpleDateFormat("MM.dd.", Locale.KOREAN)
-            val date = inputFormat.parse(latestPostTime)
-            if (date != null) {
-                outputFormat.format(date)
-            } else {
-                latestPostTime
-            }
-        } catch (e: Exception) {
-            latestPostTime
         }
     }
 }

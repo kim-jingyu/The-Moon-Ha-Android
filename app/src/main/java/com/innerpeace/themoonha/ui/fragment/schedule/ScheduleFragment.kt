@@ -9,7 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
@@ -18,8 +17,6 @@ import com.innerpeace.themoonha.data.repository.LoungeRepository
 import com.innerpeace.themoonha.data.repository.ScheduleRepository
 import com.innerpeace.themoonha.databinding.FragmentScheduleBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
-import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeInfoTabFragment
-import com.innerpeace.themoonha.ui.fragment.lounge.LoungeHomeLoungeTabFragment
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import com.innerpeace.themoonha.viewModel.ScheduleViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
@@ -103,7 +100,7 @@ class ScheduleFragment : Fragment() {
         viewModel.fetchScheduleNext()
     }
 
-    private var currentTab: TextView? = null // 현재 활성화된 탭
+    private var currentTab: TextView? = null
 
     private fun setTabLayout() {
         // 초기화면

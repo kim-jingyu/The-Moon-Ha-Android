@@ -1,7 +1,5 @@
 package com.innerpeace.themoonha.data.model.lounge
 
-import java.text.SimpleDateFormat
-import java.util.*
 /**
  * 라운지 목록 응답 DTO
  * @author 조희정

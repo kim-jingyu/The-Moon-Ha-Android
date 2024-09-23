@@ -1,5 +1,13 @@
 package com.innerpeace.themoonha.adapter.lounge.viewHolder
 
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
+import com.innerpeace.themoonha.databinding.ItemMemberBinding
+
 /**
  * 라운지 홈 라운지 참여자 Recycler View Holder
  * @author 조희정
@@ -12,13 +20,6 @@ package com.innerpeace.themoonha.adapter.lounge.viewHolder
  * 2024.08.31  	조희정       최초 생성
  * </pre>
  */
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
-import com.innerpeace.themoonha.databinding.ItemMemberBinding
-
 class LoungeHomeMemberViewHolder(private val binding: ItemMemberBinding) : RecyclerView.ViewHolder(binding.root) {
 
     // Recycler View에 데이터 바인딩

@@ -20,6 +20,7 @@ import retrofit2.http.POST
  */
 interface AlimService {
 
+    // FCM 토큰 저장
     @POST("alim/token")
     suspend fun registerFcmToken(@Body token: String): Response<CommonResponse>
 }

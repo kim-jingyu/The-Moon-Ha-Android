@@ -2,7 +2,6 @@ package com.innerpeace.themoonha.data.network
 
 import com.innerpeace.themoonha.data.model.CommonResponse
 import com.innerpeace.themoonha.data.model.lounge.Attendance
-import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
@@ -11,7 +10,13 @@ import com.innerpeace.themoonha.data.model.lounge.LoungePostResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * 라운지 서비스
@@ -31,20 +36,25 @@ import retrofit2.http.*
  */
 interface LoungeService {
 
+    // 라운지 목록
     @GET("lounge/list")
     suspend fun getLoungeList(): List<LoungeListResponse>
 
+    // 라운지 홈
     @GET("lounge/{loungeId}/home")
     suspend fun getLoungeHome(@Path("loungeId") loungeId: Long): LoungeHomeResponse
 
+    // 라운지 게시글 리스트
     @GET("/lounge/{loungeId}/posts")
     suspend fun getLoungePostList(@Path("loungeId") loungeId: Long,
                                   @Query("page") page: Int,
                                   @Query("size") size: Int): List<LoungePostListResponse>
 
+    // 게시글 상세
     @GET("lounge/{loungeId}/post/{loungePostId}")
     suspend fun getPostDetail(@Path("loungeId") loungeId: Long, @Path("loungePostId") loungePostId: Long): LoungePostResponse
 
+    // 게시글 저장
     @Multipart
     @POST("lounge/post/register")
     suspend fun registerLoungePost(
@@ -52,13 +62,16 @@ interface LoungeService {
         @Part files: List<MultipartBody.Part>?
     ): Response<CommonResponse>
 
+    // 댓글 저장
     @POST("lounge/comment/register")
     suspend fun registerComment(
         @Body loungeCommentRequest: LoungeCommentRequest): Response<CommonResponse>
 
+    // 출석 시작
     @POST("lounge/attendance/{lessonId}")
     suspend fun startAttendance(@Path("lessonId") lessonId: Long): List<Attendance>
 
+    // 출석 수정
     @POST("lounge/attendance/update/{attendanceId}")
     suspend fun updateAttendanceStatus(@Path("attendanceId") attendanceId: Long): Response<CommonResponse>
 

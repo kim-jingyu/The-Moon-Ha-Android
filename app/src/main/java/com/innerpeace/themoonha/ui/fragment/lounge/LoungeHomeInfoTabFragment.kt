@@ -7,12 +7,12 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 import android.view.Gravity
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +21,6 @@ import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.adapter.lounge.AttendanceViewAdapter
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeMemberViewAdapter
 import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
-import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
@@ -30,6 +29,7 @@ import com.innerpeace.themoonha.databinding.DialogAttendanceBinding
 import com.innerpeace.themoonha.databinding.FragmentLoungeHomeInfoTabBinding
 import com.innerpeace.themoonha.ui.util.ConditionalScrollLayoutManager
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
+import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -90,13 +90,19 @@ class LoungeHomeInfoTabFragment : Fragment() {
             startAttendanceDialog()
         }
 
+        // 라운지 홈 데이터 바인딩
         viewModel.loungeHome.observe(viewLifecycleOwner, Observer { home ->
             if (home != null) {
+                // 대문 이미지
                 Glide.with(binding.ivProfileImage.context)
                     .load(home.loungeInfo.tutorImgUrl)
                     .circleCrop()
                     .into(binding.ivProfileImage)
+
+                // 강사명
                 binding.tvTutorName.text = home.loungeInfo.tutorName
+
+                // 출석 정보
                 if (home.attendanceList.attendanceDates.isEmpty() || home.attendanceList.students.isEmpty()) {
                     binding.tableAttendance.visibility = View.INVISIBLE
                     binding.tvNoAttendance.visibility = View.VISIBLE
@@ -105,9 +111,14 @@ class LoungeHomeInfoTabFragment : Fragment() {
                     binding.tvNoAttendance.visibility = View.INVISIBLE
                     setupAttendance(home.attendanceList, home.loungeInfo.permissionYn)
                 }
+
+                // 강좌 계획서
                 binding.tvPlanDetail.text = home.loungeInfo.summary
+
+                // 라운지 회원 정보
                 setupMemberRecyclerView(home.loungeMemberList)
 
+                // 출석 시작 버튼
                 binding.btnAttendanceStart.visibility = if (home.loungeInfo.permissionYn) {
                     View.VISIBLE
                 } else {
@@ -139,6 +150,9 @@ class LoungeHomeInfoTabFragment : Fragment() {
                 .setCancelable(false)
                 .create()
 
+            val todayText = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault()).format(Date())
+            dialogBinding.tvDate.text = todayText
+
             dialogBinding.btnOk.setOnClickListener {
                 dialog.dismiss()
                 viewModel.fetchLoungeHome(viewModel.selectedLoungeId.value!!)
@@ -168,8 +182,10 @@ class LoungeHomeInfoTabFragment : Fragment() {
         val paddingInDp = 4
         val paddingInPx = (paddingInDp * resources.displayMetrics.density).toInt()
 
+        // 강사 or 관리자인 경우 전체 라운지 회원의 출석 정보 표시
         if (permissionYn) {
-            // permissionYn이 true일 때, 여러 학생의 출석 정보를 표시하는 테이블
+
+            // 헤더
             val headerRow = TableRow(context)
 
             val headerNumber = TextView(context).apply {
@@ -194,7 +210,7 @@ class LoungeHomeInfoTabFragment : Fragment() {
             headerRow.addView(headerCount)
 
             attendanceDates.forEachIndexed { index, date ->
-                val dateTextView = TextView(context) // TextView 생성
+                val dateTextView = TextView(context)
                 val spannableString = SpannableString("${index + 1}회차\n$date")
 
                 setTableTextViewHeaderProperties(dateTextView)
@@ -207,17 +223,15 @@ class LoungeHomeInfoTabFragment : Fragment() {
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
 
-                // 텍스트 적용 및 레이아웃 속성 설정
                 dateTextView.text = spannableString
                 dateTextView.gravity = Gravity.CENTER
 
-                // 행에 추가
                 headerRow.addView(dateTextView)
             }
 
             tableLayout.addView(headerRow)
 
-            // 출석 정보 추가
+            // 출석 정보
             item.students.forEachIndexed { index, student ->
                 val row = TableRow(context)
 
@@ -252,7 +266,7 @@ class LoungeHomeInfoTabFragment : Fragment() {
                         setTableTextViewRowProperties(this)
                         setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
                         setTextColor(
-                            if (isPresent) Color.GREEN else Color.RED // O는 초록색, X는 빨간색
+                            if (isPresent) Color.GREEN else Color.RED
                         )
                     }
                     row.addView(attendanceTextView)
@@ -261,9 +275,9 @@ class LoungeHomeInfoTabFragment : Fragment() {
                 // 테이블에 행 추가
                 tableLayout.addView(row)
             }
+        } else { // 회원일 경우 해당 회원의 출석 정보만 표시
 
-        } else {
-            // permissionYn이 false일 때, 한 명의 학생의 출석 정보를 날짜별로 표시하는 테이블
+            // 헤더
             val headerRow = TableRow(context)
 
             val headerNumber = TextView(context).apply {
@@ -289,8 +303,8 @@ class LoungeHomeInfoTabFragment : Fragment() {
 
             tableLayout.addView(headerRow)
 
-            // 학생 한 명의 출석 정보를 날짜별로 표시
-            val student = item.students.firstOrNull() // 학생 한 명만 존재
+            // 출석 정보
+            val student = item.students.firstOrNull()
             student?.let {
                 attendanceDates.forEachIndexed { index, date ->
                     val row = TableRow(context)
@@ -317,12 +331,11 @@ class LoungeHomeInfoTabFragment : Fragment() {
                         setTableTextViewRowProperties(this)
                         setPadding(paddingInPx, paddingInPx, paddingInPx, paddingInPx)
                         setTextColor(
-                            if (student.attendance[index]) Color.GREEN else Color.RED // O는 초록색, X는 빨간색
+                            if (student.attendance[index]) Color.GREEN else Color.RED
                         )
                     }
                     row.addView(attendanceTextView)
 
-                    // 테이블에 행 추가
                     tableLayout.addView(row)
                 }
             }
@@ -360,7 +373,6 @@ class LoungeHomeInfoTabFragment : Fragment() {
     // 회원 페이지로 이동
     private fun navigateToDetailFragment(item: LoungeHomeResponse.LoungeMember) {
         viewModel.setSelectedMemberId(item.memberId)
-//        findNavController().navigate(R.id.action_loungeHomeFragment_to_loungePostFragment)
     }
 
     override fun onDestroyView() {
