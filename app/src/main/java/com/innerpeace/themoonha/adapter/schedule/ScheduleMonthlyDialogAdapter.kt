@@ -11,6 +11,18 @@ import com.innerpeace.themoonha.data.model.schedule.ScheduleMonthlyResponse
 import com.innerpeace.themoonha.databinding.ItemNextLessonBinding
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 
+/**
+ * 월간 스케줄 상세정보 다이얼로그 Adapter
+ * @author 조희정
+ * @since 2024.09.09
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.09  	조희정       최초 생성
+ * </pre>
+ */
 class ScheduleMonthlyDialogAdapter(
     private val lessons: List<ScheduleMonthlyResponse>,
     private val fragment: Fragment,

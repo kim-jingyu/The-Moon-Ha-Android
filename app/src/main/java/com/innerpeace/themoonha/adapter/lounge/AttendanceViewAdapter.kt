@@ -1,15 +1,12 @@
 package com.innerpeace.themoonha.adapter.lounge
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.lounge.Attendance
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.databinding.ItemAttendanceMemberBinding
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -38,12 +35,16 @@ class AttendanceViewAdapter(
     class AttendanceViewHolder(private val binding: ItemAttendanceMemberBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Attendance, viewModel: LoungeViewModel) {
-            // 데이터 바인딩
+            // 프로필 이미지
             Glide.with(binding.ivProfileImage.context)
                 .load(item.profileImgUrl)
                 .circleCrop()
                 .into(binding.ivProfileImage)
+
+            // 이름
             binding.tvName.text = item.name
+
+            // 출석 여부
             binding.btnAttendanceYn.text = if (item.attendanceYn) "출석" else "결석"
 
             // 출석/결석 update

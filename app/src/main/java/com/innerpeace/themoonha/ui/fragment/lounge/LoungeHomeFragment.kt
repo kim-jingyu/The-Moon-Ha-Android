@@ -1,7 +1,11 @@
 package com.innerpeace.themoonha.ui.fragment.lounge
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.adapter.lounge.LoungeHomeNoticeViewAdapter
-import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.network.ApiClient
 import com.innerpeace.themoonha.data.network.LoungeService
@@ -21,6 +24,7 @@ import com.innerpeace.themoonha.databinding.FragmentLoungeHomeBinding
 import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import com.innerpeace.themoonha.ui.util.LoadingDialog
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
+import com.innerpeace.themoonha.viewModel.SharedViewModel
 import com.innerpeace.themoonha.viewModel.factory.LoungeViewModelFactory
 
 /**
@@ -81,10 +85,10 @@ class LoungeHomeFragment : Fragment() {
         binding.mainScrollView.run {
             header = binding.tab
             stickListener = {
-                sharedViewModel.setScrollEnabled(true) // 스크롤 활성화
+                sharedViewModel.setScrollEnabled(true)
             }
             freeListener = {
-                sharedViewModel.setScrollEnabled(false) // 스크롤 비활성화
+                sharedViewModel.setScrollEnabled(false)
             }
         }
 

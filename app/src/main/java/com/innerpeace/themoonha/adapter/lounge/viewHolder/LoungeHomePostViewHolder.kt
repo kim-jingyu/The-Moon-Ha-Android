@@ -4,14 +4,13 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.GridLayout
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
-import com.innerpeace.themoonha.databinding.ItemLoadingBinding
 import com.innerpeace.themoonha.databinding.ItemPostBinding
 
 /**
@@ -65,6 +64,7 @@ class LoungeHomePostViewHolder(private val binding: ItemPostBinding) :
         val marginSize = 0.dpToPx()
         val specialMargin = 5.dpToPx()
 
+        // 이미지 보여주기 (개수에 따라)
         when (imageUrls.size) {
             1 -> {
                 gridLayout.columnCount = 1

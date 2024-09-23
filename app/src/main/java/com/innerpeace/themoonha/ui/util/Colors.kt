@@ -4,16 +4,6 @@ import android.graphics.Color
 
 object Colors {
     val fixedColors = listOf(
-//        Color.rgb(244, 67, 54),    // Red
-//        Color.rgb(33, 150, 243),   // Blue
-//        Color.rgb(76, 175, 80),    // Green
-//        Color.rgb(255, 235, 59),   // Yellow
-//        Color.rgb(156, 39, 176),   // Purple
-//        Color.rgb(121, 85, 72),    // Brown
-//        Color.rgb(0, 150, 136),    // Teal
-//        Color.rgb(63, 81, 181),    // Indigo
-//        Color.rgb(255, 87, 34),    // Orange
-//        Color.rgb(139, 195, 74)    // Light Green
         Color.rgb(242, 132, 130),    // #f28482
         Color.rgb(132, 165, 157),    // #84a59d
         Color.rgb(245, 202, 195),    // #f5cac3

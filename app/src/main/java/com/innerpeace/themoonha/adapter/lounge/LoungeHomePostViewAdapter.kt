@@ -3,7 +3,6 @@ package com.innerpeace.themoonha.adapter.lounge
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.adapter.lounge.viewHolder.LoungeHomePostViewHolder
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungePostListResponse
 
 /**
@@ -32,17 +31,15 @@ class LoungeHomePostViewAdapter(
 
     override fun getItemCount(): Int = postList.size
 
-    // 데이터를 덮어쓰는 메서드 (리셋할 때 사용)
     fun setItems(newItems: List<LoungePostListResponse>) {
-        postList.clear()  // 기존 데이터 삭제
+        postList.clear()
         postList.addAll(newItems)
-        notifyDataSetChanged()  // 전체 데이터 갱신
+        notifyDataSetChanged()
     }
 
-    // 데이터를 추가하는 메서드 (스크롤 시 새로운 데이터 추가)
     fun addItems(newItems: List<LoungePostListResponse>) {
         val previousSize = postList.size
         postList.addAll(newItems)
-        notifyItemRangeInserted(previousSize, newItems.size)  // 추가된 데이터 범위만 갱신
+        notifyItemRangeInserted(previousSize, newItems.size)
     }
 }

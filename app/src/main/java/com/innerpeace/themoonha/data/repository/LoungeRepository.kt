@@ -6,7 +6,6 @@ import android.util.Log
 import com.google.gson.Gson
 import com.innerpeace.themoonha.data.model.CommonResponse
 import com.innerpeace.themoonha.data.model.lounge.Attendance
-import com.innerpeace.themoonha.data.model.lounge.AttendanceMembersResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeCommentRequest
 import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.data.model.lounge.LoungeListResponse
@@ -18,7 +17,6 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import retrofit2.Response
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -93,7 +91,7 @@ class LoungeRepository(private val loungeService: LoungeService) {
             val requestBody =
                 jsonLoungePostRequest.toRequestBody("application/json".toMediaTypeOrNull())
 
-            // 이미지 파일들을 MultipartBody.Part로 변환
+            // 이미지 파일 MultipartBody.Part로 변환
             val files = imageUris.map { uri -> prepareFilePart("files", uri, context) }
 
             val response = loungeService.registerLoungePost(requestBody, files)

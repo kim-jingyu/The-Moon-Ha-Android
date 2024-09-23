@@ -1,6 +1,5 @@
 package com.innerpeace.themoonha.adapter.schedule
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -8,9 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.schedule.ScheduleWeeklyResponse
 import com.innerpeace.themoonha.viewModel.LoungeViewModel
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Locale
 
 /**
  * 스케줄 Adapter

@@ -2,8 +2,8 @@ package com.innerpeace.themoonha.adapter.lounge
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 import com.innerpeace.themoonha.adapter.lounge.viewHolder.LoungeHomeNoticeViewHolder
+import com.innerpeace.themoonha.data.model.lounge.LoungeHomeResponse
 
 /**
  * 라운지 홈 공지 Recycler View

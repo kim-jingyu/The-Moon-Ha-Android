@@ -23,12 +23,15 @@ import retrofit2.http.Query
  */
 interface ScheduleService {
 
+    // 주간 스케줄
     @GET("schedule/weekly")
     suspend fun getScheduleWeekly(@Query("standardDates") standardDates: List<String>): List<List<ScheduleWeeklyResponse>>
 
+    // 월간 스케줄
     @GET("schedule/monthly")
     suspend fun getScheduleMonthly(@Query("yearMonth") yearMonth: String): List<ScheduleMonthlyResponse>
 
+    // 다음 스케줄
     @GET("schedule/next")
     suspend fun getScheduleNext(): ScheduleNextResponse
 }

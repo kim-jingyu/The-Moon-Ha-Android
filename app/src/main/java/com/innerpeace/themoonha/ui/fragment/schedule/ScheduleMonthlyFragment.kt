@@ -3,8 +3,6 @@ package com.innerpeace.themoonha.ui.fragment.schedule
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -13,9 +11,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.innerpeace.themoonha.adapter.schedule.ScheduleMonthlyDialogAdapter
 import com.innerpeace.themoonha.data.model.schedule.ScheduleMonthlyResponse
@@ -42,7 +40,6 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.Locale
-import kotlin.random.Random
 
 /**
  * 월간 스케줄 프래그먼트
@@ -79,7 +76,7 @@ class ScheduleMonthlyFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     private var currentMonth: YearMonth = YearMonth.now()
 
-    // 수업별 고유 색상을 저장하는 맵
+    // 수업별 고유 색상
     private lateinit var lessonColors: Map<Long, Int>
 
     // 수업 리스트
@@ -116,10 +113,11 @@ class ScheduleMonthlyFragment : Fragment() {
         val calendarView = binding.calendarView
         updateMonthHeader(currentMonth)
 
+        // 드래그 방지
         calendarView.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
-                MotionEvent.ACTION_MOVE -> true // 드래그 방지
-                else -> false // 다른 터치 동작은 기본 동작 유지
+                MotionEvent.ACTION_MOVE -> true
+                else -> false
             }
         }
 
@@ -148,7 +146,7 @@ class ScheduleMonthlyFragment : Fragment() {
             viewModel.fetchScheduleMonthlyList(currentMonth.toString())
         }
 
-        // 달력에 수업 데이터를 바인딩
+        // 달력에 수업 데이터 바인딩
         calendarView.dayBinder = object : DayBinder<DayViewContainer> {
             override fun create(view: View): DayViewContainer {
                 return DayViewContainer(view).apply {
@@ -204,7 +202,7 @@ class ScheduleMonthlyFragment : Fragment() {
                 }
 
 
-                // 수업이 있는 경우 색상 할당 및 색상 막대 추가
+                // 수업이 있는 경우 색상 주기
                 if (eventsForDay.isNotEmpty()) {
                     container.colorBarContainer.removeAllViews()
                     container.eventIds.clear()
@@ -248,7 +246,7 @@ class ScheduleMonthlyFragment : Fragment() {
             }
     }
 
-    // 주간 반복 수업인지 확인
+    // 다회차 수업인지 확인
     private fun isWeeklyLesson(lessonTime: String): Boolean {
         return lessonTime.contains("매주")
     }
@@ -276,7 +274,6 @@ class ScheduleMonthlyFragment : Fragment() {
 
         responseList?.forEach { response ->
             if (!lessonColors.containsKey(response.lessonId)) {
-                // 수업에 사용할 색상 생성
                 val color = generateAvailableColor(response.lessonId)
                 lessonColors[response.lessonId] = color
             }
