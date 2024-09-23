@@ -1,7 +1,11 @@
 package com.innerpeace.themoonha.ui.fragment.beforeafter
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -18,7 +22,7 @@ import com.innerpeace.themoonha.viewModel.BeforeAfterViewModel
 import com.innerpeace.themoonha.viewModel.factory.BeforeAfterViewModelFactory
 
 /**
- * Before&After 프래그먼트
+ * Before&After 목록용 프래그먼트
  * @author 김진규
  * @since 2024.08.25
  * @version 1.0

@@ -13,7 +13,7 @@ import com.innerpeace.themoonha.databinding.FragmentBeforeAfterContentBinding
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
- * Before&After 어댑터
+ * Before&After 목록용 어댑터
  * @author 김진규
  * @since 2024.08.25
  * @version 1.0

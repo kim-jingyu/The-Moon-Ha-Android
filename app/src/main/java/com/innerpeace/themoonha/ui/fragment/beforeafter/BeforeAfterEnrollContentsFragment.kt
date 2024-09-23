@@ -22,7 +22,7 @@ import com.innerpeace.themoonha.ui.activity.common.MainActivity
 import java.io.File
 
 /**
- * Before&After Enroll Contents 프래그먼트
+ * Before&After 콘텐츠 등록용 프래그먼트
  * @author 김진규
  * @since 2024.08.28
  * @version 1.0

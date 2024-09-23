@@ -8,7 +8,7 @@ import com.innerpeace.themoonha.data.model.live.LiveLessonResponse
 import com.innerpeace.themoonha.databinding.FragmentLiveContentBinding
 
 /**
- * Live My Lesson 프래그먼트
+ * 멤버가 소유한 실시간 강좌 목록용 어댑터
  * @author 김진규
  * @since 2024.09.06
  * @version 1.0

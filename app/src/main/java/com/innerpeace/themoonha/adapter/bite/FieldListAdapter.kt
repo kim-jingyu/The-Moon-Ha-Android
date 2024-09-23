@@ -8,6 +8,18 @@ import com.innerpeace.themoonha.data.model.field.FieldCategoryGroup
 import com.innerpeace.themoonha.data.model.field.FieldListResponse
 import com.innerpeace.themoonha.databinding.FragmentFieldCategoryBinding
 
+/**
+ * 분야별 한입 목록용 어댑터
+ * @author 김진규
+ * @since 2024.08.25
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.25  	김진규       최초 생성
+ * </pre>
+ */
 class FieldListAdapter(
     private var fieldLists: List<FieldCategoryGroup>,
     private val onItemClick: (FieldListResponse) -> Unit

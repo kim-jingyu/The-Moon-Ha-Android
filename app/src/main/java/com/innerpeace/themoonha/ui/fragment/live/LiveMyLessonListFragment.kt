@@ -22,7 +22,7 @@ import com.innerpeace.themoonha.viewModel.LiveViewModel
 import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
 
 /**
- * 실시간 강좌 - 내 강좌 목록 조회 프래그먼트
+ * 실시간 강좌 - 멤버가 소유한 목록 조회용 프래그먼트
  * @author 김진규
  * @since 2024.09.06
  * @version 1.0

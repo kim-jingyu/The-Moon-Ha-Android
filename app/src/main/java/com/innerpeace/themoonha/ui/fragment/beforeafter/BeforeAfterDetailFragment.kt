@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
- * Before&After Detail 프래그먼트
+ * Before&After 상세보기용 프래그먼트
  * @author 김진규
  * @since 2024.08.26
  * @version 1.0

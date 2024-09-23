@@ -27,7 +27,7 @@ import com.innerpeace.themoonha.viewModel.factory.LessonViewModelFactory
 import com.innerpeace.themoonha.viewModel.factory.LiveViewModelFactory
 
 /**
- * 실시간 강좌 - OnAir 목록 조회 프래그먼트
+ * 실시간 강좌 - 멤버가 소유하지 않은 목록 조회용 프래그먼트
  * @author 김진규
  * @since 2024.09.06
  * @version 1.0

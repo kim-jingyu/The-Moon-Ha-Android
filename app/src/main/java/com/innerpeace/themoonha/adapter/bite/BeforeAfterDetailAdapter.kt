@@ -16,6 +16,18 @@ import com.innerpeace.themoonha.R
 import com.innerpeace.themoonha.data.model.beforeafter.BeforeAfterDetailResponse
 import com.innerpeace.themoonha.databinding.FragmentBeforeAfterDetailItemBinding
 
+/**
+ * Before&After 상세보기용 어댑터
+ * @author 김진규
+ * @since 2024.08.25
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일        수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.08.26  	김진규       최초 생성
+ * </pre>
+ */
 class BeforeAfterDetailAdapter(private val contents: List<BeforeAfterDetailResponse>) : RecyclerView.Adapter<BeforeAfterDetailAdapter.BeforeAfterDetailViewHolder>() {
     inner class BeforeAfterDetailViewHolder(private val binding: FragmentBeforeAfterDetailItemBinding): RecyclerView.ViewHolder(binding.root) {
         private var beforePlayer: ExoPlayer? = null

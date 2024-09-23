@@ -44,7 +44,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 /**
- * Before&After 콘텐츠 등록 문구 추가 프래그먼트
+ * Before&After 콘텐츠 등록 문구 추가용 프래그먼트
  * @author 김진규
  * @since 2024.08.28
  * @version 1.0
