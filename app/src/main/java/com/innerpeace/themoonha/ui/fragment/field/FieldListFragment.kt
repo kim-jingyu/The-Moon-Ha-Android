@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -137,13 +136,21 @@ class FieldListFragment : Fragment() {
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val item1 = menu.findItem(R.id.item1)
-        val icon1 = ContextCompat.getDrawable(requireContext(), R.drawable.ic_write)
-        item1.icon = icon1
+        super.onPrepareOptionsMenu(menu)
 
-        val item2 = menu.findItem(R.id.item2)
-        val icon2 = ContextCompat.getDrawable(requireContext(), R.drawable.ic_search2)
-        item2.icon = icon2
+        menu.findItem(R.id.item1).isVisible = false
+        menu.findItem(R.id.item2).isVisible = false
+
+        if (menu.findItem(Menu.FIRST) == null) {
+            menu.add(Menu.NONE, Menu.FIRST, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_write)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+            menu.add(Menu.NONE, Menu.FIRST + 1, Menu.NONE, "").apply {
+                setIcon(R.drawable.ic_search2)
+                setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
