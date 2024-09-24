@@ -1,5 +1,7 @@
 package com.innerpeace.themoonha.adapter.schedule
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.RelativeSizeSpan
@@ -217,6 +219,7 @@ class ScheduleWeeklyViewHolder(view: View, private val fragment: Fragment, priva
         val colorIndex = schedule.lessonId.toInt() % Colors.fixedColors.size
         val color = Colors.fixedColors[colorIndex]
         spanCell.setBackgroundColor(color)
+        spanCell.setTextColor(Color.BLACK)
         spanCell.setPadding(12, 12, 12, 12)
 
         // 강좌 정보 다이얼로그
