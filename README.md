@@ -124,6 +124,10 @@
 
 # 시연 화면
 
+## 내가 구현한 기능
+백엔드: 문화 한입 CRUD, Docker Compose(Zookeeper, Kafka, Redis), WebRTC 실시간 스트리밍, 실시간 조회수/좋아요(Kafka)
+DB: 해시태그 저장용 저장 프로시저 등록
+
 ## 문화 한입
 <div align="center">
   <img width="537" alt="image" src="https://github.com/user-attachments/assets/66f1a5c4-49ca-4444-99b9-2cb06ce0af6b">
